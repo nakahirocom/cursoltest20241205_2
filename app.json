@@ -1,0 +1,7 @@
+{
+  "name": "santaku",
+  "description": "みんなで三択フォローアプリ",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
