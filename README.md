@@ -1,7 +1,7 @@
 # みんなでsantakuフォローアプリ
 
-### 1.clone後にやること
-sentakuディレクトリ移動後、ローカルで起動するために下記コードを入力下さい
+### 1.clone後にローカル側で下記を入力すると使えるようになります。
+sentakuディレクトリ移動後、dockerを起動しコンテナに入るために下記コードを入力
 ```
 docker-compose up -d
 docker-compose exec app bash
