@@ -1,6 +1,6 @@
 # みんなでsantakuフォローアプリ
 
-### clone後にsentakuディレクトリ移動後、ローカルで起動するために下記コードを入力下さい
+### 1,clone後にsentakuディレクトリ移動後、ローカルで起動するために下記コードを入力下さい
 ```
 docker-compose up -d
 docker-compose exec app bash
@@ -11,5 +11,5 @@ docker-compose exec app bash
 yarn install
 ```
 
-### herokuの公開URL
+### 2.herokuの公開URL
 https://aqueous-beyond-55660.herokuapp.com/
