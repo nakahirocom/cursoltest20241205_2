@@ -6,6 +6,11 @@ sentakuディレクトリ移動後、dockerを起動しコンテナに入るた�
 docker-compose up -d
 docker-compose exec app bash
 ```
+※windows環境の場合、
+```
+docker-compose up -d
+winpty docker-compose exec app bash
+```
 
 コンテナの中に入ったら下記コードで必要なものをインストールすると使えるようになります。
 ```
