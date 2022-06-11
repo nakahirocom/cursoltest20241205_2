@@ -1,12 +1,12 @@
 # みんなでsantakuフォローアプリ
 
-### clone後にローカルで起動するためのコード
+### clone後にsentakuディレクトリ移動後、ローカルで起動するために下記コードを入力下さい
 ```
 docker-compose up -d
 docker-compose exec app bash
 ```
 
-コンテナの中に入ったら
+コンテナの中に入ったら下記コードで必要なものをインストールすると使えるようになります。
 ```
 yarn install
 ```
