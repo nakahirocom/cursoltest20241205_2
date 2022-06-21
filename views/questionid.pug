@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  p method-actionは #{title}
+  p viewのファイル名__questionId.pug[三択を解く画面へ]
+  p -----------------------------------------------------------------------------------------
+      br
+      a.btn(href="/") index画面へ戻る
+  p -----------------------------------------------------------------------------------------
+      br
+      span ■問題:
+      br
+      input(type="text" name="name")
+  p ----------------------------------------------------------------    
+  form(method="post" action="/question/questionId") 
+      br
+      span ■選択肢1
+      input(type="text" name="1")
+      br
+      span ■選択肢2
+      input(type="text" name="2")
+      br
+      span ■選択肢3
+      input(type="text" name="3")
+      br
+      button(type="submit") 問題を確定する
+      
+  p ▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼
+  ul この画面からの移動先
+    li
+     a(href="/") 1.〇index画面へ views/index.pug
+    li 2.✕問題と答えを新規作成画面へ views/new.pug
+    li 3.✕あなたの三択設定画面へ views/sentakuset.pug
+    li 
+     a(href="/question/questionId") 4.〇三択を解く画面へ views/question.pug
+    li 5.✕自分が作成した問題を一覧表示する画面へ views/list.pug
+    li 6.✕問題と答えを編集する画面へ views/edit.pug
