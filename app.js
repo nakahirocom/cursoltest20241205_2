@@ -8,7 +8,10 @@ const passport = require('passport');
 
 const GitHubStrategy = require('passport-github2').Strategy;
 const GITHUB_CLIENT_ID = 'b0ea0aab20fa10621592';
+
+// TODO: 本番運用するときは外部から値を渡すようにする
 const GITHUB_CLIENT_SECRET = '4f802225a1777a8ffcfd365145522f7b8f88abf3';
+const SESSION_SECRET = '71b7301737475b57';
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -45,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: '71b7301737475b57', resave: false, saveUninitialized: false }));
+app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', indexRouter);
