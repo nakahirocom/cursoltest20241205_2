@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+// モデルの読み込み
+const User = require('./models/user');
+User.sync().then(async () => {
+});
 
 const GitHubStrategy = require('passport-github2').Strategy;
 const GITHUB_CLIENT_ID = 'b0ea0aab20fa10621592';
@@ -27,8 +31,12 @@ passport.use(new GitHubStrategy({
   callbackURL: 'http://localhost:8000/auth/github/callback'
 },
   function (accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      return done(null, profile);
+        process.nextTick(async function () {
+            await User.upsert({
+              userId: profile.id,
+              username: profile.username
+            });
+            done(null, profile);
     });
   }
 ));
