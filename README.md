@@ -4,50 +4,29 @@ heroku の公開 URL: https://aqueous-beyond-55660.herokuapp.com/
 
 ## 開発環境構築手順
 
-こちらは clone 直後の初回のみで OK です。
-
-※ MacOS の場合
+こちらは clone 直後の初回のみで OK です。(数分かかる)
 
 ```
-docker-compose up -d
-docker-compose exec app bash
+docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest composer install
 ```
 
-※ Windows 環境の場合
+サーバーを起動してみる。(数分かかる)
 
 ```
-docker-compose up -d
-winpty docker-compose exec app bash
+./vendor/bin/sail up
 ```
 
-コンテナの中に入ったら下記コードで必要なものをインストールすると使えるようになります。
-
-```
-yarn install
-```
+ある程度コンソールが落ち着いてきたら(流れなくなったら)、 http://localhost にアクセスする。  
+なにか画面が表示できれば OK。
 
 ## 開発方法
 
-### コンテナの中に入る
+初回のセットアップが完了したら、基本的には以下の流れで開発を進めます。
 
-※ MacOS の場合
+### 開発環境を立ち上げる
 
-```
-docker-compose up -d
-docker-compose exec app bash
-```
-
-※ Windows 環境の場合
+開発が終わったら Ctrl+C で開発環境を終了する。
 
 ```
-docker-compose up -d
-winpty docker-compose exec app bash
+./vendor/bin/sail up
 ```
-
-### Express を起動
-
-```
-yarn start
-```
-
-これでサーバーが立ち上がるので、 http://localhost:8000 にアクセスすることができます。
