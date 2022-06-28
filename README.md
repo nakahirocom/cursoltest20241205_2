@@ -10,13 +10,25 @@ heroku の公開 URL: https://aqueous-beyond-55660.herokuapp.com/
 docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest composer install
 ```
 
+設定ファイルを作成
+
+```
+cp .env.example .env
+```
+
 サーバーを起動してみる。(数分かかる)
 
 ```
 ./vendor/bin/sail up
 ```
 
-ある程度コンソールが落ち着いてきたら(流れなくなったら)、 http://localhost にアクセスする。  
+ある程度コンソールが落ち着いてきたら(流れなくなったら)、アプリケーションの鍵を設定
+
+```
+./vendor/bin/sail artisan key:generate
+```
+
+その後 http://localhost にアクセスする。  
 なにか画面が表示できれば OK。
 
 ## 開発方法
