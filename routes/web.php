@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//三択アプリのログイン後のホーム画面
+Route::get('/', App\Http\Controllers\Santaku\IndexController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
