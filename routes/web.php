@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 //三択アプリのログイン後のホーム画面
 Route::get('/', App\Http\Controllers\Santaku\IndexController::class);
 
+Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
+
+Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
+
+//Route::post('/create', App\Http\Controllers\Santaku\CreateController::class);
+Route::match(['get','post'],'/create', App\Http\Controllers\Santaku\CreateController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
