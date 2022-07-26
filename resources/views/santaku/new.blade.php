@@ -9,11 +9,11 @@
 </head>
 
 <p>method-actionは
-<p>viewのファイル名は_new.pug [問題と答えの新規作成画面]</p>
+<p>viewのファイル名は_new.blade.php [問題と答えの新規作成画面]</p>
 <p>-----------------------------------------------------------------------------------------<br />
 <a class="btn" href="/">index画面へ戻る</a></p>
 <p>-----------------------------------------------------------------------------------------</p>
-<form method="post" action="/create">■問題と回答を登録してください
+<form method="post" action="{{ route('create.index') }}">■問題と回答を登録してください
 @csrf
 <br />
 <span>問題:</span>
@@ -34,12 +34,13 @@
         <option value="rule">会社ルール</option>
         <option value="sonota">その他</option>
     </select><br /><button type="submit">問題をDBへ新規登録しインデックス画面へ戻る</button></form>
-<p>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</p>
-<ul>この画面からの移動先<li><a href="/">1.〇index画面へ /resources/views/santaku/index.blade.php</a></li>
-    <li>2.✕問題と答えを新規作成画面へ /resources/views/santaku/new.blade.php</li>
-    <li>3.✕あなたの三択設定画面へ /resources/views/santaku/santakuset.blade.php</li>
-    <li>4.✕三択を解く画面へ views/question.pug</li>
-    <li>5.✕自分が作成した問題を一覧表示する画面へ views/list.pug</li>
-    <li>6.✕問題と答えを編集する画面へ views/edit.pug</li>
-</ul>
+    <h2>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</h2>
+    <ul>この画面からの移動先
+      <li><a href="/">1.〇index画面へ /resources/views/santaku/index.blade.php</a></li>
+      <li>2.✕問題と答えを新規作成画面へ /resources/views/santaku/new.blade.php</li>
+      <li>3.✕あなたの三択設定画面へ /resources/views/santaku/santakuset.blade.php</li>
+      <li>4.✕三択を解く画面へ /resources/views/santaku/question.blade.php</a></li>
+      <li>5.✕自分が作成した問題を一覧表示する画面へ /resources/views/santaku/list.blade.php</li>
+      <li>6.✕問題と答えを編集する画面へ /resources/views/santaku/edit.blade.php</li>
+    </ul>
 </p>

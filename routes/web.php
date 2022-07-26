@@ -20,8 +20,17 @@ Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
 
 Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
 
-//Route::post('/create', App\Http\Controllers\Santaku\CreateController::class);
-Route::match(['get','post'],'/create', App\Http\Controllers\Santaku\CreateController::class);
+Route::get('/edit', App\Http\Controllers\Santaku\EditController::class);
+
+Route::get('/list', App\Http\Controllers\Santaku\ListController::class);
+
+Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class);
+
+Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
+
+Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
+
+Route::post('/anser', App\Http\Controllers\Santaku\AnserController::class)->name('anser.index');
 
 
 Route::get('/dashboard', function () {
