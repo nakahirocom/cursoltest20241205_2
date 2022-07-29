@@ -13,9 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//三択アプリのログイン後のホーム画面
+Route::get('/', App\Http\Controllers\Santaku\IndexController::class);
+
+Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
+
+Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
+
+Route::get('/edit', App\Http\Controllers\Santaku\EditController::class);
+
+Route::get('/list', App\Http\Controllers\Santaku\ListController::class);
+
+Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class);
+
+Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
+
+Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
+
+Route::post('/anser', App\Http\Controllers\Santaku\AnserController::class)->name('anser.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
