@@ -19,14 +19,23 @@
 <span>問題:</span>
 <br />
 <input type="text" name="question" />
+@error('question')
+<p style="coler: red;">{{ $message }}</p>
+@enderror
 <br />
 <span>答え:</span>
 <br />
-<input type="text" name="answer" />
+<input type="text" name="anser" />
+@error('anser')
+<p style="coler: red;">{{ $message }}</p>
+@enderror
 <br /><span>解説:</span>
 <br />
-<input type="text" name="explanation" />
+<input type="text" name="comment" />
 <br />
+@error('comment')
+<p style="coler: red;">{{ $message }}</p>
+@enderror
 <br />
 <span>ジャンル:</span><br /><select name="blood"><br />
         <option value="taxmaster">税理士</option>

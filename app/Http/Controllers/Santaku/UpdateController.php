@@ -15,6 +15,8 @@ class UpdateController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('santaku.list', ['name' => 'santaku']);
+     $santakuId = (int) $request->route('santakuId');
+     dd($santakuId);
+     //   return view('santaku.list', ['name' => 'santaku']);
     }
 }

@@ -22,6 +22,19 @@
 <br />
 <a class="btn" href="/list">自分が作成した問題を一覧表示へ移動する</a>
 <p>-----------------------------------------------------------------------------------------</p>
+<body>
+    <h1>三択データベース</h1>
+    <div>
+
+        @foreach($santaku as $santaku1)
+        <p>{{ $santaku1->created_at }}</p>
+        <p>{{ $santaku1->question }}</p>
+            @endforeach
+    </div>
+</body>
+
+
+<p>-----------------------------------------------------------------------------------------</p>
 <h2>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</h2>
 <ul>この画面からの移動先<li>1.✕index画面へ /resources/views/santaku/index.blade.php</li>
     <li> <a href="/new">2.〇問題と答えを新規作成画面へ /resources/views/santaku/new.blade.php</a></li>
