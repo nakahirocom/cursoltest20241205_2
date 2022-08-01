@@ -9,7 +9,7 @@
 </head>
 
 <p>method-actionは</p>
-<p>viewのファイル名_sentakuset.blade.php [あなた向けの問題を設定する画面]</p>
+<h1>viewのファイル名_sentakuset.blade.php [あなた向けの問題を設定する画面]</h1>
 <p>-----------------------------------------------------------------------------------------</p>
 <br />
 <a class="btn" href="/">index画面へ戻る</a>

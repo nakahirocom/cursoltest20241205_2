@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Santaku;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
@@ -15,6 +16,8 @@ class ListController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('santaku.list', ['name' => 'santaku']);
+        $santaku = Santaku::orderBy('created_at', 'DESC')->get();
+        return view('santaku.list')
+            ->with('santaku', $santaku);
     }
 }

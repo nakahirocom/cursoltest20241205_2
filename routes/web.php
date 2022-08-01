@@ -20,9 +20,9 @@ Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
 
 Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
 
-Route::get('/edit', App\Http\Controllers\Santaku\EditController::class);
+Route::get('/edit/{santakuId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
 
-Route::get('/list', App\Http\Controllers\Santaku\ListController::class);
+Route::get('/list', App\Http\Controllers\Santaku\ListController::class)->name('list');
 
 Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class);
 
@@ -30,10 +30,13 @@ Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->na
 
 Route::post('/anser', App\Http\Controllers\Santaku\AnserController::class)->name('anser.index');
 
-Route::get('/update/{santakuId}', \App\Http\Controllers\Santaku\updateController::class)->name('update.index');
+Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.index');
 
 //Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
 Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
+
+Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+
 
 
 Route::get('/dashboard', function () {

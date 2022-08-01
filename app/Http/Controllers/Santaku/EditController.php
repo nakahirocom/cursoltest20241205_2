@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Santaku;
 use Illuminate\Http\Request;
 
 class EditController extends Controller
@@ -15,6 +16,8 @@ class EditController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('santaku.edit', ['name' => 'santaku']);
+    $santakuId = (int) $request->route('santakuId');
+    $santaku = Santaku::where('id', $santakuId)->firstOrFail();
+    return view('santaku.edit')->with('santaku',$santaku);
     }
 }

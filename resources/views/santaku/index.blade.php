@@ -11,7 +11,7 @@
 <h2>※メルアド＋pw使った認証のための仮ログイン画面。リンク設定まで完了。db未実装</h2>
 
 <p>method-actionは </p>
-<p>viewのファイル名_index.blade.php [タイトル画面]</p>
+<h1>viewのファイル名_index.blade.php [タイトル画面]</h1>
 <p>-----------------------------------------------------------------------------------------</p>
 <div>
 <a class="btn" href="/question">三択を解く画面へ</a>
@@ -25,9 +25,8 @@
 <body>
     <h1>三択データベース</h1>
     <div>
-
         @foreach($santaku as $santaku1)
-        <p>{{ $santaku1->created_at }}</p>
+        <p>{{ $santaku1->created_at ,$santaku1->question}}</p>
         <p>{{ $santaku1->question }}</p>
             @endforeach
     </div>

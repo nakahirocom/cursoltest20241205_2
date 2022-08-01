@@ -9,23 +9,34 @@
 </head>
 
 <p>method-actionは </p>
-<p>viewのファイル名_edit.blade.php [私が作成した問題の編集・削除画面]</p>
+<h1>viewのファイル名_edit.blade.php [私が作成した問題の編集・削除画面]</h1>
 <p>-----------------------------------------------------------------------------------------<br /><a class="btn" href="/">index画面へ戻る</a></p>
 <p>-----------------------------------------------------------------------------------------</p>
-<form method="post" action="{{ route('update.list') }}">■問題と回答を編集してください
+@if (session('feedback.success'))
+    <p style="color: green">{{ session('feedback.success') }}</p>
+@endif
+
+<form method="post" action="{{ route('update.put', ['santakuId' => $santaku->id]) }}">■問題と回答を編集してください
+@method('PUT')
 @csrf
 <br />
 <span>問題:</span>
 <br />
-<input type="text" name="question" />
+<textarea type="text" name="question" >
+{{ $santaku->question }}</textarea>
+
 <br />
 <span>答え:</span>
 <br />
-<input type="text" name="answer" />
+<textarea type="text" name="anser" >
+{{ $santaku->anser }}</textarea>
+
 <br />
 <span>解説:</span>
 <br />
-<input type="text" name="explanation" />
+<textarea type="text" name="comment" >
+{{ $santaku->comment }}</textarea>
+
 <br />
 <span>ジャンル:</span>
 <br />
