@@ -17,7 +17,7 @@ class CreateController extends Controller
      */
     public function __invoke(CreateRequest $request)
     {
-        //登録した問題をdbへ保存する処理を追加する必要あり
+        //⭐️登録した問題の全てがquestionに保存されていることを修正必要。dbへ保存する処理を追加する必要あり
         $santaku = new Santaku;
         $santaku->question = $request->santaku();
         $santaku->anser = $request->santaku();

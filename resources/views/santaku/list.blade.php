@@ -17,9 +17,10 @@
 <p>-----------------------------------------------------------------------------------------</p>
 <body>
     <h1>三択データベース</h1>
+
     <div>
         @foreach($santaku as $santaku1)
-          <details>
+        <details>
             <summary>{{ $santaku1->question }}</summary>
             <div>
               <a href="{{ route('edit', ['santakuId' => $santaku1->id]) }}">編集</a>

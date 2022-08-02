@@ -56,3 +56,4 @@
     <li> <a href="/list">5.〇自分が作成した問題を一覧表示する画面へ /resources/views/santaku/list.blade.php</a></li>
     <li>6.✕問題と答えを編集する画面へ /resources/views/santaku/list.blade.php</li>
 </ul>
+

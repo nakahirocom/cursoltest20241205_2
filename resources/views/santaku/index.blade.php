@@ -28,7 +28,10 @@
         @foreach($santaku as $santaku1)
         <p>{{ $santaku1->created_at ,$santaku1->question}}</p>
         <p>{{ $santaku1->question }}</p>
-            @endforeach
+        <p>{{ $santaku1->anser }}</p>
+        <p>{{ $santaku1->comment }}</p>
+
+        @endforeach
     </div>
 </body>
 

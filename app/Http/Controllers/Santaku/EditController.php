@@ -18,6 +18,9 @@ class EditController extends Controller
     {
     $santakuId = (int) $request->route('santakuId');
     $santaku = Santaku::where('id', $santakuId)->firstOrFail();
+
+        dd($santaku);
+
     return view('santaku.edit')->with('santaku',$santaku);
     }
 }
