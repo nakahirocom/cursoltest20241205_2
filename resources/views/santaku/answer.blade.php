@@ -9,7 +9,7 @@
 </head>
 
 <p>method-actionは </p>
-<h1>viewのファイル名__question.blade.php[三択問題が出題される画面]</h1>
+<h1>viewのファイル名__question.blade.php[三択の解答結果画面]</h1>
 <p>-----------------------------------------------------------------------------------------
 <br />
 <a class="btn" href="/">index画面へ戻る</a></p>
@@ -17,34 +17,19 @@
 <br />
 <span>■問題:</span>
 <br />
-<div>
-@foreach($santaku as $santaku1)
-
-            <summary>
-              <p>問題{{ $santaku1->question }}</p>  
-            </summary>
-            @if($counter =1) 
-            @break
-                $counter++;
-            @endif
-@endforeach
-
+<input type="text" name="name" /></p>
 <p>---------------------------------------------------------------- </p>
-<br />
-<span>■選択肢</span>
-
-<form action="{{ route('answer.index') }}" method="post">
-@csrf
-<input type="hidden" name="" value="">
-<label><input type="radio" name="sentaku1" value="1">{{ $mondai1->answer }}</label>
-<br />
-<label><input type="radio" name="sentaku2" value="2">{{ $mondai2->answer }}</label>
-<br />
-<label><input type="radio" name="sentaku3" value="3">{{ $mondai3->answer }}</label>
-<input type="submit" value="回答する">
-</form>
 
 <br />
+<span>■選択肢1</span>
+<input type="text" name="1" />
+<br />
+<span>■選択肢2</span><input type="text" name="2" />
+<br />
+<span>■選択肢3</span>
+<input type="text" name="3" />
+<br />
+
 
 <h2>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</h2>
 <ul>この画面からの移動先<li><a href="/">1.〇index画面へ /resources/views/santaku/index.blade.php</a></li>

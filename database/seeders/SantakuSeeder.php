@@ -14,7 +14,7 @@ class SantakuSeeder extends Seeder
     {
         DB::table('santaku')->insert([
             'question' => Str::random(10),
-            'anser' => Str::random(3),
+            'answer' => Str::random(3),
             'comment' => Str::random(20),
             'created_at' => now(),
             'updated_at' => now(),

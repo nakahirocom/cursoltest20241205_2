@@ -25,17 +25,25 @@ class CreateRequest extends FormRequest
     {
         return [
             'question' => 'required|max:10',
-            'anser' => 'required|max:3',
+            'answer' => 'required|max:3',
             'comment' => 'required|max:20',
 
         ];
 
     }
 
-    public function santaku(): string
+    public function question(): string
     {
         return $this->input('question');
-        return $this->input('anser');
+    }
+
+    public function answer(): string
+    {
+        return $this->input('answer');
+    }
+
+    public function comment(): string
+    {
         return $this->input('comment');
     }
 

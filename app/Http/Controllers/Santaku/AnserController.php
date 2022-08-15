@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Santaku;
 use Illuminate\Http\Request;
 
 class AnserController extends Controller

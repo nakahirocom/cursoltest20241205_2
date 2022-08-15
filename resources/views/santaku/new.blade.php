@@ -25,8 +25,8 @@
 <br />
 <span>答え:</span>
 <br />
-<input type="text" name="anser" />
-@error('anser')
+<input type="text" name="answer" />
+@error('answer')
 <p style="coler: red;">{{ $message }}</p>
 @enderror
 <br /><span>解説:</span>

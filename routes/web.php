@@ -24,13 +24,13 @@ Route::get('/edit/{santakuId}', App\Http\Controllers\Santaku\EditController::cla
 
 Route::get('/list', App\Http\Controllers\Santaku\ListController::class)->name('list');
 
-Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class);
+Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class)->name('question');
 
 Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
 
-Route::post('/anser', App\Http\Controllers\Santaku\AnserController::class)->name('anser.index');
+Route::post('/answer', App\Http\Controllers\Santaku\AnserController::class)->name('answer.index');
 
-Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.index');
+Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
 //Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
 Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');

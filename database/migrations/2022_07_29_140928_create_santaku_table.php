@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('santaku', function (Blueprint $table) {
             $table->id();
             $table->string('question');
-            $table->string('anser');
+            $table->string('answer');
             $table->string('comment');
             $table->timestamps();
         });

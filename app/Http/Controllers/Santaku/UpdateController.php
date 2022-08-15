@@ -19,14 +19,14 @@ class UpdateController extends Controller
     public function __invoke(UpdateRequest $request)
     {
     $santaku = Santaku::where('id', $request->id())->firstOrFail();
-    $santaku->question = $request->santaku();
-    $santaku->anser = $request->santaku();
-    $santaku->comment = $request->santaku();
+    $santaku->question = $request->question();
+    $santaku->answer = $request->answer();
+    $santaku->comment = $request->comment();
+//    dd($santaku);
     $santaku->save();
 //    return redirect()
-    return view('santaku.list')
-
-    //    ->route('update.index', ['santakuId' => $santaku->id])
+    return redirect()
+        ->route('edit', ['santakuId' => $santaku->id])
         ->with('feedback.success',"編集が完了しました");
     }
 }
