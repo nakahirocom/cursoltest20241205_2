@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Santaku;
 use Illuminate\Http\Request;
 
-// FIXME: change class name and file name (fixed typo)
+// TODO: change class name and file name (fixed typo)
 class AnserController extends Controller
 {
     /**

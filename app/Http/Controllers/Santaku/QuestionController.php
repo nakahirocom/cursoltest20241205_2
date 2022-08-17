@@ -28,5 +28,5 @@ class QuestionController extends Controller
         return view('santaku.question')
             ->with('question', $question)
             ->with('questions', $shuffled);
-        }
+    }
 }
