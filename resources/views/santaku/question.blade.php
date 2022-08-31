@@ -9,12 +9,7 @@
 </head>
 <body>
 
-<<<<<<< Updated upstream
 <p>method-actionは</p>
-=======
-<body>
-<p>method-actionは </p>
->>>>>>> Stashed changes
 <h1>viewのファイル名__question.blade.php[三択問題が出題される画面]</h1>
 <p>-----------------------------------------------------------------------------------------</p>
 <br />
@@ -24,11 +19,7 @@
 <span>■問題:</span>
 <br />
 <div>
-<<<<<<< Updated upstream
     <summary>
-=======
-<summary>
->>>>>>> Stashed changes
         <p>{{ $question->question }}</p>
     </summary>
 </div>
@@ -37,18 +28,13 @@
 <span>■選択肢</span>
 
 <form action="{{ route('answer.index') }}" method="post">
-@csrf
-<<<<<<< Updated upstream
+    @csrf
     <input type="hidden" name="question_id" value="{{ $question->id }}">
-=======
-<input type="hidden" name="question_id" value="{{ $question->id }}">
-<input type="hidden" name="questions" value="{{ $questions }}">
+    <input type="hidden" name="questions" value="{{ $questions }}">
 
-<input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
-<input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
-<input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
-
->>>>>>> Stashed changes
+    <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
+    <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
+    <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
     @foreach($questions as $question)
         <label>
             <input type="radio" name="choice_id" value="{{ $question->id }}">
@@ -72,11 +58,6 @@
         <li>6.✕問題と答えを編集する画面へ /resources/views/santaku/edit.blade.php</li>
     </ul>
 </section>
-<<<<<<< Updated upstream
 
 </body>
 </html>
-=======
-</body>
-</html>
->>>>>>> Stashed changes
