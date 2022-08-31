@@ -28,7 +28,9 @@ Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class)-
 
 Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
 
-Route::post('/answer', App\Http\Controllers\Santaku\AnserController::class)->name('answer.index');
+Route::get('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer');
+
+Route::post('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer.index');
 
 Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
