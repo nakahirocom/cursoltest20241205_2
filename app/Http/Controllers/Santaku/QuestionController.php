@@ -39,16 +39,13 @@ class QuestionController extends Controller
         $shuffled = $questions->shuffle();
 
         $shuffled0 = $shuffled[0];
-        $shuffled0ToArray = ($shuffled0->toarray());
-        $shuffled0Id = ($shuffled0ToArray['id']);
+        $shuffled0Id = $shuffled0->id;
 
         $shuffled1 = $shuffled[1];
-        $shuffled1ToArray = ($shuffled1->toarray());
-        $shuffled1Id = ($shuffled1ToArray['id']);
+        $shuffled1Id = $shuffled1->id;
 
         $shuffled2 = $shuffled[2];
-        $shuffled2ToArray = ($shuffled2->toarray());
-        $shuffled2Id = ($shuffled2ToArray['id']);
+        $shuffled2Id = $shuffled2->id;
         //処理が止まらずに出力する
 //        dump($shuffled0Id);
 //        dump($shuffled1Id);
