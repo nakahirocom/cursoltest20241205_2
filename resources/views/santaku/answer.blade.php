@@ -26,48 +26,27 @@
 <summary>
         <p>{{ $choiced->answer }}</p>
     </summary>
-    <p>正誤：{{ $seigo }}</p>
+    <p>正誤：
+        @if ($isCorrect)
+            正解
+        @else
+            不正解
+        @endif
+    </p>
 
 <div>
 </div>
 <p>---------------------------------------------------------------- </p>
 <br />
-<span>■選択肢1</span>
-
-<summary>
-        <p>問題：{{ $shuffled0->question }}</p>
+@for ($i = 0; $i < count($viewModels); $i++)
+    <span>■選択肢{{ $i + 1 }}: {{ $viewModels[$i]->isCorrect() }}</span>
+    <summary>
+        <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
     </summary>
     <summary>
-        <p>答え：{{ $shuffled0->answer }}</p>
+        <p>答え：{{ $viewModels[$i]->getAnswer() }}</p>
     </summary>
-    <summary>
-        <p>解説：{{ $shuffled0->comment }}</p>
-    </summary>
-    <span>■選択肢2</span>
-    <summary>
-        <p>問題：{{ $shuffled1->question }}</p>
-    </summary>
-    <summary>
-        <p>答え：{{ $shuffled1->answer }}</p>
-    </summary>
-    <summary>
-        <p>解説：{{ $shuffled1->comment }}</p>
-    </summary>
-    <span>■選択肢3</span>
-    <summary>
-        <p>問題：{{ $shuffled2->question }}</p>
-    </summary>
-    <summary>
-        <p>答え：{{ $shuffled2->answer }}</p>
-    </summary>
-    <summary>
-        <p>解説：{{ $shuffled2->comment }}</p>
-    </summary>
-
-
-
-
-
+@endfor
 
 <a class="btn" href="/question">次の問題へ</a>
 <br />
