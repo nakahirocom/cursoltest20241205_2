@@ -23,6 +23,10 @@ class AnswerViewModel {
         return $this->santaku->answer;
     }
 
+    public function getComment(): string {
+        return $this->santaku->comment;
+    }
+
     public function isCorrect(): bool {
         return $this->questionId === $this->santaku->id;
     }
@@ -35,7 +39,7 @@ class AnswerController extends Controller
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
         $choiced = Santaku::where('id', $choiceId)->firstOrFail();
-
+        
         // requestから問題のID [question_id] を取得する
         $questionId = $request->input('question_id');
         $questioned = Santaku::where('id', $questionId)->firstOrFail();
