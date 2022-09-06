@@ -15,37 +15,41 @@
 <br />
 <a class="btn" href="/">index画面へ戻る</a>
 <p>-----------------------------------------------------------------------------------------</p>
-<br />
+
 <span>■問題:</span>
 <summary>
         <p>{{ $questioned->question }}</p>
     </summary>
 
-<span>■あなたの選択:</span>
+<span>■あなたの選択</span>
 <br />
 <summary>
-        <p>{{ $choiced->answer }}</p>
-    </summary>
-    <p>正誤：
+        {{ $choiced->answer }}
+        ：
         @if ($isCorrect)
             正解
         @else
             不正解
         @endif
-    </p>
-
-<div>
-</div>
 <p>---------------------------------------------------------------- </p>
 <br />
 @for ($i = 0; $i < count($viewModels); $i++)
-    <span>■選択肢{{ $i + 1 }}: {{ $viewModels[$i]->isCorrect() }}</span>
+        @if ($viewModels[$i]->isCorrect() ) 
+        <span>■選択肢{{ $i + 1 }}:{{ "正解" }}</span> 
+        @else
+        <span>■選択肢{{ $i + 1 }}:{{ "不正解" }}</span> 
+        @endif 
+        
     <summary>
         <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
     </summary>
     <summary>
         <p>答え：{{ $viewModels[$i]->getAnswer() }}</p>
     </summary>
+    <summary>
+        <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+    </summary>
+
 @endfor
 
 <a class="btn" href="/question">次の問題へ</a>
