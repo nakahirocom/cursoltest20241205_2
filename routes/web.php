@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //三択アプリのログイン後のホーム画面
+
+Route::middleware('auth')->group(function () {
+
 Route::get('/', App\Http\Controllers\Santaku\IndexController::class)->name('index');
 
 Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
@@ -39,7 +42,7 @@ Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController:
 
 Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
 
-
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
