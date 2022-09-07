@@ -17,10 +17,8 @@ class EditController extends Controller
     public function __invoke(Request $request)
     {
     $santakuId = (int) $request->route('santakuId');
-//    dump($santakuId);
     $santaku = Santaku::where('id', $santakuId)->firstOrFail();
 
-//        dd($santaku);
 
     return view('santaku.edit')->with('santaku',$santaku);
     }
