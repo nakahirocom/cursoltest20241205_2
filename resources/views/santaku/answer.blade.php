@@ -9,15 +9,13 @@
 </head>
 
 <body>
-<p>method-actionは </p>
-<h1>viewのファイル名__answer.blade.php[三択問題の答え合わせ画面]</h1>
-<p>-----------------------------------------------------------------------------------------</p>
-<br />
 <a class="btn" href="/">index画面へ戻る</a>
-<p>-----------------------------------------------------------------------------------------</p>
-
+<a class="btn" href="/question">次の問題へ</a>
+                <p>-----------------------------------------------------------------------------------------</p>
+                    <h2>三択アプリ　答え合わせ画面</h2>
+                <p>-----------------------------------------------------------------------------------------</p>
 <span>■問題:</span>
-<summary>
+    <summary>
         <p>{{ $questioned->question }}</p>
     </summary>
 
@@ -52,19 +50,6 @@
 
 @endfor
 
-<a class="btn" href="/question">次の問題へ</a>
-<br />
 
-<section>
-    <h2>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</h2>
-    <ul>この画面からの移動先
-        <li><a href="/">1.〇index画面へ /resources/views/santaku/index.blade.php</a></li>
-        <li>2.✕問題と答えを新規作成画面へ /resources/views/santaku/new.blade.php</li>
-        <li>3.✕あなたの三択設定画面へ /resources/views/santaku/santakuset.blade.php</li>
-        <li><a href="/question">4.〇三択を解く画面へ /resources/views/santaku/question.blade.php</a></li>
-        <li>5.✕自分が作成した問題を一覧表示する画面へ /resources/views/santaku/list.blade.php</li>
-        <li>6.✕問題と答えを編集する画面へ /resources/views/santaku/edit.blade.php</li>
-    </ul>
-</section>
 </body>
 </html>
