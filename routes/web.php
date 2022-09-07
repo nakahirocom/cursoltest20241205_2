@@ -14,32 +14,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 //三択アプリのログイン後のホーム画面
-Route::get('/', App\Http\Controllers\Santaku\IndexController::class)->name('index');
 
-Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
+Route::middleware('auth')->group(function () {
 
-Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
+    Route::get('/', App\Http\Controllers\Santaku\IndexController::class)->name('index');
 
-Route::get('/edit/{santakuId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
+    Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
 
-Route::get('/list', App\Http\Controllers\Santaku\ListController::class)->name('list');
+    Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
 
-Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class)->name('question');
+    Route::get('/edit/{santakuId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
 
-Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
+    Route::get('/list', App\Http\Controllers\Santaku\ListController::class)->name('list');
 
-Route::get('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer');
+    Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class)->name('question');
 
-Route::post('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer.index');
+    Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
 
-Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
+    Route::get('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer');
 
-//Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
-Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
+    Route::post('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer.index');
 
-Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+    Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
+    //Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
+    Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
+    Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
