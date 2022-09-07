@@ -32,7 +32,8 @@
         @endif
         <p>---------------------------------------------------------------- </p>
         <br />
-        @for ($i = 0; $i < count($viewModels); $i++) @if ($viewModels[$i]->isCorrect() )
+        @for ($i = 0; $i < count($viewModels); $i++) 
+            @if ($viewModels[$i]->isCorrect() )
             <span>■選択肢{{ $i + 1 }}:{{ "正解" }}</span>
             @else
             <span>■選択肢{{ $i + 1 }}:{{ "不正解" }}</span>
