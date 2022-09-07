@@ -7,11 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>santakuアプリ</title>
 </head>
+<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-<h2>※メルアド＋pw使った認証のための仮ログイン画面。リンク設定まで完了。db未実装</h2>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
 
-<p>method-actionは </p>
-<h1>viewのファイル名_index.blade.php [タイトル画面]</h1>
+<p>-----------------------------------------------------------------------------------------</p>
+<h2>三択アプリ　インデックス画面</h2>
 <p>-----------------------------------------------------------------------------------------</p>
 <div>
 <a class="btn" href="/question">三択を解く画面へ</a>
@@ -21,27 +33,3 @@
 <a class="btn" href="/new">問題作成画面へ移動する</a>
 <br />
 <a class="btn" href="/list">自分が作成した問題を一覧表示へ移動する</a>
-<p>-----------------------------------------------------------------------------------------</p>
-<body>
-    <h1>三択データベース</h1>
-    <div>
-        @foreach($santaku as $santaku1)
-        <p>{{ $santaku1->created_at ,$santaku1->question}}</p>
-        <p>{{ $santaku1->question }}</p>
-        <p>{{ $santaku1->answer }}</p>
-        <p>{{ $santaku1->comment }}</p>
-
-        @endforeach
-    </div>
-</body>
-
-
-<p>-----------------------------------------------------------------------------------------</p>
-<h2>▼▼▼▼▼※開発用の案内につきここから下は削除予定▼▼▼▼▼▼</h2>
-<ul>この画面からの移動先<li>1.✕index画面へ /resources/views/santaku/index.blade.php</li>
-    <li> <a href="/new">2.〇問題と答えを新規作成画面へ /resources/views/santaku/new.blade.php</a></li>
-    <li><a href="/santakuset">3.〇あなたの三択設定画面へ /resources/views/santaku/santakuset.blade.php</a></li>
-    <li> <a href="/question">4.〇三択を解く画面へ /resources/views/santaku/question.blade.php</a></li>
-    <li> <a href="/list">5.〇自分が作成した問題を一覧表示する画面へ /resources/views/santaku/list.blade.php</a></li>
-    <li>6.✕問題と答えを編集する画面へ /resources/views/santaku/list.blade.php</li>
-</ul>
