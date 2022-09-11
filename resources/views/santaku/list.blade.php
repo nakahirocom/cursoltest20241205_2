@@ -20,13 +20,17 @@
 
 
 <body>
+
   <div>
     @foreach($santaku as $santaku1)
+
     <details>
       <summary>
-        <p>問題{{ $santaku1->question }}</p>
-        <p>答え{{ $santaku1->answer }}</p>
-        <p>解説{{ $santaku1->comment }}</p>
+        <p>問題　{{ $santaku1->question }}</p>
+        <p>答え　{{ $santaku1->answer }}</p>
+        <p>解説　{{ $santaku1->comment }}</p>
+        <p>作成者　{{ $santaku1->user->name }}</p>
+
       </summary>
       <div>
         <a href="{{ route('edit', ['santakuId' => $santaku1->id]) }}">編集</a>
