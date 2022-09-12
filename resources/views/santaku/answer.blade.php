@@ -25,7 +25,7 @@
         <p>{{ $questioned->question }}</p>
     </summary>
 
-    <span>■あなたの選択</span>
+    <span>■{{ Auth::user()->name }} の選択</span>
     <br />
     <summary>
         {{ $choiced->answer }}
