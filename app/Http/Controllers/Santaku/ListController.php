@@ -18,8 +18,10 @@ class ListController extends Controller
      */
     public function __invoke(Request $request, SantakuService $santakuService)
     {   
-        $santakuId = (int) $request->route('santakuId');
-        $santaku = Santaku::orderBy('created_at', 'DESC')->get();
+        // 現在認証しているユーザーのIDを取得
+        $id = auth()->id();
+        //　認証しているユーザーのIDが作成者の問題をdbから抽出する
+        $santaku = Santaku::where('user_id',$id)->get();
    
         return view('santaku.list')
             ->with('santaku', $santaku);
