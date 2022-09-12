@@ -16,7 +16,7 @@
 @endauth
 
 <p>-----------------------------------------------------------------------------------------</p>
-<h2>三択アプリ　私が作った問題一覧画面</h2>
+<h2>三択アプリ　{{ Auth::user()->name }}が作った問題一覧画面</h2>
 <p>-----------------------------------------------------------------------------------------</p>
 @if (session('feedback.success'))
 <p style="color: green">{{ session('feedback.success') }}</p>
@@ -28,12 +28,10 @@
   <div>
     @foreach($santaku as $santaku1)
 
-    <details>
       <summary>
         <p>問題　{{ $santaku1->question }}</p>
         <p>答え　{{ $santaku1->answer }}</p>
         <p>解説　{{ $santaku1->comment }}</p>
-        <p>作成者　{{ $santaku1->user->name }}</p>
 
       </summary>
       <div>
@@ -44,7 +42,6 @@
           <button type="submit">削除</button>
         </form>
       </div>
-    </details>
     @endforeach
   </div>
 </body>

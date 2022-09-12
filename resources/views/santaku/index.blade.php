@@ -34,11 +34,11 @@
     <div>
         <a class="btn" href="/question">三択を解く画面へ</a>
         <br />
-        <a class="btn" href="/santakuset">あなたの三択設定へ移動する</a>
+        <a class="btn" href="/santakuset">{{ Auth::user()->name }} の三択設定へ移動する</a>
         <br />
-        <a class="btn" href="/new">問題作成画面へ移動する</a>
+        <a class="btn" href="/new">問題新規作成画面へ移動する</a>
         <br />
-        <a class="btn" href="/list">自分が作成した問題を一覧表示へ移動する</a>
+        <a class="btn" href="/list">{{ Auth::user()->name }} が作成した問題を一覧表示する</a>
         <p>-----------------------------------------------------------------------------------------</p>
         <h2>三択アプリ　問題一覧</h2>
 
