@@ -19,8 +19,6 @@ class DeleteController extends Controller
     public function __invoke(Request $request, SantakuService $santakuService)
     {
         $santakuId = (int) $request->route('santakuId');
-        if (!$santakuService->checkOwnMondai($request->user()->id, $santakuId)) 
-            {
                 if (!$santakuService->checkOwnMondai($request->user()->id, $santakuId)) 
                     {
                         return redirect()
@@ -29,7 +27,6 @@ class DeleteController extends Controller
                 
                         throw new AccessDeniedHttpException();
                     }
-            }
 
         $santaku = Santaku::where('id', $santakuId)->firstOrFail();
         $santaku->delete();
