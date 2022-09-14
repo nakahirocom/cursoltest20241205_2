@@ -24,6 +24,6 @@ class ListController extends Controller
         $santaku = Santaku::where('user_id', $id)->get();
 
         return view('santaku.list')
-            ->with('santaku', $santaku);
+            ->with('santakuList', $santaku);
     }
 }
