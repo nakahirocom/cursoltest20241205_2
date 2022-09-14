@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 //三択アプリのログイン後のホーム画面
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/', App\Http\Controllers\Santaku\IndexController::class)->name('index');
 
     Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
@@ -47,4 +46,4 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

@@ -19,7 +19,6 @@ class QuestionController extends Controller
         // mysqlからランダムに３つを取ってくる
         $questions = Santaku::inRandomOrder()->take(3)->get();
 
-
         // ランダムにとってきた問題の配列に対して、先頭のものを問題とする
         $question = $questions[0];
         // 配列にする
@@ -32,8 +31,6 @@ class QuestionController extends Controller
 
         //        $santaku = Santaku::where('id', $questionId)->firstOrFail();
         //        dump($santaku);
-
-
 
         // 選択肢をランダムに並び替える
         $shuffled = $questions->shuffle();
@@ -50,7 +47,6 @@ class QuestionController extends Controller
         //        dump($shuffled0Id);
         //        dump($shuffled1Id);
         //        dump($shuffled2Id);
-
 
         return view('santaku.question')
             ->with('question', $question)

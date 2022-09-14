@@ -17,6 +17,7 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         $santaku = Santaku::orderBy('created_at', 'DESC')->get();
+
         return view('santaku.index')
             ->with('santaku', $santaku);
     }

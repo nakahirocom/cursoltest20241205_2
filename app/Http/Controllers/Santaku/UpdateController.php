@@ -7,7 +7,6 @@ use App\Http\Requests\Santaku\UpdateRequest;
 use App\Models\Santaku;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
-use symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UpdateController extends Controller
@@ -20,18 +19,16 @@ class UpdateController extends Controller
      */
     public function __invoke(UpdateRequest $request, SantakuService $santakuService)
     {
-        if (!$santakuService->checkOwnMondai(
+        if (! $santakuService->checkOwnMondai(
             $request->user()->id,
             $request->id()
         )) {
             return redirect()
                 ->route('list')
-                ->with('feedback.success', "他のユーザーの問題は更新出来ません");
+                ->with('feedback.success', '他のユーザーの問題は更新出来ません');
 
             throw new AccessDeniedHttpException();
         }
-
-
 
         $santaku = Santaku::where('id', $request->id())->firstOrFail();
         $santaku->question = $request->question();
@@ -42,6 +39,6 @@ class UpdateController extends Controller
         //    return redirect()
         return redirect()
             ->route('edit', ['santakuId' => $santaku->id])
-            ->with('feedback.success', "編集が完了しました");
+            ->with('feedback.success', '編集が完了しました');
     }
 }

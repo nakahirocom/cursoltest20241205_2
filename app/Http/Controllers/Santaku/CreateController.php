@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Santaku\CreateRequest;
 use App\Models\Santaku;
+use Illuminate\Http\Request;
 
 class CreateController extends Controller
 {
@@ -24,9 +24,9 @@ class CreateController extends Controller
         $santaku->answer = $request->answer();
         $santaku->comment = $request->comment();
         $santaku->save();
+
         return redirect()->route('index');
         //インデックス画面へリダイレクト
         //        return view('santaku.index', ['name' => 'santaku']);
-
     }
 }
