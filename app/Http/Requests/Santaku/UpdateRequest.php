@@ -50,6 +50,4 @@ class UpdateRequest extends FormRequest
     {
         return (int) $this->route('santakuId');
     }
-
-
 }

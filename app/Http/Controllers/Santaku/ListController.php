@@ -17,12 +17,12 @@ class ListController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request, SantakuService $santakuService)
-    {   
+    {
         // 現在認証しているユーザーのIDを取得
         $id = auth()->id();
         //　認証しているユーザーのIDが作成者の問題をdbから抽出する
-        $santaku = Santaku::where('user_id',$id)->get();
-   
+        $santaku = Santaku::where('user_id', $id)->get();
+
         return view('santaku.list')
             ->with('santaku', $santaku);
     }

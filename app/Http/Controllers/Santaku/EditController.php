@@ -19,17 +19,16 @@ class EditController extends Controller
     public function __invoke(Request $request, SantakuService $santakuService)
     {
         $santakuId = (int) $request->route('santakuId');
-            if (!$santakuService->checkOwnMondai($request->user()->id, $santakuId)) 
-                {
-                    return redirect()
-                    ->route('list')
-                    ->with('feedback.success', "他のユーザーの問題は編集出来ません");
+        if (!$santakuService->checkOwnMondai($request->user()->id, $santakuId)) {
+            return redirect()
+                ->route('list')
+                ->with('feedback.success', "他のユーザーの問題は編集出来ません");
 
-                    throw new AccessDeniedHttpException();
-                }
+            throw new AccessDeniedHttpException();
+        }
 
         $santaku = Santaku::where('id', $santakuId)->firstOrFail();
 
-        return view('santaku.edit')->with('santaku',$santaku);
+        return view('santaku.edit')->with('santaku', $santaku);
     }
 }

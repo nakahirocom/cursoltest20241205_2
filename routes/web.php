@@ -41,11 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
     Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
-
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -26,7 +26,7 @@ class CreateController extends Controller
         $santaku->save();
         return redirect()->route('index');
         //インデックス画面へリダイレクト
-//        return view('santaku.index', ['name' => 'santaku']);
+        //        return view('santaku.index', ['name' => 'santaku']);
 
     }
 }
