@@ -31,15 +31,11 @@ class UpdateController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-
-
         $santaku = Santaku::where('id', $request->id())->firstOrFail();
         $santaku->question = $request->question();
         $santaku->answer = $request->answer();
         $santaku->comment = $request->comment();
-        //    dd($santaku);
         $santaku->save();
-        //    return redirect()
         return redirect()
             ->route('edit', ['santakuId' => $santaku->id])
             ->with('feedback.success', "編集が完了しました");
