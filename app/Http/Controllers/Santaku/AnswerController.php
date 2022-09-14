@@ -6,28 +6,34 @@ use App\Http\Controllers\Controller;
 use App\Models\Santaku;
 use Illuminate\Http\Request;
 
-class AnswerViewModel {
+class AnswerViewModel
+{
     private $questionId;
     private $santaku;
 
-    public function __construct(int $questionId, Santaku $santaku) {
+    public function __construct(int $questionId, Santaku $santaku)
+    {
         $this->questionId = $questionId;
         $this->santaku = $santaku;
     }
 
-    public function getQuestion(): string {
+    public function getQuestion(): string
+    {
         return $this->santaku->question;
     }
 
-    public function getAnswer(): string {
+    public function getAnswer(): string
+    {
         return $this->santaku->answer;
     }
 
-    public function getComment(): string {
+    public function getComment(): string
+    {
         return $this->santaku->comment;
     }
 
-    public function isCorrect(): bool {
+    public function isCorrect(): bool
+    {
         return $this->questionId === $this->santaku->id;
     }
 }
@@ -39,7 +45,7 @@ class AnswerController extends Controller
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
         $choiced = Santaku::where('id', $choiceId)->firstOrFail();
-        
+
         // requestから問題のID [question_id] を取得する
         $questionId = $request->input('question_id');
         $questioned = Santaku::where('id', $questionId)->firstOrFail();
@@ -71,5 +77,5 @@ class AnswerController extends Controller
 
         // ユーザーが10問解いたら結果画面に遷移
         // そうでなければ次の問題
-  }
+    }
 }

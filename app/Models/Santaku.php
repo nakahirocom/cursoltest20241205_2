@@ -10,4 +10,10 @@ class Santaku extends Model
     use HasFactory;
 
     protected $table = 'santaku';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

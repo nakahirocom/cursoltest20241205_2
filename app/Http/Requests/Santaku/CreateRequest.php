@@ -29,8 +29,14 @@ class CreateRequest extends FormRequest
             'comment' => 'required|max:20',
 
         ];
-
     }
+    // Requestクラスのuser関数で今自分がログインしているユーザーが取得できる。
+    public function userId(): int
+    {
+        return $this->user()->id;
+    }
+
+
 
     public function question(): string
     {
@@ -46,6 +52,4 @@ class CreateRequest extends FormRequest
     {
         return $this->input('comment');
     }
-
-
 }

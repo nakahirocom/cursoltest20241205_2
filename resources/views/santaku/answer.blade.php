@@ -12,6 +12,11 @@
 <body>
     <a class="btn" href="/">index画面へ戻る</a>
     <a class="btn" href="/question">次の問題へ</a>
+    @auth
+    <p>ようこそ、{{ Auth::user()->name }}さん</p>
+    <p>ユーザーidは、{{ Auth::user()->id }}です</p>
+    @endauth
+
     <p>-----------------------------------------------------------------------------------------</p>
     <h2>三択アプリ　答え合わせ画面</h2>
     <p>-----------------------------------------------------------------------------------------</p>
@@ -20,7 +25,7 @@
         <p>{{ $questioned->question }}</p>
     </summary>
 
-    <span>■あなたの選択</span>
+    <span>■{{ Auth::user()->name }} の選択</span>
     <br />
     <summary>
         {{ $choiced->answer }}

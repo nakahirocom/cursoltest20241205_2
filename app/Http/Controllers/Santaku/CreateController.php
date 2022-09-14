@@ -19,13 +19,14 @@ class CreateController extends Controller
     {
         //⭐️登録した問題の全てがquestionに保存されていることを修正必要。dbへ保存する処理を追加する必要あり
         $santaku = new Santaku;
+        $santaku->user_id = $request->userId(); // ここでUserIdを保存している
         $santaku->question = $request->question();
         $santaku->answer = $request->answer();
         $santaku->comment = $request->comment();
         $santaku->save();
         return redirect()->route('index');
         //インデックス画面へリダイレクト
-//        return view('santaku.index', ['name' => 'santaku']);
+        //        return view('santaku.index', ['name' => 'santaku']);
 
     }
 }

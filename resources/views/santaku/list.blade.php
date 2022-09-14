@@ -10,9 +10,13 @@
 </head>
 
 <a class="btn" href="/">index画面へ戻る</a></p>
+@auth
+<p>ようこそ、{{ Auth::user()->name }}さん</p>
+<p>ユーザーidは、{{ Auth::user()->id }}です</p>
+@endauth
 
 <p>-----------------------------------------------------------------------------------------</p>
-<h2>三択アプリ　私が作った問題一覧画面</h2>
+<h2>三択アプリ　{{ Auth::user()->name }}が作った問題一覧画面</h2>
 <p>-----------------------------------------------------------------------------------------</p>
 @if (session('feedback.success'))
 <p style="color: green">{{ session('feedback.success') }}</p>
@@ -20,13 +24,15 @@
 
 
 <body>
+
   <div>
     @foreach($santaku as $santaku1)
-    <details>
+
       <summary>
-        <p>問題{{ $santaku1->question }}</p>
-        <p>答え{{ $santaku1->answer }}</p>
-        <p>解説{{ $santaku1->comment }}</p>
+        <p>問題　{{ $santaku1->question }}</p>
+        <p>答え　{{ $santaku1->answer }}</p>
+        <p>解説　{{ $santaku1->comment }}</p>
+
       </summary>
       <div>
         <a href="{{ route('edit', ['santakuId' => $santaku1->id]) }}">編集</a>
@@ -36,7 +42,6 @@
           <button type="submit">削除</button>
         </form>
       </div>
-    </details>
     @endforeach
   </div>
 </body>
