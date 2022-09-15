@@ -56,7 +56,7 @@ cp .env.example .env
 フォーマット
 
 ```sh
-./vendor/bin/pint -vv
+./vendor/bin/sail pint -vv
 ```
 
 リント

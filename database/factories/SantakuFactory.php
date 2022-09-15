@@ -20,7 +20,7 @@ class SantakuFactory extends Factory
             'user_id' => 1, //つぶやきを投稿したユーザーのIDをデフォルトで1とする。
             'question' => $this->faker->realText(10),
             'anser' => $this->faker->realText(3),
-            'comment' => $this->faker->realText(20)
+            'comment' => $this->faker->realText(20),
         ];
     }
 }

@@ -45,7 +45,6 @@ class UpdateRequest extends FormRequest
         return $this->input('comment');
     }
 
-
     public function id(): int
     {
         return (int) $this->route('santakuId');
