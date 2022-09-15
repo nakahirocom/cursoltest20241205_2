@@ -17,7 +17,7 @@ class SantakuFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => 1, //つぶやきを投稿したユーザーのIDをデフォルトで1とする。
+            'user_id' => 1, // 問題を作成したユーザーのIDをデフォルトで1とする
             'question' => $this->faker->realText(10),
             'anser' => $this->faker->realText(3),
             'comment' => $this->faker->realText(20)
