@@ -43,9 +43,7 @@
         <h2>三択アプリ　問題一覧</h2>
 
         @foreach($santaku as $santaku1)
-
         <summary>
             <p>作成者 {{ $santaku1->user->name }} 問題 {{ $santaku1->question }} </p>
-
         </summary>
         @endforeach
