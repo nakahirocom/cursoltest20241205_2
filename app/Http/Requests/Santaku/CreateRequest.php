@@ -30,13 +30,12 @@ class CreateRequest extends FormRequest
 
         ];
     }
+
     // Requestクラスのuser関数で今自分がログインしているユーザーが取得できる。
     public function userId(): int
     {
         return $this->user()->id;
     }
-
-
 
     public function question(): string
     {

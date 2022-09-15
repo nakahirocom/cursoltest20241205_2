@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class AnswerViewModel
 {
     private $questionId;
+
     private $santaku;
 
     public function __construct(int $questionId, Santaku $santaku)
@@ -65,7 +66,7 @@ class AnswerController extends Controller
         $viewModels = [
             $viewModel1,
             $viewModel2,
-            $viewModel3
+            $viewModel3,
         ];
         $isCorrect = $questionId === $choiceId;
 

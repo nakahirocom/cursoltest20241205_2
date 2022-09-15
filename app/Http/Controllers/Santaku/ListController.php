@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Santaku;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ListController extends Controller
 {
