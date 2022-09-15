@@ -21,9 +21,9 @@ class ListController extends Controller
         // 現在認証しているユーザーのIDを取得
         $id = auth()->id();
         //　認証しているユーザーのIDが作成者の問題をdbから抽出する
-        $santaku = Santaku::where('user_id', $id)->get();
+        $santakuList = Santaku::where('user_id', $id)->get();
 
         return view('santaku.list')
-            ->with('santakuList', $santaku);
+            ->with('santakuList', $santakuList);
     }
 }
