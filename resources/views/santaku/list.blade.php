@@ -32,7 +32,6 @@
       <p>問題　{{ $santaku->question }}</p>
       <p>答え　{{ $santaku->answer }}</p>
       <p>解説　{{ $santaku->comment }}</p>
-
     </summary>
     <div>
       <a href="{{ route('edit', ['santakuId' => $santaku->id]) }}">編集</a>
