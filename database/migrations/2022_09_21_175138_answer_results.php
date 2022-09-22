@@ -37,9 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('answer_results', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-            $table->dropColumn('question_id');
-        });
+        Schema::drop('answer_results');
     }
 };
