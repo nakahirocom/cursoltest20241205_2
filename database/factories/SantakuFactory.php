@@ -19,8 +19,10 @@ class SantakuFactory extends Factory
         return [
             'user_id' => 1, // 問題を作成したユーザーのIDをデフォルトで1とする
             'question' => $this->faker->realText(10),
-            'anser' => $this->faker->realText(3),
+            'answer' => $this->faker->realText(15),
             'comment' => $this->faker->realText(20),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
