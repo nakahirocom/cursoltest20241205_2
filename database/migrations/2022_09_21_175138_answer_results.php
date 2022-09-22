@@ -18,14 +18,14 @@ return new class extends Migration
             // answer_resultsテーブルにuser_idを追加
             $table->unsignedBigInteger('user_id');
             // answer_resultsテーブルのuser_idカラムにusersテーブルのuser_idカラムを関連づける
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             // answer_resultsテーブルにquestion_idカラムを追加
             $table->unsignedBigInteger('question_id');
             // answer_resultsテーブルのquestion_idカラムにquestionsテーブルのquestion_idカラムを関連づける
-            $table->foreign('question_id')->references('question_id')->on('questions');
+            $table->foreign('question_id')->references('id')->on('santaku');
             // 選択した答えのquestion_idを保存するカラムを追加
             $table->integer('answered_question_id');
-   // タイムスタンプのカラムを追加
+            // タイムスタンプのカラムを追加
             $table->timestamps();
         });
     }
