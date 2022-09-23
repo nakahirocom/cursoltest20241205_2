@@ -75,49 +75,49 @@ class SantakuSeeder extends Seeder
             'user_id' => 2,
             'question' => '2×2=',
             'answer' => 4,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルニハヨン',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×3=',
             'answer' => 6,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルサンハロク',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×4=',
             'answer' => 8,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルヨンハハチ',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×5=',
             'answer' => 10,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルゴハジュウ',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×6=',
             'answer' => 12,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルロクハジュウニ',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×7=',
             'answer' => 14,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルナナハジュウヨン',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×8=',
             'answer' => 16,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルハチハジュウロク',
         ]);
         Santaku::create([
             'user_id' => 2,
             'question' => '2×9=',
             'answer' => 18,
-            'comment' => 'ニカケルイチハニ',
+            'comment' => 'ニカケルキュウハジュウハチ',
         ]);
 
     }
