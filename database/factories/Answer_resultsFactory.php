@@ -17,7 +17,7 @@ class Answer_resultsFactory extends Factory
     public function definition()
     {
         return [
-
+            // faktory.phpは、seedersで直接php記述したので、リアルな例を入れるまで使用しない。
             'user_id' => $this->faker->numberBetween(1,3),
             'question_id' => $this->faker->numberBetween(3,19),
             'answered_question_id' => $this->faker->numberBetween(3,19),
