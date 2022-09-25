@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
 use App\Models\Santaku;
+use App\Models\Answer_results;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Santaku\AnswerResultRequest;
+
 
 class AnswerViewModel
 {
@@ -41,7 +45,7 @@ class AnswerViewModel
 
 class AnswerController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(AnswerResultRequest $request)
     {
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
@@ -51,10 +55,77 @@ class AnswerController extends Controller
         $questionId = $request->input('question_id');
         $questioned = Santaku::where('id', $questionId)->firstOrFail();
 
+        // answer_resultsテーブルへ解答結果を保存する
+        $answer_results = new Answer_results;
+        $answer_results->user_id = $request->userId(); // ここでUserIdを保存している
+        $answer_results->question_id = $request->input('question_id');
+        $answer_results->answered_question_id = $request->input('choice_id');
+        $answer_results->save();
+
         // シャッフル後の出題idをquestion.brade.phpから取得
         $shuffled0Id = $request->input('shuffled0Id');
         $shuffled1Id = $request->input('shuffled1Id');
         $shuffled2Id = $request->input('shuffled2Id');
+
+        // answer_resultssテーブルからcountで選択1の問題別の回答数と正解率の数を集計する
+        $allkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->count();
+        $allseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->whereColumn('question_id', 'answered_question_id')->count();
+        $seikairituS0 = round($allseikaisuuS0 / $allkaitousuuS0,2)*100;
+
+        // answer_resultssテーブルからcountで選択2の問題別の回答数と正解率の数を集計する
+        $allkaitousuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->count();
+        $allseikaisuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->whereColumn('question_id', 'answered_question_id')->count();
+        $seikairituS1 = round($allseikaisuuS1 / $allkaitousuuS1,2)*100;
+
+        // answer_resultssテーブルからcountで選択3の問題別の回答数と正解率の数を集計する
+        $allkaitousuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->count();
+        $allseikaisuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->whereColumn('question_id', 'answered_question_id')->count();
+        $seikairituS2 = round($allseikaisuuS2 / $allkaitousuuS2,2)*100;
+
+        // 問題別のみんなの正解率
+        $allseikairituModels = [
+            $seikairituS0,
+            $seikairituS1,
+            $seikairituS2,
+        ];
+
+        // 問題別のみんなの正解数
+        $allkaitousuuModels = [
+            $allkaitousuuS0,
+            $allkaitousuuS1,
+            $allkaitousuuS2,
+        ];
+
+        // 回答者を特定する
+        $uid = $request->userId();
+
+        // answer_resultssテーブルからcountで回答者の選択1の回答数と正解率の数を集計する
+        $uidkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->where('user_id', '=', $uid)->count();
+        $uidseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        $uidseikairituS0 = round($uidseikaisuuS0 / $uidkaitousuuS0,2)*100;
+        // answer_resultssテーブルからcountで回答者の選択2のの回答数と正解率の数を集計する
+        $uidkaitousuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->where('user_id', '=', $uid)->count();
+        $uidseikaisuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        $uidseikairituS1 = round($uidseikaisuuS1 / $uidkaitousuuS1,2)*100;
+
+        // answer_resultssテーブルからcountで回答者の選択3のの回答数と正解率の数を集計する
+        $uidkaitousuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->where('user_id', '=', $uid)->count();
+        $uidseikaisuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        $uidseikairituS2 = round($uidseikaisuuS2 / $uidkaitousuuS2,2)*100;
+
+        // 選択肢別の回答者の正解率をまとめる
+        $uidseikairituModels = [
+            $uidseikairituS0,
+            $uidseikairituS1,
+            $uidseikairituS2,
+        ];
+        dump($uidseikairituModels);
+        // 選択肢別の回答者の正解数をまとめる
+        $uidkaitousuuModels = [
+            $uidkaitousuuS0,
+            $uidkaitousuuS1,
+            $uidkaitousuuS2,
+        ];
 
         $shuffled0 = Santaku::where('id', $shuffled0Id)->firstOrFail();
         $shuffled1 = Santaku::where('id', $shuffled1Id)->firstOrFail();
@@ -68,13 +139,18 @@ class AnswerController extends Controller
             $viewModel2,
             $viewModel3,
         ];
+
         $isCorrect = $questionId === $choiceId;
 
         return view('santaku.answer')
             ->with('questioned', $questioned)
             ->with('choiced', $choiced)
             ->with('isCorrect', $isCorrect)
-            ->with('viewModels', $viewModels);
+            ->with('viewModels', $viewModels)
+            ->with('allkaitousuuModels', $allkaitousuuModels)
+            ->with('uidkaitousuuModels', $uidkaitousuuModels)
+            ->with('allseikairituModels', $allseikairituModels)
+            ->with('uidseikairituModels', $uidseikairituModels);
 
         // ユーザーが10問解いたら結果画面に遷移
         // そうでなければ次の問題
