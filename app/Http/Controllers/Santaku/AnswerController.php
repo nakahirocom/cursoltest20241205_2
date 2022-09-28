@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
 use App\Models\Santaku;
-use App\Models\Answer_results;
+use App\Models\AnswerResults;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Santaku\AnswerResultRequest;
@@ -56,7 +56,7 @@ class AnswerController extends Controller
         $questioned = Santaku::where('id', $questionId)->firstOrFail();
 
         // answer_resultsテーブルへ解答結果を保存する
-        $answer_results = new Answer_results;
+        $answer_results = new AnswerResults;
         $answer_results->user_id = $request->userId(); // ここでUserIdを保存している
         $answer_results->question_id = $request->input('question_id');
         $answer_results->answered_question_id = $request->input('choice_id');
@@ -119,7 +119,6 @@ class AnswerController extends Controller
             $uidseikairituS1,
             $uidseikairituS2,
         ];
-        dump($uidseikairituModels);
         // 選択肢別の回答者の正解数をまとめる
         $uidkaitousuuModels = [
             $uidkaitousuuS0,

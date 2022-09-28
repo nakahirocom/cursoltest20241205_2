@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersSeeder::class,
             SantakuSeeder::class,
-            Answer_resultsSeeder::class,
+            AnswerResultsSeeder::class,
         ]);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
