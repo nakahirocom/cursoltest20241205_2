@@ -53,6 +53,8 @@
             <summary>
                 <p>解説：{{ $viewModels[$i]->getComment() }}</p>
             </summary>
+            <p>あなたの正解率：{{ $uidseikairituModels[$i] }}% /累計回答数：{{ $uidkaitousuuModels[$i] }}</p>
+            <p>みんなの正解率：{{ $allseikairituModels[$i] }}% /累計回答数：{{ $allkaitousuuModels[$i] }}</p>
 
             @endfor
 
