@@ -13,24 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classification_storages', function (Blueprint $table) {
-            // classification_storagesテーブルにclassification_storage_idを追加
-            $table->id('classification_storage_id');
-            // classification_storagesテーブルにuser_idを追加
+        Schema::create('lavel_storages', function (Blueprint $table) {
+            // lavel_storagesテーブルにidを追加
+            $table->id();
+            // lavel_storagesテーブルにuser_idを追加
             $table->unsignedBigInteger('user_id');
-            // classification_storagesテーブルのuser_idカラムにusersテーブルのuser_idカラムを関連づける
-            $table->foreign('user_id')->references('user_id')->on('users');
-            // large_classificationsテーブルにlarge_classification(大分類名)を追加
+            // lavel_storagesテーブルのuser_idカラムにusersテーブルのidカラムを関連づける
+            $table->foreign('user_id')->references('id')->on('users');
 
-            // classification_storagesテーブルにlarge_classification_idを追加
-           $table->unsignedBigInteger('large_classification_id');
-           // classification_storagesテーブルのlarge_classification_idカラムにlarge_classificationsテーブルのlarge_classification_idカラムを関連づける
-           $table->foreign('large_classification_id')->references('large_classification_id')->on('large_classifications');
+            // lavel_storagesテーブルにlarge_lavel_idを追加
+           $table->unsignedBigInteger('large_lavel_id');
+           // lavel_storagesテーブルのlarge_lavel_idカラムにlarge_lavelテーブルのidカラムを関連づける
+           $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
 
-           // classification_storagesテーブルにmiddle_classification_idを追加
-           $table->unsignedBigInteger('middle_classification_id');
-           // classification_storagesテーブルのmiddle_classification_idカラムにmiddle_classificationsテーブルのmiddle_classification_idカラムを関連づける
-           $table->foreign('middle_classification_id')->references('middle_classification_id')->on('middle_classifications');
+           // lavel_storagesテーブルにmiddle_lavel_idを追加
+           $table->unsignedBigInteger('middle_lavel_id');
+           // lavel_storagesテーブルのmiddle_lavel_idカラムにmiddle_lavelsテーブルのidカラムを関連づける
+           $table->foreign('middle_lavel_id')->references('id')->on('middle_lavels');
 
             // タイムスタンプのカラムを追加
             $table->timestamps();
@@ -44,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classification_storages');
+        Schema::dropIfExists('lavel_storages');
     }
 };
