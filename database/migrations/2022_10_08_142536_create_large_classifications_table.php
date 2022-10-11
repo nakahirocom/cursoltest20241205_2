@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('large_lavels', function (Blueprint $table) {
-            // large_lavelsテーブルにidを追加
+        Schema::create('large_labels', function (Blueprint $table) {
+            // large_labelsテーブルにidを追加
             $table->id();
-            // large_lavelsテーブルにlarge_lavel(大分類名)を追加
-            $table->string('large_lavel');
+            // large_labelsテーブルにlarge_label(大分類名)を追加
+            $table->string('large_label')->nullable();
             // タイムスタンプのカラムを追加
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('large_lavels');
+        Schema::dropIfExists('large_labels');
     }
 };

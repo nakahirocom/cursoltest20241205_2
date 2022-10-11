@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::table('answer_results', function (Blueprint $table) {
-            // answer_resultsテーブルにlarge_lavel_idを追加
-            $table->unsignedBigInteger('large_lavel_id')->after('answered_question_id');
-            // answer_resultsテーブルのlarge_lavel_idカラムにlarge_lavelsテーブルのidカラムを関連づける
-            $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
+            // answer_resultsテーブルにlarge_label_idを追加
+            $table->unsignedBigInteger('large_label_id')->nullable()->after('answered_question_id');
+            // answer_resultsテーブルのlarge_label_idカラムにlarge_labelsテーブルのidカラムを関連づける
+            $table->foreign('large_label_id')->references('id')->on('large_labels');
 
-            // answer_resultsテーブルにmiddle_lavel_idを追加
-            $table->unsignedBigInteger('middle_lavel_id')->after('large_lavel_id');
-            // answer_resultsテーブルのmiddle_lavel_idカラムにmiddle_lavelsテーブルのidカラムを関連づける
-            $table->foreign('middle_lavel_id')->references('id')->on('middle_lavels');
+            // answer_resultsテーブルにmiddle_label_idを追加
+            $table->unsignedBigInteger('middle_label_id')->nullable()->after('large_label_id');
+            // answer_resultsテーブルのmiddle_label_idカラムにmiddle_labelsテーブルのidカラムを関連づける
+            $table->foreign('middle_label_id')->references('id')->on('middle_labels');
         });
     }
 
