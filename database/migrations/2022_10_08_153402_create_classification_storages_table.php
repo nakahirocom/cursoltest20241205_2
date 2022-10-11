@@ -22,14 +22,14 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             // lavel_storagesテーブルにlarge_lavel_idを追加
-           $table->unsignedBigInteger('large_lavel_id');
-           // lavel_storagesテーブルのlarge_lavel_idカラムにlarge_lavelテーブルのidカラムを関連づける
-           $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
+            $table->unsignedBigInteger('large_lavel_id');
+            // lavel_storagesテーブルのlarge_lavel_idカラムにlarge_lavelテーブルのidカラムを関連づける
+            $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
 
-           // lavel_storagesテーブルにmiddle_lavel_idを追加
-           $table->unsignedBigInteger('middle_lavel_id');
-           // lavel_storagesテーブルのmiddle_lavel_idカラムにmiddle_lavelsテーブルのidカラムを関連づける
-           $table->foreign('middle_lavel_id')->references('id')->on('middle_lavels');
+            // lavel_storagesテーブルにmiddle_lavel_idを追加
+            $table->unsignedBigInteger('middle_lavel_id');
+            // lavel_storagesテーブルのmiddle_lavel_idカラムにmiddle_lavelsテーブルのidカラムを関連づける
+            $table->foreign('middle_lavel_id')->references('id')->on('middle_lavels');
 
             // タイムスタンプのカラムを追加
             $table->timestamps();
