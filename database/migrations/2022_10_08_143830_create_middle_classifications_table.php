@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('middle_classifications', function (Blueprint $table) {
-            // middle_classificationsテーブルにmiddle_classification_idを追加
-            $table->id('middle_classification_id');
-            // middle_classificationsテーブルにlarge_classification_idを追加
-            $table->unsignedBigInteger('large_classification_id');
-            // middle_classificationsテーブルのlarge_classification_idカラムにlarge_classificationsテーブルのlarge_classification_idカラムを関連づける
-            $table->foreign('large_classification_id')->references('large_classification_id')->on('large_classifications');
-            // large_classificationsテーブルにlarge_classification(大分類名)を追加
-            $table->string('middle_classification');
+        Schema::create('middle_lavels', function (Blueprint $table) {
+            // middle_lavelsテーブルにidを追加
+            $table->id();
+            // middle_lavelsテーブルにlarge_lavel_idを追加
+            $table->unsignedBigInteger('large_lavel_id');
+            // middle_lavelsテーブルのlarge_lavel_idカラムにlarge_lavelsテーブルのidカラムを関連づける
+            $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
+            // large_lavelsテーブルにmiddle_lavel(中分類名)を追加
+            $table->string('middle_lavel');
             // タイムスタンプのカラムを追加
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('middle_classifications');
+        Schema::dropIfExists('middle_lavels');
     }
 };
