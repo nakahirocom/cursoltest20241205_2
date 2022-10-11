@@ -14,15 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            // questionsテーブルにlarge_classification_idを追加
-            $table->unsignedBigInteger('large_classification_id')->after('comment');
-            // questionsテーブルのlarge_classification_idカラムにlarge_classificationsテーブルのlarge_classification_idカラムを関連づける
-            $table->foreign('large_classification_id')->references('large_classification_id')->on('large_classifications');
-            // questionsテーブルにmiddle_classification_idを追加
-
-            $table->unsignedBigInteger('middle_classification_id')->after('large_classification_id');
-            // questionsテーブルのmiddle_classification_idカラムにmiddle_classificationsテーブルのmiddle_classification_idカラムを関連づける
-            $table->foreign('middle_classification_id')->references('middle_classification_id')->on('middle_classifications');
+            // questionsテーブルにlarge_lavel_idを追加
+            $table->unsignedBigInteger('large_lavel_id')->after('comment');
+            // questionsテーブルのlarge_lavel_idカラムにlarge_lavelsテーブルのidカラムを関連づける
+            $table->foreign('large_lavel_id')->references('id')->on('large_lavels');
+            // questionsテーブルにmiddle_lavel_idを追加
+            $table->unsignedBigInteger('middle_lavel_id')->after('large_lavel_id');
+            // questionsテーブルのmiddle_lavel_idカラムにmiddle_lavelsテーブルのidカラムを関連づける
+            $table->foreign('middle_lavel_id')->references('id')->on('middle_lavels');
         });
     }
 
@@ -34,7 +33,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-
+            //
         });
     }
 };
