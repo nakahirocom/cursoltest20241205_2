@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('answer_results', function (Blueprint $table) {
-            $table->id('answer_result_id');
+            $table->id();
             // answer_resultsテーブルにuser_idを追加
             $table->unsignedBigInteger('user_id');
             // answer_resultsテーブルのuser_idカラムにusersテーブルのuser_idカラムを関連づける
