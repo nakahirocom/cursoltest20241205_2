@@ -9,7 +9,7 @@ class Santaku extends Model
 {
     use HasFactory;
 
-    protected $table = 'santaku';
+    protected $table = 'questions';
 
     public function user()
     {
