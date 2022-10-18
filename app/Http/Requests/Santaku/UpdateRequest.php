@@ -47,6 +47,6 @@ class UpdateRequest extends FormRequest
 
     public function id(): int
     {
-        return (int) $this->route('santakuId');
+        return (int) $this->route('questionId');
     }
 }

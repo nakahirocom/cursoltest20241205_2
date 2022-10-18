@@ -26,16 +26,16 @@
 <body>
 
   <div>
-    @foreach($santakuList as $santaku)
+    @foreach($questionList as $question)
 
     <summary>
-      <p>問題　{{ $santaku->question }}</p>
-      <p>答え　{{ $santaku->answer }}</p>
-      <p>解説　{{ $santaku->comment }}</p>
+      <p>問題　{{ $question->question }}</p>
+      <p>答え　{{ $question->answer }}</p>
+      <p>解説　{{ $question->comment }}</p>
     </summary>
     <div>
-      <a href="{{ route('edit', ['santakuId' => $santaku->id]) }}">編集</a>
-      <form action="{{ route('delete', ['santakuId' => $santaku->id]) }}" method="post">
+      <a href="{{ route('edit', ['questionId' => $question->id]) }}">編集</a>
+      <form action="{{ route('delete', ['questionId' => $question->id]) }}" method="post">
         @method('DELETE')
         @csrf
         <button type="submit">削除</button>

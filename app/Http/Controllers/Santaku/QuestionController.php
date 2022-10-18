@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Santaku;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -17,7 +17,7 @@ class QuestionController extends Controller
     public function __invoke(Request $request)
     {
         // mysqlからランダムに３つを取ってくる
-        $questions = Santaku::inRandomOrder()->take(3)->get();
+        $questions = Question::inRandomOrder()->take(3)->get();
 
         // ランダムにとってきた問題の配列に対して、先頭のものを問題とする
         $question = $questions[0];
@@ -29,8 +29,8 @@ class QuestionController extends Controller
         //　配列から取得したidをデバック表示させる
         //            dump($questionId);
 
-        //        $santaku = Santaku::where('id', $questionId)->firstOrFail();
-        //        dump($santaku);
+        //        $question = Question::where('id', $questionId)->firstOrFail();
+        //        dump($question);
 
         // 選択肢をランダムに並び替える
         $shuffled = $questions->shuffle();

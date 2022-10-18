@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Santaku;
+use App\Models\Question;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -18,8 +18,8 @@ class EditController extends Controller
      */
     public function __invoke(Request $request, SantakuService $santakuService)
     {
-        $santakuId = (int) $request->route('santakuId');
-        if (! $santakuService->checkOwnMondai($request->user()->id, $santakuId)) {
+        $questionId = (int) $request->route('questionId');
+        if (! $santakuService->checkOwnMondai($request->user()->id, $questionId)) {
             return redirect()
                 ->route('list')
                 ->with('feedback.success', '他のユーザーの問題は編集出来ません');
@@ -27,8 +27,8 @@ class EditController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-        $santaku = Santaku::where('id', $santakuId)->firstOrFail();
+        $question = Question::where('id', $questionId)->firstOrFail();
 
-        return view('santaku.edit')->with('santaku', $santaku);
+        return view('santaku.edit')->with('question', $question);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Santaku\UpdateRequest;
-use App\Models\Santaku;
+use App\Models\Question;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -30,13 +30,13 @@ class UpdateController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-        $santaku = Santaku::where('id', $request->id())->firstOrFail();
-        $santaku->question = $request->question();
-        $santaku->answer = $request->answer();
-        $santaku->comment = $request->comment();
-        $santaku->save();
+        $question = Question::where('id', $request->id())->firstOrFail();
+        $question->question = $request->question();
+        $question->answer = $request->answer();
+        $question->comment = $request->comment();
+        $question->save();
         return redirect()
-            ->route('edit', ['santakuId' => $santaku->id])
+            ->route('edit', ['questionId' => $question->id])
             ->with('feedback.success', '編集が完了しました');
     }
 }

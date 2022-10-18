@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Santaku;
+use App\Models\Question;
 use App\Models\AnswerResults;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,32 +14,32 @@ class AnswerViewModel
 {
     private $questionId;
 
-    private $santaku;
+    private $question;
 
-    public function __construct(int $questionId, Santaku $santaku)
+    public function __construct(int $questionId, Question $question)
     {
         $this->questionId = $questionId;
-        $this->santaku = $santaku;
+        $this->question = $question;
     }
 
     public function getQuestion(): string
     {
-        return $this->santaku->question;
+        return $this->question->question;
     }
 
     public function getAnswer(): string
     {
-        return $this->santaku->answer;
+        return $this->question->answer;
     }
 
     public function getComment(): string
     {
-        return $this->santaku->comment;
+        return $this->question->comment;
     }
 
     public function isCorrect(): bool
     {
-        return $this->questionId === $this->santaku->id;
+        return $this->questionId === $this->question->id;
     }
 }
 
@@ -49,11 +49,11 @@ class AnswerController extends Controller
     {
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
-        $choiced = Santaku::where('id', $choiceId)->firstOrFail();
+        $choiced = Question::where('id', $choiceId)->firstOrFail();
 
         // requestから問題のID [question_id] を取得する
         $questionId = $request->input('question_id');
-        $questioned = Santaku::where('id', $questionId)->firstOrFail();
+        $questioned = Question::where('id', $questionId)->firstOrFail();
 
         // answer_resultsテーブルへ解答結果を保存する
         $answer_results = new AnswerResults;
@@ -126,9 +126,9 @@ class AnswerController extends Controller
             $uidkaitousuuS2,
         ];
 
-        $shuffled0 = Santaku::where('id', $shuffled0Id)->firstOrFail();
-        $shuffled1 = Santaku::where('id', $shuffled1Id)->firstOrFail();
-        $shuffled2 = Santaku::where('id', $shuffled2Id)->firstOrFail();
+        $shuffled0 = Question::where('id', $shuffled0Id)->firstOrFail();
+        $shuffled1 = Question::where('id', $shuffled1Id)->firstOrFail();
+        $shuffled2 = Question::where('id', $shuffled2Id)->firstOrFail();
 
         $viewModel1 = new AnswerViewModel($questionId, $shuffled0);
         $viewModel2 = new AnswerViewModel($questionId, $shuffled1);
