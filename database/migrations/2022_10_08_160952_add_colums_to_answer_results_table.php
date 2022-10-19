@@ -17,12 +17,12 @@ return new class extends Migration
             // answer_resultsテーブルにlarge_label_idを追加
             $table->unsignedBigInteger('large_label_id')->nullable()->after('answered_question_id');
             // answer_resultsテーブルのlarge_label_idカラムにlarge_labelsテーブルのidカラムを関連づける
-            $table->foreign('large_label_id')->references('id')->on('large_labels');
+            $table->foreign('large_label_id')->references('id')->on('large_labels')->onDelete('cascade');
 
             // answer_resultsテーブルにmiddle_label_idを追加
             $table->unsignedBigInteger('middle_label_id')->nullable()->after('large_label_id');
             // answer_resultsテーブルのmiddle_label_idカラムにmiddle_labelsテーブルのidカラムを関連づける
-            $table->foreign('middle_label_id')->references('id')->on('middle_labels');
+            $table->foreign('middle_label_id')->references('id')->on('middle_labels')->onDelete('cascade');
         });
     }
 

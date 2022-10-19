@@ -19,7 +19,7 @@ return new class extends Migration
             // middle_labelsテーブルにlarge_label_idを追加
             $table->unsignedBigInteger('large_label_id')->nullable();
             // middle_labelsテーブルのlarge_label_idカラムにlarge_labelsテーブルのidカラムを関連づける
-            $table->foreign('large_label_id')->references('id')->on('large_labels');
+            $table->foreign('large_label_id')->references('id')->on('large_labels')->onDelete('cascade');
             // large_labelsテーブルにmiddle_label(中分類名)を追加
             $table->string('middle_label')->nullable();
             // タイムスタンプのカラムを追加
