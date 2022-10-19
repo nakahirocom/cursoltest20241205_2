@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
 
-    Route::get('/edit/{santakuId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
+    Route::get('/edit/{questionId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
 
     Route::get('/list', App\Http\Controllers\Santaku\ListController::class)->name('list');
 
@@ -34,12 +34,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer.index');
 
-    Route::get('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
+    Route::get('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
     //Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');
-    Route::put('/update/{santakuId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
+    Route::put('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
-    Route::delete('/delete/{santakuId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+    Route::delete('/delete/{questionId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
 });
 
 Route::get('/dashboard', function () {

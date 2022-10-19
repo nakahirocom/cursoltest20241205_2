@@ -2,18 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Santaku;
+use App\Models\Question;
 
 class SantakuService
 {
     //自分の作成問題かをチェックするメソッド
-    public function checkOwnMondai(int $userId, int $santakuId): bool
+    public function checkOwnMondai(int $userId, int $questionId): bool
     {
-        $santaku = Santaku::where('id', $santakuId)->first();
-        if (! $santaku) {
+        $question = Question::where('id', $questionId)->first();
+        if (! $question) {
             return false;
         }
 
-        return $santaku->user_id === $userId;
+        return $question->user_id === $userId;
     }
 }

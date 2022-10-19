@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Santaku;
+use App\Models\Question;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
 
@@ -20,9 +20,9 @@ class ListController extends Controller
         // 現在認証しているユーザーのIDを取得
         $id = auth()->id();
         //　認証しているユーザーのIDが作成者の問題をdbから抽出する
-        $santakuList = Santaku::where('user_id', $id)->get();
+        $questionList = Question::where('user_id', $id)->get();
 
         return view('santaku.list')
-            ->with('santakuList', $santakuList);
+            ->with('questionList', $questionList);
     }
 }

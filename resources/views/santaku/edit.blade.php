@@ -23,7 +23,7 @@
     <p style="color: green">{{ session('feedback.success') }}</p>
     @endif
 
-    <form action="{{ route('update.put', ['santakuId' => $santaku->id])
+    <form action="{{ route('update.put', ['questionId' => $question->id])
               }}" method="post">■問題と回答を編集してください
         @method('PUT')
         @csrf
@@ -31,21 +31,21 @@
         <span>問題:</span>
         <br />
         <textarea type="text" name="question">
-                {{ $santaku->question }}
+                {{ $question->question }}
             </textarea>
 
         <br />
         <span>答え:</span>
         <br />
         <textarea type="text" name="answer">
-                {{ $santaku->answer }}
+                {{ $question->answer }}
             </textarea>
 
         <br />
         <span>解説:</span>
         <br />
         <textarea type="text" name="comment">
-                {{ $santaku->comment }}
+                {{ $question->comment }}
             </textarea>
 
         <br />
@@ -62,7 +62,7 @@
     </form>
     <br />
 
-    <form action="{{ route('delete', ['santakuId' => $santaku->id])
+    <form action="{{ route('delete', ['questionId' => $question->id])
                     }}" method="post">
         @method('DELETE')
         @csrf
