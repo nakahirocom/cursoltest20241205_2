@@ -19,17 +19,17 @@ return new class extends Migration
             // label_storagesテーブルにuser_idを追加
             $table->unsignedBigInteger('user_id');
             // label_storagesテーブルのuser_idカラムにusersテーブルのidカラムを関連づける
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             // label_storagesテーブルにlarge_label_idを追加
             $table->unsignedBigInteger('large_label_id')->nullable();
             // label_storagesテーブルのlarge_label_idカラムにlarge_labelテーブルのidカラムを関連づける
-            $table->foreign('large_label_id')->references('id')->on('large_labels');
+            $table->foreign('large_label_id')->references('id')->on('large_labels')->onDelete('cascade');
 
             // label_storagesテーブルにmiddle_label_idを追加
             $table->unsignedBigInteger('middle_label_id')->nullable();
             // label_storagesテーブルのmiddle_label_idカラムにmiddle_labelsテーブルのidカラムを関連づける
-            $table->foreign('middle_label_id')->references('id')->on('middle_labels');
+            $table->foreign('middle_label_id')->references('id')->on('middle_labels')->onDelete('cascade');
 
             // タイムスタンプのカラムを追加
             $table->timestamps();
