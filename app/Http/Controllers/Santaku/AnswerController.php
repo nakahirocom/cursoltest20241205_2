@@ -70,18 +70,34 @@ class AnswerController extends Controller
         // answer_resultssテーブルからcountで選択1の問題別の回答数と正解率の数を集計する
         $allkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->count();
         $allseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $seikairituS0='';
+        if($allkaitousuuS0==0){
+        $seikairituS0 = 0;
+        }else{
         $seikairituS0 = round($allseikaisuuS0 / $allkaitousuuS0,2)*100;
+        }
 
         // answer_resultssテーブルからcountで選択2の問題別の回答数と正解率の数を集計する
         $allkaitousuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->count();
         $allseikaisuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $seikairituS1 = '';
+        if($allkaitousuuS1==0){
+        $seikairituS1 = 0;}
+        else{
         $seikairituS1 = round($allseikaisuuS1 / $allkaitousuuS1,2)*100;
-
+        }
         // answer_resultssテーブルからcountで選択3の問題別の回答数と正解率の数を集計する
         $allkaitousuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->count();
         $allseikaisuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $seikairituS2 = '';
+        if($allkaitousuuS2==0){
+        $seikairituS2 = 0;
+        }else{
         $seikairituS2 = round($allseikaisuuS2 / $allkaitousuuS2,2)*100;
-
+        }
         // 問題別のみんなの正解率
         $allseikairituModels = [
             $seikairituS0,
@@ -102,17 +118,33 @@ class AnswerController extends Controller
         // answer_resultssテーブルからcountで回答者の選択1の回答数と正解率の数を集計する
         $uidkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->where('user_id', '=', $uid)->count();
         $uidseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $uidseikairituS0='';
+        if($uidkaitousuuS0==0){
+        $uidseikairituS0=0;
+        }else{
         $uidseikairituS0 = round($uidseikaisuuS0 / $uidkaitousuuS0,2)*100;
+        }
         // answer_resultssテーブルからcountで回答者の選択2のの回答数と正解率の数を集計する
         $uidkaitousuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->where('user_id', '=', $uid)->count();
         $uidseikaisuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $uidseikairituS1 = '';
+        if($uidkaitousuuS1){
+        $uidseikairituS1 = 0;
+        }else{
         $uidseikairituS1 = round($uidseikaisuuS1 / $uidkaitousuuS1,2)*100;
-
+        }
         // answer_resultssテーブルからcountで回答者の選択3のの回答数と正解率の数を集計する
         $uidkaitousuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->where('user_id', '=', $uid)->count();
         $uidseikaisuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->where('user_id', '=', $uid)->whereColumn('question_id', 'answered_question_id')->count();
+        // 0による割り算エラー防止のためif文で0で割る場合は除算させない
+        $uidseikairituS2='';
+        if($uidkaitousuuS2==0){
+        $uidseikairituS2 = 0;
+        }else{
         $uidseikairituS2 = round($uidseikaisuuS2 / $uidkaitousuuS2,2)*100;
-
+        }
         // 選択肢別の回答者の正解率をまとめる
         $uidseikairituModels = [
             $uidseikairituS0,
