@@ -50,6 +50,10 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+                <x-button class="ml-3" >
+                    {{ __('ユーザー登録') }}
+
+                </x-button>
             </div>
         </form>
     </x-auth-card>
