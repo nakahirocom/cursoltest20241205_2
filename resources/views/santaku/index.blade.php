@@ -6,8 +6,14 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>santakuアプリ</title>
+
 </head>
+<body>
+    <div class="container">
 
 <div
     class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -25,25 +31,30 @@
     </div>
     @endif
     @auth
-    <p>ようこそ、{{ Auth::user()->name }}さん</p>
-    <p>ユーザーidは、{{ Auth::user()->id }}です</p>
-    @endauth
-    <p>-----------------------------------------------------------------------------------------</p>
-    <h2>三択アプリ　インデックス画面</h2>
-    <p>-----------------------------------------------------------------------------------------</p>
-    <div>
-        <a class="btn" href="/question">三択を解く画面へ</a>
-        <br />
-        <a class="btn" href="/santakuset">{{ Auth::user()->name }} の三択設定へ移動する</a>
-        <br />
-        <a class="btn" href="/new">問題新規作成画面へ移動する</a>
-        <br />
-        <a class="btn" href="/list">{{ Auth::user()->name }} が作成した問題を一覧表示する</a>
-        <p>-----------------------------------------------------------------------------------------</p>
-        <h2>三択アプリ　問題一覧</h2>
+    <div class="container">
+    <p class="h2">三択アプリ</p>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
+          <li class="breadcrumb-item active" aria-current="page">ユーザーid{{ Auth::user()->id }}</li>
+        </ol>
+      </nav>
 
-        @foreach($question as $question1)
-        <summary>
-            <p>作成者 {{ $question1->user->name }} 問題 {{ $question1->question }} </p>
-        </summary>
-        @endforeach
+      </div>
+      @endauth
+
+    Ï
+
+    <div class="container-fluid"></div>
+        <ul class="list-group">
+            <br>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="/question" role="button">1.三択を解く画面へ</a>
+            <br>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="/santakuset" role="button">2.{{ Auth::user()->name }} の三択設定へ移動する</a>
+            <br>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="/new" role="button">3.問題新規作成画面へ移動する</a>
+            <br>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="/list" role="button">4.{{ Auth::user()->name }} が作成した問題を一覧表示する</a>
+          </ul>
+    </div>
+</body>
