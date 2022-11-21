@@ -59,7 +59,7 @@
     <option value="sonota">その他</option>
   </select>
   <br />
-Ï
+
 
 </p>
 </div>

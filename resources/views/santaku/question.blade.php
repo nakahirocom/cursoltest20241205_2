@@ -24,12 +24,13 @@
         </ol>
       </nav>
       @endauth
-Ï
-    <span>問題</span>
-    <p class="h2"><span class="btn btn-outline-dark">{{ $question->question }}</span>
-    </p>
 
-    <span>最も近いものを選んでください</span>
+    <span>問題</span>
+    <div class="alert alert-secondary" role="alert">
+        {{ $question->question }}
+      </div>
+
+    <span>選択肢のボタンを押してください</span>
 
     <form action="{{ route('answer.index') }}" method="post">
         @csrf
@@ -38,14 +39,13 @@
         <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
         <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
         <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
+        <div class="d-grid gap-2">
         @foreach($questions as $question)
-        <label class="alert alert-primary" role="alert">
-            <input type="radio" name="choice_id" value="{{ $question->id }}" checked>
+            <button class="btn btn-outline-dark" style="text-align:left" role="alert" name="choice_id" value="{{ $question->id }}" checked>
             {{ $question->answer }}
-        </label>
-        <br />
+        </button>
         @endforeach
-        <input class="btn btn-outline-primary" type="submit" value="回答する">
+        </div>
     </form>
 </div>
 
