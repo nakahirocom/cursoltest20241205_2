@@ -43,18 +43,22 @@
       </div>
       @endauth
 
-    Ï
-
     <div class="container-fluid"></div>
         <ul class="list-group">
             <br>
-            <a class="list-group-item list-group-item-action list-group-item-primary" href="/question" role="button">1.三択を解く画面へ</a>
+            <a class="btn btn-outline-dark" style="text-align:left" href="/question" role="button">1.三択を解く画面へ</a>
             <br>
-            <a class="list-group-item list-group-item-action list-group-item-primary" href="/santakuset" role="button">2.{{ Auth::user()->name }} の三択設定へ移動する</a>
+            <a class="btn btn-outline-dark" style="text-align:left" href="/santakuset" role="button">2.{{ Auth::user()->name }} の三択設定へ移動する</a>
             <br>
-            <a class="list-group-item list-group-item-action list-group-item-primary" href="/new" role="button">3.問題新規作成画面へ移動する</a>
+            <a class="btn btn-outline-dark" style="text-align:left" href="/new" role="button">3.問題新規作成画面へ移動する</a>
             <br>
-            <a class="list-group-item list-group-item-action list-group-item-primary" href="/list" role="button">4.{{ Auth::user()->name }} が作成した問題を一覧表示する</a>
+            <a class="btn btn-outline-dark" style="text-align:left" href="/list" role="button">4.{{ Auth::user()->name }} が作成した問題を一覧表示する</a>
           </ul>
+          <form name="">
+            <option type="button" value="">赤</option>
+            <option type="button" value="">青</option>
+            <option type="button" value="">黄</option>
+          </form>
+
     </div>
 </body>

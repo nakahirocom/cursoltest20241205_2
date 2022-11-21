@@ -29,9 +29,9 @@
       </nav>
 
     <span>出題された問題:</span>
-    <p class="h2"><span class="btn btn-outline-dark">{{ $questioned->question }}</span>
-    </p>
-
+    <div class="alert alert-secondary" role="alert">
+    {{ $questioned->question }}
+    </div>
     @if ($isCorrect)
     <span class="btn btn-outline-primary">
          {{ $choiced->answer }}：正解</span>
@@ -63,11 +63,11 @@
                     <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
                     <p>答え：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
-                   Ï
+
                 </div>
             </div>                  
             <br>
-Ï
+
         @endfor
         </div>
 </body>

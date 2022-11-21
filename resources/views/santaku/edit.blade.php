@@ -49,7 +49,7 @@
         @error('answer')
         <p style="coler: red;">{{ $message }}</p>
       @enderror
-    Ï
+
         <br />
         <span>編集前の解説：{{ $question->comment }}</span>
         <input type="text" name="comment" class="form-control" value="{{ $question->comment }}">

@@ -24,7 +24,7 @@
 @endif
 @endauth
 
-Ï
+
 <body>
 
   <div>
