@@ -21,9 +21,9 @@ jobs:
           script_stop: true
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
+            git pull
             composer install
             php artisan migrate
-            git pull
             sudo systemctl restart nginx.service
             sudo systemctl restart php81-php-fpm.service
 
@@ -40,9 +40,9 @@ jobs:
           script_stop: true
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
+            git pull
             composer install
             php artisan migrate
-            git pull
             sudo systemctl restart nginx.service
             sudo systemctl restart php81-php-fpm.service
 
@@ -59,9 +59,9 @@ jobs:
           script_stop: true
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
+            git pull
             composer install
             php artisan migrate
-            git pull
             sudo systemctl restart nginx.service
             sudo systemctl restart php81-php-fpm.service
 
@@ -78,9 +78,9 @@ jobs:
           script_stop: true
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
+            git pull
             composer install
             php artisan migrate
-            git pull
             sudo systemctl restart nginx.service
             sudo systemctl restart php81-php-fpm.service
 
