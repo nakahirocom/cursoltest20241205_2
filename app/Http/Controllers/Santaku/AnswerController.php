@@ -159,12 +159,12 @@ class AnswerController extends Controller
         ];
 
         $shuffled0 = Question::where('id', $shuffled0Id)->firstOrFail();
-// dump($shuffled0);
+
         $shuffled1 = Question::where('id', $shuffled1Id)->firstOrFail();
         $shuffled2 = Question::where('id', $shuffled2Id)->firstOrFail();
 
         $viewModel1 = new AnswerViewModel($questionId, $shuffled0);
-// dump($viewModel1);
+
         $viewModel2 = new AnswerViewModel($questionId, $shuffled1);
         $viewModel3 = new AnswerViewModel($questionId, $shuffled2);
         $viewModels = [
