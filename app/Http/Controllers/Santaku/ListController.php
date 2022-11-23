@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\AnswerResults;
+
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
 
