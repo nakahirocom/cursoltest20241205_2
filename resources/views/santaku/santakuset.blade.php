@@ -30,21 +30,21 @@
         </div>
         @endauth
 
-        @foreach($IncorrectList10 as $incorrect)
+        @foreach($incorrectList as $incorrect)
         <div>
 
             <summary>
                 <div class="collapse show" id="collapseExample" style="">
                     <div class="card card-body">
-                        <p>間違えた問題の表示</p>
-                        <p>(ユーザー) {{ $incorrect->user_id }}</p>
-                        <p>(出題問題id)　{{ $incorrect->question }}</p>
-                        <p>(誤り解答id)　{{ $incorrect->answer }}</p>
-                        <p>(解答日時)　{{ $incorrect->comment }}</p>
+                        <p>(間違えた問題)　{{ $incorrect->question->question }}</p>
+                        <p>(間違えた選択肢)　{{ $incorrect->question->answer }}</p>
+                        <p>(選ぶべき選択肢)　{{ $incorrect->question->answer }}</p>
+                        <p>(問題の解説)　{{ $incorrect->question->comment }}</p>
+                        <p>(間違えた日付)　{{ $incorrect->created_at }}</p>
 
                     </div>
                 </div>
-                @endforeach
+        @endforeach
 
 
         </div>
