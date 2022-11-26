@@ -40,8 +40,8 @@
                         <p>(出題問題)　{{ $incorrect->question->question }}</p>
                         <p>(出題問題の正解)　{{ $incorrect->question->answer }}</p>
                         <p>(出題問題の解説)　{{ $incorrect->question->comment }}</p>
-                        <p>(間違い選択の問題)　{{ $incorrect->q_question }}</p>
-                        <p>(間違い選択の問題解説)　{{ $incorrect->q_comment }}</p>
+                        <p>(間違えた選択の問題)　{{ $incorrect->q_question }}</p>
+                        <p>(間違えた選択の解説)　{{ $incorrect->q_comment }}</p>
                     </div>
                 </div>
          @endforeach
