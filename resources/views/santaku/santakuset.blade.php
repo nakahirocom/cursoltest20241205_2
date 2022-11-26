@@ -32,20 +32,18 @@
 
         @foreach($incorrectList as $incorrect)
         <div>
-
             <summary>
                 <div class="collapse show" id="collapseExample" style="">
                     <div class="card card-body">
-                        <p>(間違えた問題)　{{ $incorrect->question->question }}</p>
-                        <p>(間違えた選択肢)　{{ $incorrect->question->answer }}</p>
-                        <p>(選ぶべき選択肢)　{{ $incorrect->question->answer }}</p>
-                        <p>(問題の解説)　{{ $incorrect->question->comment }}</p>
-                        <p>(間違えた日付)　{{ $incorrect->created_at }}</p>
-
+                        <p>(間違えた日付)　{{ $incorrect->updated_at }}</p>
+                        <p>(間違えた選択)　{{ $incorrect->q_answer }}</p>
+                        <p>(出題問題)　{{ $incorrect->question->question }}</p>
+                        <p>(出題問題の正解)　{{ $incorrect->question->answer }}</p>
+                        <p>(出題問題の解説)　{{ $incorrect->question->comment }}</p>
+                        <p>(間違い選択の問題)　{{ $incorrect->q_question }}</p>
+                        <p>(間違い選択の問題解説)　{{ $incorrect->q_comment }}</p>
                     </div>
                 </div>
-        @endforeach
-
-
+         @endforeach
         </div>
 </body>
