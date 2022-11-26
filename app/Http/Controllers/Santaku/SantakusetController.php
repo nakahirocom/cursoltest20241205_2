@@ -29,7 +29,6 @@ class SantakusetController extends Controller
                         ->join('questions', 'answer_results.answered_question_id', '=', 'questions.id')
                         ->orderBy('answer_results.created_at', 'DESC')
                         ->get();
-                dump($incorrectList);
                 return view('santaku.santakuset')
                         ->with('incorrectList', $incorrectList);
         }
