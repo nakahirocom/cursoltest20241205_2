@@ -25,8 +25,17 @@ class SantakusetController extends Controller
                 $incorrectList = AnswerResults::with('question')
                         ->whereColumn('answer_results.question_id', '!=', 'answer_results.answered_question_id')
                         ->where('answer_results.user_id', '=', $id)
-                        ->select('answer_results.id', 'answer_results.user_id', 'answer_results.question_id', 'answer_results.answered_question_id', 'answer_results.updated_at', 'questions.id as q_id', 'questions.question as q_question', 'questions.answer as q_answer', 'questions.comment as q_comment')
-                        ->join('questions', 'answer_results.answered_question_id', '=', 'questions.id')
+                        ->select('answer_results.id',
+                                 'answer_results.user_id',
+                                 'answer_results.question_id',
+                                 'answer_results.answered_question_id',
+                                 'answer_results.updated_at',
+                                 'questions.id as q_id',
+                                 'questions.question as q_question',
+                                 'questions.answer as q_answer',
+                                 'questions.comment as q_comment')
+                        ->join('questions',
+                                'answer_results.answered_question_id', '=', 'questions.id')
                         ->orderBy('answer_results.created_at', 'DESC')
                         ->get();
                 return view('santaku.santakuset')
