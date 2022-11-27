@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Question;
-use App\Models\AnswerResults;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Santaku\AnswerResultRequest;
-
+use App\Models\AnswerResults;
+use App\Models\Question;
+use Illuminate\Support\Facades\DB;
 
 class AnswerViewModel
 {

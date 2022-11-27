@@ -35,6 +35,7 @@ class UpdateController extends Controller
         $question->answer = $request->answer();
         $question->comment = $request->comment();
         $question->save();
+
         return redirect()
             ->route('edit', ['questionId' => $question->id])
             ->with('feedback.success', '編集が完了しました');

@@ -33,5 +33,4 @@ class AnswerResultRequest extends FormRequest
     {
         return $this->user()->id;
     }
-    
 }

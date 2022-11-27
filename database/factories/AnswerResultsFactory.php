@@ -18,9 +18,9 @@ class AnswerResultsFactory extends Factory
     {
         return [
             // faktory.phpは、seedersで直接php記述したので、リアルな例を入れるまで使用しない。
-            'user_id' => $this->faker->numberBetween(1,3),
-            'question_id' => $this->faker->numberBetween(3,19),
-            'answered_question_id' => $this->faker->numberBetween(3,19),
+            'user_id' => $this->faker->numberBetween(1, 3),
+            'question_id' => $this->faker->numberBetween(3, 19),
+            'answered_question_id' => $this->faker->numberBetween(3, 19),
             'created_at' => now(),  //この行を追加
             'updated_at' => now(),  //この行を追加
 
