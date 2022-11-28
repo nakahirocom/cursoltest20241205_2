@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Question;
-use App\Models\AnswerResults;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Santaku\AnswerResultRequest;
-
+use App\Models\AnswerResults;
+use App\Models\Question;
+use Illuminate\Support\Facades\DB;
 
 class AnswerViewModel
 {
@@ -67,7 +65,7 @@ class AnswerController extends Controller
         $shuffled1Id = $request->input('shuffled1Id');
         $shuffled2Id = $request->input('shuffled2Id');
 
-        // answer_resultssテーブルからcountで選択1の問題別の回答数と正解率の数を集計する
+        // answer_resultsテーブルからcountで選択1の問題別の回答数と正解率の数を集計する
         $allkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->count();
         $allseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->whereColumn('question_id', 'answered_question_id')->count();
         // 0による割り算エラー防止のためif文で0で割る場合は除算させない
@@ -78,7 +76,7 @@ class AnswerController extends Controller
             $seikairituS0 = round($allseikaisuuS0 / $allkaitousuuS0, 2) * 100;
         }
 
-        // answer_resultssテーブルからcountで選択2の問題別の回答数と正解率の数を集計する
+        // answer_resultsテーブルからcountで選択2の問題別の回答数と正解率の数を集計する
         $allkaitousuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->count();
         $allseikaisuuS1 = DB::table('answer_results')->where('question_id', '=', $shuffled1Id)->whereColumn('question_id', 'answered_question_id')->count();
         // 0による割り算エラー防止のためif文で0で割る場合は除算させない
@@ -88,7 +86,7 @@ class AnswerController extends Controller
         } else {
             $seikairituS1 = round($allseikaisuuS1 / $allkaitousuuS1, 2) * 100;
         }
-        // answer_resultssテーブルからcountで選択3の問題別の回答数と正解率の数を集計する
+        // answer_resultsテーブルからcountで選択3の問題別の回答数と正解率の数を集計する
         $allkaitousuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->count();
         $allseikaisuuS2 = DB::table('answer_results')->where('question_id', '=', $shuffled2Id)->whereColumn('question_id', 'answered_question_id')->count();
         // 0による割り算エラー防止のためif文で0で割る場合は除算させない

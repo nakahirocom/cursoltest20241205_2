@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Models\Question;
+use Illuminate\Database\Seeder;
 
 class QuestionSeeder extends Seeder
 {
@@ -119,6 +117,5 @@ class QuestionSeeder extends Seeder
             'answer' => 18,
             'comment' => 'ニカケルキュウハジュウハチ',
         ]);
-
     }
 }
