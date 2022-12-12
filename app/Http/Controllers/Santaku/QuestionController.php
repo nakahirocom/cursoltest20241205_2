@@ -24,14 +24,14 @@ class QuestionController extends Controller
         $question = $questions[0];
         // 配列にする
         $questionToArray = ($question->toarray());
+
         // 配列からidを取得する
-        $questionId = ($questionToArray['id']);
+        // $questionId = ($questionToArray['id']);
+        // 配列から取得したidをデバック表示させる
+        // dump($questionId);
 
-        //　配列から取得したidをデバック表示させる
-        //            dump($questionId);
-
-        //        $question = Question::where('id', $questionId)->firstOrFail();
-        //        dump($question);
+        // $question = Question::where('id', $questionId)->firstOrFail();
+        // dump($question);
 
         // 選択肢をランダムに並び替える
         $shuffled = $questions->shuffle();
@@ -44,18 +44,17 @@ class QuestionController extends Controller
 
         $shuffled2 = $shuffled[2];
         $shuffled2Id = $shuffled2->id;
-        //処理が止まらずに出力する
-        //        dump($shuffled0Id);
-        //        dump($shuffled1Id);
-        //        dump($shuffled2Id);
+
+        // 処理が止まらずに出力する
+        // dump($shuffled0Id);
+        // dump($shuffled1Id);
+        // dump($shuffled2Id);
 
         return view('santaku.question')
-            ->with('question', $question)
-
+            ->with('question',    $question)
             ->with('shuffled0Id', $shuffled0Id)
             ->with('shuffled1Id', $shuffled1Id)
             ->with('shuffled2Id', $shuffled2Id)
-
-            ->with('questions', $shuffled);
+            ->with('questions',   $shuffled);
     }
 }
