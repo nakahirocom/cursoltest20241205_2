@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -11,8 +12,8 @@ class QuestionController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return View
      */
     public function __invoke(Request $request)
     {
