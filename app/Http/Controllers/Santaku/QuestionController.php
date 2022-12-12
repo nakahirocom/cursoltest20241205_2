@@ -15,7 +15,7 @@ class QuestionController extends Controller
      * @param Request $request
      * @return View
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         // mysqlからランダムに３つを取ってくる
         $questions = Question::inRandomOrder()->take(3)->get();
