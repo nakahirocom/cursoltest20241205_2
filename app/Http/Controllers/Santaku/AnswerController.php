@@ -47,7 +47,7 @@ class AnswerController extends Controller
     {
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
-        $choiced = Question::where('id', $choiceId)->firstOrFail();
+        $choiceQuestion = Question::where('id', $choiceId)->firstOrFail();
 
         // requestから問題のID [question_id] を取得する
         $questionId = $request->input('question_id');
@@ -56,8 +56,8 @@ class AnswerController extends Controller
         // answer_resultsテーブルへ解答結果を保存する
         $answer_results = new AnswerResults;
         $answer_results->user_id = $request->userId(); // ここでUserIdを保存している
-        $answer_results->question_id = $request->input('question_id');
-        $answer_results->answered_question_id = $request->input('choice_id');
+        $answer_results->question_id = $questionId;
+        $answer_results->answered_question_id = $choiceId;
         $answer_results->save();
 
         // シャッフル後の出題idをquestion.brade.phpから取得
@@ -173,7 +173,7 @@ class AnswerController extends Controller
 
         return view('santaku.answer')
             ->with('questioned', $questioned)
-            ->with('choiced', $choiced)
+            ->with('choiceQuestion', $choiceQuestion)
             ->with('isCorrect', $isCorrect)
             ->with('viewModels', $viewModels)
             ->with('allkaitousuuModels', $allkaitousuuModels)

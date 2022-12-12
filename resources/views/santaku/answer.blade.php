@@ -35,10 +35,10 @@
         </div>
         @if ($isCorrect)
         <span class="btn btn-outline-primary">
-            {{ $choiced->answer }}：正解</span>
+            {{ $choiceQuestion->answer }}：正解</span>
         @else
         <span class="btn btn-outline-danger">
-            {{ $choiced->answer }}：不正解</span>
+            {{ $choiceQuestion->answer }}：不正解</span>
         @endif
         <p>-------------------------------------------------------</p>
 
