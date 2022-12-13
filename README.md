@@ -60,6 +60,13 @@ cp .env.example .env
 ```
 
 リント
+Bladeのフォーマット ( cf. `.bladeformatterrc` ) :
+
+```sh
+blade-formatter --write resources/views/example.blade.php
+
+# cf. https://github.com/shufo/blade-formatter
+```
 
 ```sh
 ./vendor/bin/phpstan analyse
