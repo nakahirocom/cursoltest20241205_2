@@ -43,7 +43,7 @@ cp .env.example .env
 ./vendor/bin/sail up
 ```
 
-### 開発ルール
+## 開発ルール
 
 - main および develop への直接コミットは控えましょう
 - 作業を開始する際は main からブランチを切って作業を行いましょう
@@ -53,13 +53,14 @@ cp .env.example .env
 
 ### フォーマットおよびリントの実行
 
-フォーマット
+PHPのフォーマット ( cf. `pint.json` ) :
 
 ```sh
 ./vendor/bin/sail pint -vv
+
+# cf. https://github.com/laravel/pint
 ```
 
-リント
 Bladeのフォーマット ( cf. `.bladeformatterrc` ) :
 
 ```sh
@@ -68,6 +69,10 @@ blade-formatter --write resources/views/example.blade.php
 # cf. https://github.com/shufo/blade-formatter
 ```
 
+リント ( cf. `phpstan.neon` ) :
+
 ```sh
 ./vendor/bin/phpstan analyse
+
+# cf. https://github.com/nunomaduro/larastan
 ```
