@@ -36,7 +36,6 @@
         <form action="{{ route('answer.index') }}" method="post">
             @csrf
             <input type="hidden" name="question_id" value="{{ $question->id }}">
-            <input type="hidden" name="questions" value="{{ $questions }}">
             <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
             <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
             <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
@@ -50,7 +49,5 @@
             </div>
         </form>
     </div>
-
 </body>
-
 </html>
