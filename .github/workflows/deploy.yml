@@ -6,59 +6,59 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy santaku application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script_stop: true
-          script: |
-            cd ${{ secrets.DEPLOY_DIR }}
-            git pull
-            composer install
-            php artisan migrate
-            sudo systemctl restart nginx.service
-            sudo systemctl restart php81-php-fpm.service
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: deploy santaku application
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.USERNAME }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         script_stop: true
+  #         script: |
+  #           cd ${{ secrets.DEPLOY_DIR }}
+  #           git pull
+  #           composer install
+  #           php artisan migrate
+  #           sudo systemctl restart nginx.service
+  #           sudo systemctl restart php81-php-fpm.service
 
-  deploy-other:
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy santaku.other application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_OTHER }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script_stop: true
-          script: |
-            cd ${{ secrets.DEPLOY_DIR }}
-            git pull
-            composer install
-            php artisan migrate
-            sudo systemctl restart nginx.service
-            sudo systemctl restart php81-php-fpm.service
+  # deploy-other:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: deploy santaku.other application
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST_OTHER }}
+  #         username: ${{ secrets.USERNAME }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         script_stop: true
+  #         script: |
+  #           cd ${{ secrets.DEPLOY_DIR }}
+  #           git pull
+  #           composer install
+  #           php artisan migrate
+  #           sudo systemctl restart nginx.service
+  #           sudo systemctl restart php81-php-fpm.service
 
-  deploy-office:
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy santaku.office application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_OFFICE }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script_stop: true
-          script: |
-            cd ${{ secrets.DEPLOY_DIR }}
-            git pull
-            composer install
-            php artisan migrate
-            sudo systemctl restart nginx.service
-            sudo systemctl restart php81-php-fpm.service
+  # deploy-office:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: deploy santaku.office application
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST_OFFICE }}
+  #         username: ${{ secrets.USERNAME }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         script_stop: true
+  #         script: |
+  #           cd ${{ secrets.DEPLOY_DIR }}
+  #           git pull
+  #           composer install
+  #           php artisan migrate
+  #           sudo systemctl restart nginx.service
+  #           sudo systemctl restart php81-php-fpm.service
 
   deploy-souzoku:
     runs-on: ubuntu-latest
