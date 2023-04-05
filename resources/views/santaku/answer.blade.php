@@ -70,6 +70,8 @@
             <br>
 
             @endfor
+            <a class="btn btn-link" href="/">index画面へ戻る</a>
+            <a class="btn btn-link" href="/question">次の問題へ</a>
     </div>
 </body>
 

@@ -18,11 +18,12 @@ class QuestionController extends Controller
     public function __invoke(Request $request): View
     {
         $questions = Question::getThreeQuestionsAtRandom();
+        $question = $questions[0];//シャッフル前に[0]を正解用として$questionに保存する
         shuffle($questions);
 
         return view('santaku.question')
             ->with('questions', $questions)
-            ->with('question', $questions[0])
+            ->with('question', $question)
             ->with('shuffled0Id', $questions[0]->id)
             ->with('shuffled1Id', $questions[1]->id)
             ->with('shuffled2Id', $questions[2]->id);
