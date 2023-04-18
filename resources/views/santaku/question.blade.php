@@ -31,7 +31,7 @@
             {{ $question->question }}
         </div>
 
-        <span>選択肢のボタンを押してください</span>
+         <span>選択肢のボタンを押してください</span>
 
         <form action="{{ route('answer.index') }}" method="post">
             @csrf
@@ -39,7 +39,10 @@
             <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
             <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
             <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
+            <input type="hidden" name="shuffled3Id" value="{{ $shuffled3Id }}">
+            <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
             <div class="d-grid gap-2">
+            
                 @foreach($questions as $question)
                 <button class="btn btn-outline-dark" style="text-align:left" role="alert" name="choice_id"
                     value="{{ $question->id }}" checked>
@@ -47,7 +50,10 @@
                 </button>
                 @endforeach
             </div>
+
         </form>
+
     </div>
+
 </body>
 </html>

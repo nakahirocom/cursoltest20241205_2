@@ -21,8 +21,10 @@ class Question extends Model
         $q1 = Question::inRandomOrder()->first();
         $q2 = Question::whereNot('answer', $q1?->answer)->inRandomOrder()->first();
         $q3 = Question::whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()->first();
+        $q4 = Question::whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()->first();
+        $q5 = Question::whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()->first();
 
-        return [$q1, $q2, $q3];
+        return [$q1, $q2, $q3, $q4, $q5];
     }
 
     public function user()
