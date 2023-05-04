@@ -16,6 +16,18 @@ class AnswerResults extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function largelabel()
+    {
+        return $this->belongsTo(LargeLabel::class);
+    }
+
+    public function middlelabel()
+    {
+        return $this->belongsTo(MiddleLabel::class);
+    }
+
+
+
     public function question()
     {
         return $this->belongsTo(Question::class);

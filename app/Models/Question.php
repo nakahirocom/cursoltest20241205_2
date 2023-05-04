@@ -32,6 +32,17 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function largelabel()
+    {
+        return $this->belongsTo(LargeLabel::class);
+    }
+
+    public function middlelabel()
+    {
+        return $this->belongsTo(MiddleLabel::class);
+    }
+
+
     public function answerResult()
     {
         return $this->hasMany(AnswerResults::class);
