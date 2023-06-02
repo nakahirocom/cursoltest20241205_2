@@ -31,6 +31,9 @@ return new class extends Migration
             // label_storagesテーブルのmiddle_label_idカラムにmiddle_labelsテーブルのidカラムを関連づける
             $table->foreign('middle_label_id')->references('id')->on('middle_labels')->onDelete('cascade');
 
+            // label_storagesテーブルにselectを追加
+            $table->boolean('select')->nullable();
+
             // タイムスタンプのカラムを追加
             $table->timestamps();
         });
