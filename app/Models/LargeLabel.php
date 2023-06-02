@@ -15,9 +15,14 @@ class LargeLabel extends Model
     {
         return $this->hasMany(Question::class);
     }
-    
+
     public function answerResult()
     {
         return $this->hasMany(AnswerResults::class);
+    }
+
+    public function labelStrages()
+    {
+        return $this->hasMany(LabelStorages::class);
     }
 }

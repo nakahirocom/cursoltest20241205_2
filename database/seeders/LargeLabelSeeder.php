@@ -19,10 +19,10 @@ class LargeLabelSeeder extends Seeder
             'large_label' => '算数',
         ]);
         LargeLabel::create([
-            'large_label' => 'プログラミング',
+            'large_label' => '仕事',
         ]);
         LargeLabel::create([
-            'large_label' => 'その他',
+            'large_label' => 'プログラミング',
         ]);
     }
 }
