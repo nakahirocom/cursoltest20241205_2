@@ -19,7 +19,7 @@ class UpdateController extends Controller
      */
     public function __invoke(UpdateRequest $request, SantakuService $santakuService)
     {
-        if (! $santakuService->checkOwnMondai(
+        if (!$santakuService->checkOwnMondai(
             $request->user()->id,
             $request->id()
         )) {

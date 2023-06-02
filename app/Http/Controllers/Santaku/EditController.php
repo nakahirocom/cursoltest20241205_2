@@ -19,7 +19,7 @@ class EditController extends Controller
     public function __invoke(Request $request, SantakuService $santakuService)
     {
         $questionId = (int) $request->route('questionId');
-        if (! $santakuService->checkOwnMondai($request->user()->id, $questionId)) {
+        if (!$santakuService->checkOwnMondai($request->user()->id, $questionId)) {
             return redirect()
                 ->route('list')
                 ->with('feedback.success', '他のユーザーの問題は編集出来ません');

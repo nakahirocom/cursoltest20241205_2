@@ -18,7 +18,7 @@ class QuestionController extends Controller
     public function __invoke(Request $request): View
     {
         $questions = Question::getThreeQuestionsAtRandom();
-        $question = $questions[0];//シャッフル前に[0]を正解用として$questionに保存する
+        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
         shuffle($questions);
 
         return view('santaku.question')
