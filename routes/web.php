@@ -40,7 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
     Route::delete('/delete/{questionId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+
+ //とき直しモード
+    Route::get('/mistake', App\Http\Controllers\Santaku\MistakeController::class);
+
+
+    Route::post('/check_register', [App\Http\Controllers\TestController::class,'register'])->name('check.register');
+
+
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
