@@ -16,9 +16,9 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $question = Question::orderBy('created_at', 'DESC')->get();
+        $id = auth()->id();
 
-        return view('santaku.index')
-            ->with('question', $question);
+
+        return view('santaku.index');
     }
 }
