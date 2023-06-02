@@ -17,54 +17,53 @@ class MiddleLabelSeeder extends Seeder
     {
         MiddleLabel::create([
             'large_label_id' => 1,
-            'middle_label' => '1の段の九九',
+            'middle_label' => '足し算',
 
         ]);
         MiddleLabel::create([
             'large_label_id' => 1,
-            'middle_label' => '２の段の九九',
+            'middle_label' => '引き算',
 
         ]);
         MiddleLabel::create([
             'large_label_id' => 1,
-            'middle_label' => '3の段の九九',
+            'middle_label' => '掛け算',
 
         ]);
         MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '4の段の九九',
+            'large_label_id' => 2,
+            'middle_label' => '法人税',
 
         ]);
         MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '5の段の九九',
+            'large_label_id' => 2,
+            'middle_label' => '消費税',
 
         ]);
         MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '6の段の九九',
-
-        ]);
-        MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '7の段の九九',
-
-        ]);
-        MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '8の段の九九',
-
-        ]);
-        MiddleLabel::create([
-            'large_label_id' => 1,
-            'middle_label' => '9の段の九九',
+            'large_label_id' => 2,
+            'middle_label' => '相続知財業務',
 
         ]);
         MiddleLabel::create([
             'large_label_id' => 3,
-            'middle_label' => 'その他',
+            'middle_label' => '会社のルール',
 
         ]);
+        MiddleLabel::create([
+            'large_label_id' => 3,
+            'middle_label' => 'php',
 
+        ]);
+        MiddleLabel::create([
+            'large_label_id' => 3,
+            'middle_label' => 'laravel',
+
+        ]);
+        MiddleLabel::create([
+            'large_label_id' => 3,
+            'middle_label' => 'ショートカットキー',
+
+        ]);
     }
 }
