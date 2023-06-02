@@ -17,7 +17,7 @@
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
-        <p class="h3">三択アプリ　出題画面</p>
+        <p class="h3">三択アプリ　ひたすら問題を解くモード</p>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
@@ -28,10 +28,10 @@
 
         <span>問題</span>
         <div class="alert alert-secondary" role="alert">
-            {{ $question->question }}
+            {{ $question->question }}{{$question->middle_label}}
         </div>
 
-         <span>選択肢のボタンを押してください</span>
+        <span>選択肢のボタンを押してください</span>
 
         <form action="{{ route('answer.index') }}" method="post">
             @csrf
@@ -42,7 +42,7 @@
             <input type="hidden" name="shuffled3Id" value="{{ $shuffled3Id }}">
             <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
             <div class="d-grid gap-2">
-            
+
                 @foreach($questions as $question)
                 <button class="btn btn-outline-dark" style="text-align:left" role="alert" name="choice_id"
                     value="{{ $question->id }}" checked>
@@ -56,4 +56,5 @@
     </div>
 
 </body>
+
 </html>
