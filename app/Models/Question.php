@@ -16,6 +16,7 @@ class Question extends Model
      *
      * @return array
      */
+
     public static function getThreeQuestionsAtRandom(): array
     {
 
@@ -26,6 +27,11 @@ class Question extends Model
             wherein('middle_label_id', LabelStorages::where('user_id', $id)->where('select', 1)->select('middle_label_id'))
             ->inRandomOrder()
             ->first();
+
+        if ($q1 === null) {
+            // $q1[0]にnullを入れてリターンで戻り値を返す
+            return [$q1];
+        }
 
         $q2 = Question::
             //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1のanswerと答えが被らないものをランダムに１つ取得する。

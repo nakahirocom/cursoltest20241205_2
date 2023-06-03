@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class QuestionController extends Controller
 {
@@ -18,7 +19,13 @@ class QuestionController extends Controller
     public function __invoke(Request $request): View
     {
         $questions = Question::getThreeQuestionsAtRandom();
-        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
+
+        if($questions[0] === null) {
+            // 選択されたジャンルが無いためindex画面へ変遷させる
+            return view('santaku.index');
+        }
+
+        $question = $questions[0];//シャッフル前に[0]を正解用として$questionに保存する
         shuffle($questions);
 
         return view('santaku.question')
