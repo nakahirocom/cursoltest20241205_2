@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
 
-    Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
+    Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class)->name('santakuset');
 
     Route::get('/edit/{questionId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
 
