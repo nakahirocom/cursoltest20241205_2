@@ -70,6 +70,8 @@
                                 <br>
                                 @endforeach
 
-                                <button class="btn btn-outline-primary" type="submit">ジャンルを保存する</button>
-                        </form>
+                                <button class="btn btn-outline-primary" name="KeepForIndex" type="submit">ジャンルを保存後にインデックス画面へ</button>
+                                <button class="btn btn-outline-primary" name="KeepForSantaku" type="submit">ジャンル保存後に問題を解く</button>
+
+                            </form>
 </body>

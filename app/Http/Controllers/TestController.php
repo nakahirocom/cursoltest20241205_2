@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LabelStorages;
+use Illuminate\Support\Facades\Redirect;
 
 class TestController extends Controller
 {
@@ -18,7 +19,10 @@ class TestController extends Controller
             $user_info->select = $value;
             $user_info->save();
         }
-        //        Log::info($request);
-        return view('santaku.index');
+
+        if ($request->has('KeepForIndex')) {
+            return Redirect::route('index');
+        }
+        return Redirect::route('question');
     }
 }
