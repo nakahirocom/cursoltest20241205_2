@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\Question;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -16,9 +15,6 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $id = auth()->id();
-
-
         return view('santaku.index');
     }
 }
