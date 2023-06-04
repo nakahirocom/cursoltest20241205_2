@@ -29,7 +29,7 @@ class Question extends Model
             ->first();
 
         if ($q1 === null) {
-            // $q1[0]にnullを入れてリターンで戻り値を返す
+            // $q1[0]にnullを入れてリターンでgetThreeQuestionsAtRandom()の戻り値を返す
             return [$q1];
         }
 
