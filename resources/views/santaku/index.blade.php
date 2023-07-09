@@ -50,15 +50,16 @@
             <div class="container-fluid"></div>
             <ul class="list-group">
                 <br>
-                <a class="btn btn-outline-dark" style="text-align:left" href="/santakuset" role="button">0.ジャンルを選択する</a>
+                <a class="btn btn-outline-dark" style="text-align:left" href="/santakuset" role="button">🔸出題ジャンルの選択を行う🔸</a>
                   <br>
-                <a class="btn btn-outline-dark" style="text-align:left" href="/question" role="button">1.ひたすら問題を解くモード</a>
+                <a class="btn btn-outline-dark" style="text-align:left" href="/question" role="button">1.選んだジャンルを解きまくるモード</a>
                 <br>
-                <a class="btn btn-outline-dark" style="text-align:left" href="/mistake" role="button">2.苦手な問題の解き直しモード</a>
+                <a class="btn btn-outline-dark" style="text-align:left" href="/mistake" role="button">2.正解率のワースト１位を解きまくるモード</a>
                 <br>
-                <a class="btn btn-outline-dark" style="text-align:left" href="/new" role="button">3.新しく問題を作成する</a>
+                <a class="btn btn-outline-dark" style="text-align:left" href="/incorrect" role="button">3.最近間違えた問題を確認する</a>
                 <br>
-                <a class="btn btn-outline-dark" style="text-align:left" href="/list" role="button">4.作成した問題を編集する</a>
+
+
             </ul>
 
         </div>
