@@ -19,7 +19,7 @@
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
         <div class="container">
-            <p class="h2">三択アプリ ユーザーがとくジャンルを選択する画面</p>
+            <p class="h2">三択アプリ 出題されるジャンルを選択ください</p>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
@@ -70,8 +70,10 @@
                                 <br>
                                 @endforeach
 
-                                <button class="btn btn-outline-primary" name="KeepForIndex" type="submit">ジャンルを保存後にインデックス画面へ</button>
-                                <button class="btn btn-outline-primary" name="KeepForSantaku" type="submit">ジャンル保存後に問題を解く</button>
+                                <button class="btn btn-outline-primary" name="KeepForIndex"
+                                    type="submit">ジャンルを保存後にインデックス画面へ</button>
+                                <button class="btn btn-outline-primary" name="KeepForSantaku"
+                                    type="submit">ジャンル保存後に問題を解く</button>
 
-                            </form>
+                        </form>
 </body>
