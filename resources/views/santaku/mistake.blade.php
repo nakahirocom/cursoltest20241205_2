@@ -15,35 +15,46 @@
 
 <body>
     <div class="container">
-
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
-        <div class="container">
-            <p class="h2">三択アプリ 苦手な問題解き直しモード</p>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
-                    <li class="breadcrumb-item active" aria-current="page">ユーザーid{{ Auth::user()->id }}</li>
-                </ol>
-            </nav>
-
-        </div>
+        <p class="h3">三択アプリ 正解率のワースト１位を解直すモード　⭐️ジャンルを問わずあなたの解いた問題の中から出題されます</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
+                <li class="breadcrumb-item active" aria-current="page">ユーザーid{{ Auth::user()->id }}</li>
+            </ol>
+        </nav>
         @endauth
 
-        @foreach($incorrectList as $incorrect)
-        <div>
-            <summary>
-                <div class="collapse show" id="collapseExample" style="">
-                    <div class="card card-body">
-                        <p>(間違えた日付)　{{ $incorrect->updated_at }}</p>
-                        <p>(間違えた選択)　{{ $incorrect->q_answer }}</p>
-                        <p>(出題問題)　{{ $incorrect->question->question }}</p>
-                        <p>(出題問題の正解)　{{ $incorrect->question->answer }}</p>
-                        <p>(出題問題の解説)　{{ $incorrect->question->comment }}</p>
-                        <p>(間違えた選択の問題)　{{ $incorrect->q_question }}</p>
-                        <p>(間違えた選択の解説)　{{ $incorrect->q_comment }}</p>
-                    </div>
-                </div>
-                @endforeach
+        <span>問題</span>
+        <div class="alert alert-secondary" role="alert">
+            {{ $question->question }}{{$question->middle_label}}
         </div>
+
+        <span>選択肢のボタンを押してください</span>
+
+        <form action="{{ route('answer.index') }}" method="post">
+            @csrf
+            <input type="hidden" name="question_id" value="{{ $question->id }}">
+            <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
+            <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
+            <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
+            <input type="hidden" name="shuffled3Id" value="{{ $shuffled3Id }}">
+            <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
+            <div class="d-grid gap-2">
+
+                @foreach($questions as $question)
+                <button class="btn btn-outline-dark" style="text-align:left" role="alert" name="choice_id"
+                    value="{{ $question->id }}" checked>
+                    {{ $question->answer }}
+                </button>
+                @endforeach
+            </div>
+
+        </form>
+
+    </div>
+
 </body>
+
+</html>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\AnswerResults;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class MistakeController extends Controller
@@ -16,33 +16,24 @@ class MistakeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // 現在認証しているユーザーのIDを取得
-        $id = auth()->id();
-        //　不正解問題（正解idと解答idが不一致）で認証ユーザーの問題を新しい日時順でdbから抽出する
-        $incorrectList = AnswerResults::with('question')
-            ->whereColumn('answer_results.question_id', '!=', 'answer_results.answered_question_id')
-            ->where('answer_results.user_id', '=', $id)
-            ->select(
-                'answer_results.id',
-                'answer_results.user_id',
-                'answer_results.question_id',
-                'answer_results.answered_question_id',
-                'answer_results.updated_at',
-                'questions.id as q_id',
-                'questions.question as q_question',
-                'questions.answer as q_answer',
-                'questions.comment as q_comment'
-            )
-            ->join(
-                'questions',
-                'answer_results.answered_question_id',
-                '=',
-                'questions.id'
-            )
-            ->orderBy('answer_results.created_at', 'DESC')
-            ->get();
+        
+        $questions = Question::getMissThreeQuestions();
+
+        if($questions[0] === null) {
+            // 選択されたジャンルが無いためindex画面へ変遷させる
+            return view('santaku.index');
+        }
+
+        $question = $questions[0];//シャッフル前に[0]を正解用として$questionに保存する
+        shuffle($questions);
 
         return view('santaku.mistake')
-            ->with('incorrectList', $incorrectList);
+            ->with('questions', $questions)
+            ->with('question', $question)
+            ->with('shuffled0Id', $questions[0]->id)
+            ->with('shuffled1Id', $questions[1]->id)
+            ->with('shuffled2Id', $questions[2]->id)
+            ->with('shuffled3Id', $questions[3]->id)
+            ->with('shuffled4Id', $questions[4]->id);
     }
 }
