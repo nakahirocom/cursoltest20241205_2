@@ -16,7 +16,9 @@
 <body>
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
-        <a class="btn btn-link" href="/question">次の問題へ</a>
+        <a class="btn btn-link" href="/question">ひたすら三択_次の問題へ</a>
+        <a class="btn btn-link" href="/mistake">苦手な問題_次の問題へ</a>
+
         @auth
 
         @endauth
@@ -72,6 +74,8 @@
             @endfor
             <a class="btn btn-link" href="/">index画面へ戻る</a>
             <a class="btn btn-link" href="/question">次の問題へ</a>
+            <a class="btn btn-link" href="/mistake">苦手な問題_次の問題へ</a>
+
     </div>
 </body>
 
