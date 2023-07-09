@@ -17,7 +17,7 @@
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
-        <p class="h3">三択アプリ　ひたすら問題を解くモード</p>
+        <p class="h3">三択アプリ　ひたすら問題を解きまくりモード</p>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
@@ -28,7 +28,7 @@
 
         <span>問題</span>
         <div class="alert alert-secondary" role="alert">
-            {{ $question->question }}{{$question->middle_label}}
+            {{ $question->question }}{{$question->middlelabel}}
         </div>
 
         <span>選択肢のボタンを押してください</span>
