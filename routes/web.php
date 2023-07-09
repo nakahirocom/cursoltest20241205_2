@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
  //とき直しモード
     Route::get('/mistake', App\Http\Controllers\Santaku\MistakeController::class);
 
+    Route::get('/incorrect', App\Http\Controllers\Santaku\IncorrectListController::class);
 
     Route::post('/check_register', [App\Http\Controllers\TestController::class,'register'])->name('check.register');
 
