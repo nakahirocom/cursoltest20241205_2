@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             LargeLabelSeeder::class,
             MiddleLabelSeeder::class,
+            LabelStorageSeeder::class,
             QuestionSeeder::class,
             AnswerResultsSeeder::class,
 

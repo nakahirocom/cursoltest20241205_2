@@ -19,7 +19,7 @@
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
         <div class="container">
-            <p class="h2">三択アプリ 解き直し画面</p>
+            <p class="h2">三択アプリ 出題されるジャンルを選択ください</p>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
@@ -30,20 +30,50 @@
         </div>
         @endauth
 
-        @foreach($incorrectList as $incorrect)
-        <div>
-            <summary>
-                <div class="collapse show" id="collapseExample" style="">
-                    <div class="card card-body">
-                        <p>(間違えた日付)　{{ $incorrect->updated_at }}</p>
-                        <p>(間違えた選択)　{{ $incorrect->q_answer }}</p>
-                        <p>(出題問題)　{{ $incorrect->question->question }}</p>
-                        <p>(出題問題の正解)　{{ $incorrect->question->answer }}</p>
-                        <p>(出題問題の解説)　{{ $incorrect->question->comment }}</p>
-                        <p>(間違えた選択の問題)　{{ $incorrect->q_question }}</p>
-                        <p>(間違えた選択の解説)　{{ $incorrect->q_comment }}</p>
-                    </div>
-                </div>
-         @endforeach
-        </div>
+        <form action="{{ route('check.register') }}" method="post">
+            @csrf
+            @foreach($largelabelList as $largelabel)
+            <div>
+                <summary>
+                    <div class="collapse show" id="collapseExample" style="">
+                        <p>＝＝＝＝＝＝＝＝＝＝＝＝＝＝{{ $largelabel->large_label }}（大分類）</p>
+
+                        @foreach ($selectList as $user_select)
+                        @if( $largelabel->id == $user_select->largelabel->id )
+                        <form>
+                            <div class="form-group">
+                                <div class="checkbox-inline">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="hidden"
+                                        name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
+                                    @if ($user_select['select'] == 1)
+                                    <input type="checkbox" checked="checked"
+                                        id={{$user_select->middleLabel->middle_label }} name="labelstorages_id[{{
+                                    $user_select['id'] }}]" value="1">
+                                    <label class="form-check-label" for={{ $user_select->middleLabel->middle_label }}>
+                                        {{ $user_select->middleLabel->middle_label }}（中分類）
+                                    </label>
+                                    @else
+                                    <input type="checkbox" id={{$user_select->middleLabel->middle_label }}
+                                    name="labelstorages_id[{{ $user_select['id'] }}]" value="1">
+
+                                    <label class="form-check-label" for={{ $user_select->middleLabel->middle_label }}>
+                                        {{ $user_select->middleLabel->middle_label }}（中分類）
+                                    </label>
+                                    @endif
+
+                                </div>
+                                @endif
+
+                                @endforeach
+                                <br>
+                                @endforeach
+
+                                <button class="btn btn-outline-primary" name="KeepForIndex"
+                                    type="submit">ジャンルを保存後にインデックス画面へ</button>
+                                <button class="btn btn-outline-primary" name="KeepForSantaku"
+                                    type="submit">ジャンル保存後に問題を解く</button>
+
+                        </form>
 </body>

@@ -68,8 +68,10 @@ class AnswerController extends Controller
         $shuffled4Id = $request->input('shuffled4Id');
 
         // answer_resultsテーブルからcountで選択1の問題別の回答数と正解率の数を集計する
-        $allkaitousuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->count();
-        $allseikaisuuS0 = DB::table('answer_results')->where('question_id', '=', $shuffled0Id)->whereColumn('question_id', 'answered_question_id')->count();
+        $allkaitousuuS0 = AnswerResults::where('question_id', '=', $shuffled0Id)->count();
+        $allseikaisuuS0 = AnswerResults::where('question_id', '=', $shuffled0Id)->whereColumn('question_id', 'answered_question_id')->count();
+
+        
         // 0による割り算エラー防止のためif文で0で割る場合は除算させない
         $seikairituS0 = '';
         if ($allkaitousuuS0 == 0) {

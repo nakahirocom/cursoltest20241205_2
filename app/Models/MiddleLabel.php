@@ -21,5 +21,15 @@ class MiddleLabel extends Model
         return $this->hasMany(AnswerResults::class);
     }
 
+    public function largeLabel()
+    {
+        return $this->hasMany(LargeLabel::class);
+    }
 
+
+
+    public function labelStrages()
+    {
+        return $this->hasMany(LabelStorages::class);
+    }
 }

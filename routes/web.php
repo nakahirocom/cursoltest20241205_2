@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/new', App\Http\Controllers\Santaku\NewController::class);
 
-    Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class);
+    Route::get('/santakuset', App\Http\Controllers\Santaku\SantakusetController::class)->name('santakuset');
 
     Route::get('/edit/{questionId}', App\Http\Controllers\Santaku\EditController::class)->name('edit');
 
@@ -40,7 +40,17 @@ Route::middleware('auth')->group(function () {
     Route::put('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
     Route::delete('/delete/{questionId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
+
+ //とき直しモード
+    Route::get('/mistake', App\Http\Controllers\Santaku\MistakeController::class);
+
+    Route::get('/incorrect', App\Http\Controllers\Santaku\IncorrectListController::class);
+
+    Route::post('/check_register', [App\Http\Controllers\TestController::class,'register'])->name('check.register');
+
+
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
