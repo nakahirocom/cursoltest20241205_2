@@ -47,7 +47,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="hidden"
                                         name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
-                                    @if ($user_select['select'] == 1)
+                                    @if ($user_select['selected'] == 1)
                                     <input type="checkbox" checked="checked"
                                         id={{$user_select->middleLabel->middle_label }} name="labelstorages_id[{{
                                     $user_select['id'] }}]" value="1">

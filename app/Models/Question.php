@@ -28,7 +28,7 @@ class Question extends Model
 
         $q1 = Question::
             //ユーザーが選んでいるジャンルの内、（LabelStoragesのselectカラムが１）をwhereinの検索条件にinRandomOrder()しfirst()で１つ取得する。
-            wherein('middle_label_id', LabelStorages::where('user_id', $id)->where('select', 1)->select('middle_label_id'))
+            wherein('middle_label_id', LabelStorages::where('user_id', $id)->where('selected', 1)->select('middle_label_id'))
             ->with('middlelabel')
             ->inRandomOrder()
             ->first();

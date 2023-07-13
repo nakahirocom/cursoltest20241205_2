@@ -16,7 +16,8 @@ class TestController extends Controller
 
         foreach ($input_data['labelstorages_id'] as $key => $value) {
             $user_info = LabelStorages::select('*')->find($key);
-            $user_info->select = $value;
+//selectかselectedか検討
+            $user_info->selected = $value;
             $user_info->save();
         }
 
