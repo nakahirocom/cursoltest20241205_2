@@ -16,6 +16,8 @@
 <body>
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
+        <button type="button" onClick="history.back()">前の画面に戻る</button>
+
         @auth
         <p class="h3">三択アプリ　ひたすら問題を解きまくりモード</p>
         <nav aria-label="breadcrumb">
@@ -26,12 +28,21 @@
         </nav>
         @endauth
 
-        <span>問題</span>
-        <div class="alert alert-secondary" role="alert">
-            {{ $question->question }}{{$question->middlelabel}}
-        </div>
 
-        <span>選択肢のボタンを押してください</span>
+        <ol class="list-group list-group-numbered" style="max-width: 400px;">
+            <script>
+                let a = 1;
+            </script>
+            @foreach($questions_q as $question_q)
+
+            <ul class="list-group-item list-group-item-light">
+                問題{{$loop->iteration}}： {{$question_q ->question }}
+            </ul>
+            @endforeach
+
+        </ol>
+
+        <span>選択肢：問題１〜５の順番に答えボタンを押してください</span>
 
         <form action="{{ route('answer.index') }}" method="post">
             @csrf
@@ -43,13 +54,55 @@
             <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
             <div class="d-grid gap-2">
 
-                @foreach($questions as $question)
-                <button class="btn btn-outline-dark" style="text-align:left" role="alert" name="choice_id"
-                    value="{{ $question->id }}" checked>
-                    {{ $question->answer }}
-                </button>
+                <script>
+                    let arr = []; // 配列を初期化する
+                        let x = 1;
+                </script>
+
+                @foreach($questions_a as $question_a)
+                <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
+                    onclick="buttonClick('{{ $question_a->id }}')" class="sentaku" name="arr[]">
+                    {{ $question_a->answer }}</button>
                 @endforeach
+
+                <script>
+                    function buttonClick(id){
+                        arr.push(id); // 配列に値を追加する
+                        document.getElementById(id).disabled = true;
+                        value = document.getElementById(id).value;
+                        document.getElementById(id).textContent = value +' 出題' + x + 'の答え';
+                        x += 1;
+                    };
+                </script>
+
+                <button type="submit" value="回答を確定する" type="submit" class="btn btn-outline-primary"
+                    onclick="buttonClick1()">回答を確定する
+                </button>
+
+                <button type="button" value="選択を解除" class="btn btn-outline-danger" onclick="buttonClick2()">選択を解除
+                </button>
+
+                <script>
+                    function buttonClick1(){
+                        alert("選択肢を押した順のidを格納した配列arrの中身  → " + arr);
+                        };
+                
+                        function buttonClick2(){
+                        alert("リセットします");
+                        document.getElementsByClassName('sentaku')[0].disabled = false;
+                        document.getElementsByClassName('sentaku')[1].disabled = false;
+                        document.getElementsByClassName('sentaku')[2].disabled = false;
+                        document.getElementsByClassName('sentaku')[3].disabled = false;
+                        document.getElementsByClassName('sentaku')[4].disabled = false;
+                         arr = []; // 配列を初期化する
+                         x = 1;
+                         alert(arr);
+
+                        };
+                </script>
+
             </div>
+
 
         </form>
 
