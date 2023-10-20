@@ -5,7 +5,7 @@ insert into questions (user_id, question, answer, comment, large_label_id, middl
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'A/G_固定資産取得資料は', '消費税科目別と現預金証憑の間', '現預金の後はBS→PLの順に並べる', 1, 5, now(), now());
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'D/L_宇美町に出す申告書の宛名', '宇美町長と記載', '空白になっていた', 1, 5, now(), now());
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'M/E_決算書の器具備品は', '固定資産台帳と一致', '不一致だった', 1, 5, now(), now());
-insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'Z/T_税抜経理の場合は', '注記は税込経理', '確認もれ', 1, 5, now(), now());
+insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'Z/T_免税事業者で税込経理の場合でも', '注記は税込経理が必要', '注記が記入されていると経理方法がわかりやすいため', 1, 5, now(), now());
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'Z/T_消費税申告書の付記事項は', '特例なければ無しに〇印つける', '空白にしない', 1, 5, now(), now());
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'Z/T_消費税申告ある税務代理権限では', '受任税目に消費税つける', '消費税にチェック必要', 1, 5, now(), now());
 insert into questions (user_id, question, answer, comment, large_label_id, middle_label_id, created_at, updated_at) values (1, 'W/A_科目別対前年比は', '上位5つぐらいは記入', '額と粗利率など', 1, 5, now(), now());
