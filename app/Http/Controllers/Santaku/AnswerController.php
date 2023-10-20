@@ -45,6 +45,7 @@ class AnswerController extends Controller
 {
     public function __invoke(AnswerResultRequest $request)
     {
+        dump($request);
         // requestから選択された問題のIDを取得する
         $choiceId = $request->input('choice_id');
         $choiceQuestion = Question::where('id', $choiceId)->firstOrFail();
