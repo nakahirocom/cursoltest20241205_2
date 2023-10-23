@@ -28,7 +28,6 @@
         </nav>
         @endauth
 
-
         <ol class="list-group list-group-numbered" style="max-width: 400px;">
             <script>
                 let a = 1;
@@ -44,7 +43,7 @@
 
         <span>選択肢：問題１〜５の順番に答えボタンを押してください</span>
 
-        <form action="{{ route('answer.index') }}" method="post">
+        <form action="{{ route('answer.index') }}" method="post" id="kotae">
             @csrf
             <input type="hidden" name="question_id" value="{{ $question->id }}">
             <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
@@ -54,6 +53,7 @@
             <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
             <div class="d-grid gap-2">
 
+
                 <script>
                     let arr = []; // 配列を初期化する
                         let x = 1;
@@ -61,7 +61,7 @@
 
                 @foreach($questions_a as $question_a)
                 <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
-                    onclick="buttonClick('{{ $question_a->id }}')" class="sentaku" name="arr[]">
+                    onclick="buttonClick('{{ $question_a->id }}')" class="sentaku">
                     {{ $question_a->answer }}</button>
                 @endforeach
 
@@ -85,18 +85,31 @@
                 <script>
                     function buttonClick1(){
                         alert("選択肢を押した順のidを格納した配列arrの中身  → " + arr);
-                        };
+
+                    //操作するid要素を取得する
+                    var kotae = document.getElementById('kotae');
+                    // ５回転ループし、追加する配列の数だけinput要素を作成
+                    for (let step = 0; step < 5; step++) {
+                    // input要素の中身を作成
+                    var input_data = document.createElement('input');
+                        input_data.type = 'hidden';
+                        input_data.name = "arrs" + step;
+                        input_data.value = arr[step];
+                     // input要素を追加する
+                        kotae.appendChild(input_data);
+            
+                }
+                    };
                 
                         function buttonClick2(){
                         alert("リセットします");
-                        document.getElementsByClassName('sentaku')[0].disabled = false;
-                        document.getElementsByClassName('sentaku')[1].disabled = false;
-                        document.getElementsByClassName('sentaku')[2].disabled = false;
-                        document.getElementsByClassName('sentaku')[3].disabled = false;
-                        document.getElementsByClassName('sentaku')[4].disabled = false;
-                         arr = []; // 配列を初期化する
+                    // 追加する要素を作成
+                    for (let step = 0; step < 5; step++) {
+                    // 値が 0 から 4 まで計 5 回実行される
+                        document.getElementsByClassName('sentaku')[step].disabled = false;
+                    }
+                        arr = []; // 配列を初期化する
                          x = 1;
-                         alert(arr);
 
                         };
                 </script>
