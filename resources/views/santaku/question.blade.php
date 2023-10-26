@@ -13,6 +13,8 @@
     <title>santakuアプリ</title>
 </head>
 
+
+
 <body>
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
@@ -28,29 +30,32 @@
         </nav>
         @endauth
 
-        <ol class="list-group list-group-numbered" style="max-width: 400px;">
-            <script>
-                let a = 1;
-            </script>
-            @foreach($questions_q as $question_q)
 
-            <ul class="list-group-item list-group-item-light">
-                問題{{$loop->iteration}}： {{$question_q ->question }}
-            </ul>
-            @endforeach
 
-        </ol>
+        <div class="container text-left">
+            <div class="row justify-content-start">
+                @foreach($questions_q as $question_q)
+                <div class="col-1">
+                    <strong>
+                        問題{{$loop->iteration}}
+                    </strong>
+                </div>
+                <div class="col-11">
+                    {{$question_q ->question }}
+                </div>
+                @endforeach
+            </div>
+        </div>
 
-        <span>選択肢：問題１〜５の順番に答えボタンを押してください</span>
+        <p class="text-white bg-primary">選択肢：問題１〜５の順番に答えボタンを押してください</p>
 
         <form action="{{ route('answer.index') }}" method="post" id="kotae">
             @csrf
-            <input type="hidden" name="question_id" value="{{ $question->id }}">
-            <input type="hidden" name="shuffled0Id" value="{{ $shuffled0Id }}">
-            <input type="hidden" name="shuffled1Id" value="{{ $shuffled1Id }}">
-            <input type="hidden" name="shuffled2Id" value="{{ $shuffled2Id }}">
-            <input type="hidden" name="shuffled3Id" value="{{ $shuffled3Id }}">
-            <input type="hidden" name="shuffled4Id" value="{{ $shuffled4Id }}">
+            <input type="hidden" name="question1_Id" value="{{ $question1_Id }}">
+            <input type="hidden" name="question2_Id" value="{{ $question2_Id }}">
+            <input type="hidden" name="question3_Id" value="{{ $question3_Id }}">
+            <input type="hidden" name="question4_Id" value="{{ $question4_Id }}">
+            <input type="hidden" name="question5_Id" value="{{ $question5_Id }}">
             <div class="d-grid gap-2">
 
 
@@ -60,9 +65,13 @@
                 </script>
 
                 @foreach($questions_a as $question_a)
-                <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
-                    onclick="buttonClick('{{ $question_a->id }}')" class="sentaku">
-                    {{ $question_a->answer }}</button>
+                <div style="display:inline-flex table-hover">
+                    <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
+                        onclick="buttonClick('{{ $question_a->id }}')" class="sentaku table-hover"
+                        style="max-width: 800px;">
+                        {{ $question_a->answer }}
+                    </button>
+                </div>
                 @endforeach
 
                 <script>
@@ -75,12 +84,21 @@
                     };
                 </script>
 
-                <button type="submit" value="回答を確定する" type="submit" class="btn btn-outline-primary"
-                    onclick="buttonClick1()">回答を確定する
-                </button>
-
-                <button type="button" value="選択を解除" class="btn btn-outline-danger" onclick="buttonClick2()">選択を解除
-                </button>
+                <div class="container text-center">
+                    <div class="row justify-content-between">
+                        <div class="col-4">
+                            <button type="button" value="選択を解除" class="btn btn-outline-danger" onclick="buttonClick2()"
+                                style="max-width: 800px;">　選択リセットボタン　
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button id="kakutei" type="submit" value="回答を確定する" type="submit"
+                                class="btn btn-outline-primary" onclick="buttonClick1()"
+                                style="max-width: 800px;">　　選択確定ボタン　　
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
                 <script>
                     function buttonClick1(){
@@ -93,11 +111,10 @@
                     // input要素の中身を作成
                     var input_data = document.createElement('input');
                         input_data.type = 'hidden';
-                        input_data.name = "arrs" + step;
+                        input_data.name = "choice" + (step +1) + "_Id";
                         input_data.value = arr[step];
                      // input要素を追加する
                         kotae.appendChild(input_data);
-            
                 }
                     };
                 
