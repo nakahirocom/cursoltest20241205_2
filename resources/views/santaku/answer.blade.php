@@ -31,17 +31,6 @@
             </ol>
         </nav>
 
-        <span>出題された問題:</span>
-        <div class="alert alert-secondary" role="alert">
-            {{ $questioned->question }}
-        </div>
-        @if ($isCorrect)
-        <span class="btn btn-outline-primary">
-            {{ $choiceQuestion->answer }}：正解</span>
-        @else
-        <span class="btn btn-outline-danger">
-            {{ $choiceQuestion->answer }}：不正解</span>
-        @endif
         <p>-------------------------------------------------------</p>
 
 
@@ -51,7 +40,8 @@
         <span class="placeholder col-12 placeholder-xs"></span>
         <br />
 
-        @for ($i = 0; $i < count($viewModels); $i++) @if ($viewModels[$i]->isCorrect() )
+        @for ($i = 0; $i < count($viewModels); $i++) 
+            @if ($viewModels[$i]->isCorrect() )
             <span class="btn btn-outline-primary">■選択肢{{ $i + 1 }}：{{ "正解" }}</span>
             @else
             <span class="btn btn-outline-danger">■選択肢{{ $i + 1 }}：{{ "不正解" }}</span>
@@ -63,9 +53,17 @@
                 $allkaitousuuModels[$i] }}</div>
             <div class="collapse show" id="collapseExample" style="">
                 <div class="card card-body">
+                    @if ($viewModels[$i]->isCorrect() )
                     <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
-                    <p>答え：{{ $viewModels[$i]->getAnswer() }}</p>
+                    <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+                    @else
+                    <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
+                    <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
+                    <p>誤答：{{ $viewModels[$i]->missAnswer() }}</p>
+                    <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+                    @endif
+
 
                 </div>
             </div>
