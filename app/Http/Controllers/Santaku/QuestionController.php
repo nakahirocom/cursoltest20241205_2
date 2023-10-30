@@ -38,7 +38,6 @@ class QuestionController extends Controller
             ->with('question1_Id', $questions_q[0]->id)
             ->with('question2_Id', $questions_q[1]->id)
             ->with('question3_Id', $questions_q[2]->id)
-            ->with('question4_Id', $questions_q[3]->id)
-            ->with('question5_Id', $questions_q[4]->id);
+;
     }
 }

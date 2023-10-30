@@ -47,14 +47,12 @@
         @endforeach
 
         <div>　</div>
-        <div>🔹選択肢：1問目から5問目の順に答えを押してください</div>
+        <div>🔹選択肢：1問目から3問目の順に答えを押してください</div>
         <form action="{{ route('answer.index') }}" method="post" id="kotae">
             @csrf
             <input type="hidden" name="question1_Id" value="{{ $question1_Id }}">
             <input type="hidden" name="question2_Id" value="{{ $question2_Id }}">
             <input type="hidden" name="question3_Id" value="{{ $question3_Id }}">
-            <input type="hidden" name="question4_Id" value="{{ $question4_Id }}">
-            <input type="hidden" name="question5_Id" value="{{ $question5_Id }}">
 
 
 
@@ -115,9 +113,9 @@
 
                     //操作するid要素を取得する
                     var kotae = document.getElementById('kotae');
-                    // ５回転ループし、追加する配列の数だけinput要素を作成
+                    // 3回転ループし、追加する配列の数だけinput要素を作成
                     
-                    for (let step = 0; step < 5; step++) {
+                    for (let step = 0; step < 3; step++) {
                     // input要素の中身を作成
                     var input_data = document.createElement('input');
                         input_data.type = 'hidden';
@@ -131,8 +129,8 @@
                         function buttonClick2(){
                         alert("リセットします");
                     // 追加する要素を作成
-                    for (let step = 0; step < 5; step++) {
-                    // 値が 0 から 4 まで計 5 回実行される
+                    for (let step = 0; step < 3; step++) {
+                    // 値が 0 から 2 まで計 3 回実行される
                         document.getElementsByClassName('sentaku')[step].disabled = false;
                     }
                         arr = []; // 配列を初期化する
