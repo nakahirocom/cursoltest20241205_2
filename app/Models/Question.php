@@ -21,7 +21,7 @@ class Question extends Model
      * @return array
      */
 
-    public static function getThreeQuestionsAtRandom(): array
+/*    public static function getThreeQuestionsAtRandom(): array
     {
 
         $id = auth()->id();
@@ -53,10 +53,10 @@ class Question extends Model
 
     
     }
-
+*/
 
     //間違いの多い問題を抽出する
-    public static function getMissThreeQuestions(): array
+    public static function getThreeQuestionsAtRandom(): array
     {
         //ユーザーの選択た中分類の内、question_id 毎に'question_id'の数を数えて出題数をカウントする。
         $questions_allsyutudaisuu = AnswerResults::select('question_id')
