@@ -66,7 +66,7 @@
                 <div>　</div>
                 <div>
                     <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
-                        onclick="buttonClick('{{ $question_a->id }}')"
+                        onclick="buttonClick({{ $question_a->id }})"
                         class="sentaku rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600 text-black">
                         <span
                             class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
@@ -76,7 +76,7 @@
                     </button>
                 </div>
                 <div>　</div>
-                <div id="{{ $question_a->id }}"> ◯問目の表示スペース</div>
+                <div id={{ $question_a->id  * 10 }}></div>
             </div>
             @endforeach
 
@@ -85,8 +85,7 @@
                 function buttonClick(id){
                         arr.push(id); // 配列に値を追加する
                         document.getElementById(id).disabled = true;
-                        value = document.getElementById(id).value;
-                        document.getElementById(id).textContent = value + '　　　' + x + '問目の答え';
+                        document.getElementById(id * 10).textContent = x + "問目の答え";
                         x += 1;
                     };
             </script>
@@ -94,14 +93,22 @@
             <div class="container text-center">
                 <div class="row justify-content-between">
                     <div class="col-4">
-                        <button type="button" value="選択を解除" class="rounded-full bg-rose-300 px-4 py-2"
+                        <button type="button" value="選択を解除" class="my-2 px-4 py-2
+                        border-2 border-red-500 rounded-md
+                        bg-gradient-to-b from-red-600 to-red-400
+                        hover:from-red-500 hover:to-red-300 
+                        text-white shadow-lg"
                             onclick="buttonClick2()" style="max-width: 800px;">　選択リセットボタン　
                         </button>
                     </div>
                     <div class="col-4">
-                        <button id="kakutei" type="submit" value="回答を確定する" type="submit"
-                            class="rounded-full bg-blue-300 px-4 py-2" onclick="buttonClick1()"
-                            style="max-width: 800px;">　　選択確定ボタン　　
+                        <button id="kakutei" type="submit" value="回答を確定する" type="submit" disabled class="my-2 px-4 py-2
+                        border-2 border-blue-500 rounded-md
+                        bg-gradient-to-b from-blue-600 to-blue-400
+                        hover:from-blue-500 hover:to-blue-300 
+                        text-white shadow-lg"
+                             onclick="buttonClick1()"
+                            >　　選択確定ボタン　　
                         </button>
                     </div>
                 </div>
