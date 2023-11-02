@@ -103,7 +103,7 @@
                         </button>
                     </div>
                     <div class="col-4">
-                        <button id="kakutei" type="submit" value="回答を確定する" type="submit" disabled class="my-2 px-4 py-2
+                        <button id="kakutei" type="submit" value="回答を確定する" type="submit" class="my-2 px-4 py-2
                         border-2 border-blue-500 rounded-md
                         bg-gradient-to-b from-blue-600 to-blue-400
                         hover:from-blue-500 hover:to-blue-300 
