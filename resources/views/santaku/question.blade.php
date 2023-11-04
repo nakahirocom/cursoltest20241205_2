@@ -11,11 +11,9 @@
     <link rel="stylesheet" href="/css/app.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <title>santakuアプリ</title>
 </head>
-
-
 
 <body>
     <div class="container">
@@ -33,11 +31,19 @@
         </nav>
         @endauth
 
+<h1>jQueryの勉強</h1>
+<script>
+    $(function() {
+        $('h1').css('color','red');
+    });
+        
+</script>
+
         <div>🔹問題</div>
         @foreach($questions_q as $question_q)
         <div class="flex">
             <div>　</div>
-            <div class="border flex-none w-14 h-6">
+            <div class="flex-none w-14 h-6">
                 <strong class="text-red-500">{{$loop->iteration}}問目</strong>
             </div>
             <div class="border flex-initial w-64">
@@ -67,17 +73,13 @@
                 <div>
                     <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
                         onclick="buttonClick({{ $question_a->id }})"
-                        class="sentaku rounded-lg border border-primary-500 bg-primary-500 px-5 py-2.5 text-left text-sm font-medium text-white shadow-sm transition-all hover:border-primary-700 hover:bg-primary-700 focus:ring focus:ring-primary-200 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-primary-300">
-                        <span
-                            class="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease　hover:to-blue-300 
-                            text-white shadow-lg"></span>
-                        <span class="relative text-indigo-600 transition duration-300 group-hover:text-white ease">
-                             {{$question_a->answer }}</span>
+                        class="sentaku border border-blow-400 px-1 py-2 text-sm font-medium">
+                             {{$question_a->answer }}
 
                     </button>
                 </div>
                 <div>　</div>
-                <div id={{ $question_a->id  * 10 }}></div>
+                <div id={{ $question_a->id  * 10 }} class="monme"></div>
             </div>
             @endforeach
 
@@ -136,10 +138,12 @@
                 
                         function buttonClick2(){
                         alert("リセットします");
-                    // 追加する要素を作成
+                    // 追加する要素を作成 値が 0 から 2 まで計 3 回実行される
                     for (let step = 0; step < 3; step++) {
-                    // 値が 0 から 2 まで計 3 回実行される
+                    // 押せなくなったbuttonを押せるようにする
                         document.getElementsByClassName('sentaku')[step].disabled = false;
+                    // ◯問目の答え　のテキスト表示を削除する
+                        document.getElementsByClassName('monme')[step].textContent = "";
                     }
                         arr = []; // 配列を初期化する
                          x = 1;
