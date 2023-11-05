@@ -129,8 +129,12 @@ class Question extends Model
             where('middle_label_id', ($q1->middle_label_id))
             ->whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()->first();
 
+        $q4 = Question::
+             //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
+            where('middle_label_id', ($q1->middle_label_id))
+            ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()->first();
 
-        return [$q1, $q2, $q3];
+        return [$q1, $q2, $q3, $q4];
     }
 
     public function user()

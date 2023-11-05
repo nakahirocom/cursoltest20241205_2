@@ -41,6 +41,7 @@
 
         <div>🔹問題</div>
         @foreach($questions_q as $question_q)
+        @if ($loop->index <= 2)
         <div class="flex">
             <div>　</div>
             <div class="flex-none w-14 h-6">
@@ -50,6 +51,7 @@
                 {{$question_q ->question }}
             </div>
         </div>
+        @endif
         @endforeach
 
         <div>　</div>
@@ -73,7 +75,7 @@
                 <div>
                     <button type="button" value="{{ $question_a->answer }}" id="{{ $question_a->id }}"
                         onclick="buttonClick({{ $question_a->id }})"
-                        class="sentaku border border-blow-400 px-1 py-2 text-sm font-medium">
+                        class="sentaku border border-blue-400 px-1 py-2 text-sm font-medium">
                              {{$question_a->answer }}
 
                     </button>
@@ -86,10 +88,18 @@
 
             <script>
                 function buttonClick(id){
-                        arr.push(id); // 配列に値を追加する
+                    if (x <= 3){
+
+                    arr.push(id); // 配列に値を追加する
                         document.getElementById(id).disabled = true;
                         document.getElementById(id * 10).textContent = x + "問目の答え";
                         x += 1;
+                    }else{
+                        document.getElementById(id).disabled = true;
+                        document.getElementById(id * 10).textContent = "ダミーの答え";
+                        
+                    }
+
                     };
             </script>
 
@@ -138,8 +148,8 @@
                 
                         function buttonClick2(){
                         alert("リセットします");
-                    // 追加する要素を作成 値が 0 から 2 まで計 3 回実行される
-                    for (let step = 0; step < 3; step++) {
+                    // 追加する要素を作成 値が 0 から 3 まで計 4 回実行される
+                    for (let step = 0; step < 4; step++) {
                     // 押せなくなったbuttonを押せるようにする
                         document.getElementsByClassName('sentaku')[step].disabled = false;
                     // ◯問目の答え　のテキスト表示を削除する
