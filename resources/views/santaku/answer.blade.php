@@ -58,10 +58,12 @@
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
                     @else
-                    <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
+                    <p>出題問題：{{ $viewModels[$i]->getQuestion() }}</p>
+                    <p>誤答：{{ $viewModels[$i]->getmissAnswer() }}</p>
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
-                    <p>誤答：{{ $viewModels[$i]->missAnswer() }}</p>
-                    <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+                    <p>正答解説：{{ $viewModels[$i]->getComment() }}</p>
+                    <p>誤答問題：{{ $viewModels[$i]->getmissQuestion() }}</p>
+                    <p>誤答解説：{{ $viewModels[$i]->getmissComment() }}</p>
                     @endif
 
 
