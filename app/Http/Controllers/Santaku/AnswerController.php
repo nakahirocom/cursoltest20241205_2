@@ -32,16 +32,28 @@ class AnswerViewModel
         return $this->question->answer;
     }
 
-    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
-    public function missAnswer(): string
-    {
-        return $this->choice->answer;
-    }
-
     //出題されたquestionコレクションの中からcommentを返す
     public function getComment(): string
     {
         return $this->question->comment;
+    }
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissQuestion(): string
+    {
+        return $this->choice->question;
+    }
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissAnswer(): string
+    {
+        return $this->choice->answer;
+    }
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissComment(): string
+    {
+        return $this->choice->comment;
     }
 
     //選択されたchoiceコレクションの中のidと出題されたquestionコレクションの中のidが一致しているか判定し、一致ならtrueを返す
