@@ -7,11 +7,14 @@ use App\Models\User;
 use App\Models\MiddleLabel;
 use App\Models\LabelStorages;
 use App\Providers\RouteServiceProvider;
+use App\Mail\NewUserIntroduction;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Contracts\Mail\Mailer;
 
 class RegisteredUserController extends Controller
 {
@@ -33,23 +36,25 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, Mailer $mailer)
     {
+
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $newUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        event(new Registered($newUser));
 
-        Auth::login($user);
+        Auth::login($newUser);
 
         //新規登録した自身のuseridを取得する
         $id = auth()->id();
@@ -66,6 +71,14 @@ class RegisteredUserController extends Controller
             $selectNewList->selected = 1; //中分類を選んだ状態の「１」を登録
             $selectNewList->save();
         }
+
+        //メールの送信処理を追加
+        $allUser = User::get();
+        foreach ($allUser as $user) {
+            $mailer->to($user->email)
+            ->send(new NewUserIntroduction($user, $newUser));
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 }
