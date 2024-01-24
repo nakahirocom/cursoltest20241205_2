@@ -11,25 +11,13 @@ class MiddleLabel extends Model
     protected $table = 'middle_labels';
 
 
-    public function question()
-    {
-        return $this->hasMany(Question::class);
-    }
-
-    public function answerResult()
-    {
-        return $this->hasMany(AnswerResults::class);
-    }
-
     public function largeLabel()
     {
-        return $this->hasMany(LargeLabel::class);
+        return $this->belongsTo(LargeLabel::class);
     }
 
-
-
-    public function labelStrages()
+    public function smallLabel()
     {
-        return $this->hasMany(LabelStorages::class);
+        return $this->hasMany(SmallLabel::class);
     }
 }

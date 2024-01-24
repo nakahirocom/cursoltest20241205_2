@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // 毎日13時 app/Console/Commands/SendDailyTweetCountMail.phpのクラス SendDailyTweetCountMailのメソッド$signature
+        $schedule->command('mail:send-daily-tweet-count-mail')
+            ->everyMinute()
+            ->emailOutputTo('info@example.com');
     }
 
     /**
@@ -25,7 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

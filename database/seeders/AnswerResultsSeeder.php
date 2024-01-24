@@ -14,764 +14,425 @@ class AnswerResultsSeeder extends Seeder
      */
     public function run()
     {
-        // 正解率100%
         AnswerResults::create([
-            'user_id' => 1,
             'question_id' => 1,
+            'user_id' => 1,
             'answered_question_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 1,
             'question_id' => 2,
+            'user_id' => 1,
             'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 1,
             'question_id' => 3,
+            'user_id' => 1,
             'answered_question_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 1,
             'question_id' => 4,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
             'user_id' => 1,
-            'question_id' => 5,
-            'answered_question_id' => 5,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 6,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 7,
-            'answered_question_id' => 7,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 8,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 9,
-            'answered_question_id' => 9,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 10,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 11,
-            'answered_question_id' => 11,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 12,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 13,
-            'answered_question_id' => 13,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 14,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 15,
-            'answered_question_id' => 15,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 16,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 17,
-            'answered_question_id' => 17,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 18,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 1,
-            'answered_question_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 2,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 3,
             'answered_question_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 4,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
             'question_id' => 5,
-            'answered_question_id' => 5,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
             'user_id' => 1,
-            'question_id' => 6,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 7,
-            'answered_question_id' => 7,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 8,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 9,
-            'answered_question_id' => 9,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 10,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 11,
-            'answered_question_id' => 11,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 12,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 13,
-            'answered_question_id' => 13,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 14,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 15,
-            'answered_question_id' => 15,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 16,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 17,
-            'answered_question_id' => 17,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 1,
-            'question_id' => 18,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        // user_id 2 正解率75%
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 1,
-            'answered_question_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 2,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 3,
             'answered_question_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 4,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 5,
-            'answered_question_id' => 5,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
             'question_id' => 6,
+            'user_id' => 1,
             'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 2,
             'question_id' => 7,
+            'user_id' => 1,
             'answered_question_id' => 7,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 2,
             'question_id' => 8,
+            'user_id' => 1,
             'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 2,
             'question_id' => 9,
+            'user_id' => 1,
             'answered_question_id' => 9,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 2,
             'question_id' => 10,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 11,
-            'answered_question_id' => 11,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 12,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 13,
-            'answered_question_id' => 13,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 14,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 15,
-            'answered_question_id' => 15,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 16,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 17,
-            'answered_question_id' => 17,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 18,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 1,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 2,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 3,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 4,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 5,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 6,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 7,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 8,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 9,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 10,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 11,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 12,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 13,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 14,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 15,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 16,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 17,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 2,
-            'question_id' => 18,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        // user_id 3 正解率50%
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 1,
-            'answered_question_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 1,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 2,
-            'answered_question_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 3,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 4,
-            'answered_question_id' => 5,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 5,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 6,
-            'answered_question_id' => 7,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 7,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 8,
+            'user_id' => 1,
             'answered_question_id' => 9,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 9,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 10,
-            'answered_question_id' => 11,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 11,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 12,
-            'answered_question_id' => 13,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 13,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 14,
-            'answered_question_id' => 15,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 15,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 17,
-            'answered_question_id' => 17,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 17,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 1,
-            'answered_question_id' => 18,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 2,
-            'answered_question_id' => 17,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 3,
-            'answered_question_id' => 16,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 4,
-            'answered_question_id' => 15,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 5,
-            'answered_question_id' => 14,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 6,
-            'answered_question_id' => 13,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 7,
-            'answered_question_id' => 12,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 8,
+            'user_id' => 2,
             'answered_question_id' => 11,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 9,
-            'answered_question_id' => 10,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 10,
-            'answered_question_id' => 9,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
-            'question_id' => 11,
-            'answered_question_id' => 8,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-        ]);
-        AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 12,
-            'answered_question_id' => 7,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 11,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 13,
-            'answered_question_id' => 6,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 11,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 14,
-            'answered_question_id' => 5,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 11,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 15,
-            'answered_question_id' => 4,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 11,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 16,
-            'answered_question_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 16,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 17,
-            'answered_question_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 17,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         AnswerResults::create([
-            'user_id' => 3,
             'question_id' => 18,
-            'answered_question_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'user_id' => 2,
+            'answered_question_id' => 17,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 19,
+            'user_id' => 2,
+            'answered_question_id' => 17,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 20,
+            'user_id' => 2,
+            'answered_question_id' => 17,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 21,
+            'user_id' => 2,
+            'answered_question_id' => 21,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 22,
+            'user_id' => 2,
+            'answered_question_id' => 22,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 23,
+            'user_id' => 2,
+            'answered_question_id' => 23,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 24,
+            'user_id' => 2,
+            'answered_question_id' => 24,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 25,
+            'user_id' => 2,
+            'answered_question_id' => 24,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 26,
+            'user_id' => 2,
+            'answered_question_id' => 26,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 27,
+            'user_id' => 2,
+            'answered_question_id' => 27,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 28,
+            'user_id' => 2,
+            'answered_question_id' => 28,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 29,
+            'user_id' => 2,
+            'answered_question_id' => 29,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 30,
+            'user_id' => 2,
+            'answered_question_id' => 30,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 31,
+            'user_id' => 2,
+            'answered_question_id' => 31,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 32,
+            'user_id' => 2,
+            'answered_question_id' => 32,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 33,
+            'user_id' => 2,
+            'answered_question_id' => 32,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 34,
+            'user_id' => 2,
+            'answered_question_id' => 32,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 35,
+            'user_id' => 2,
+            'answered_question_id' => 32,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 36,
+            'user_id' => 2,
+            'answered_question_id' => 36,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 37,
+            'user_id' => 2,
+            'answered_question_id' => 37,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 38,
+            'user_id' => 2,
+            'answered_question_id' => 38,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 39,
+            'user_id' => 2,
+            'answered_question_id' => 38,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 40,
+            'user_id' => 2,
+            'answered_question_id' => 38,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 41,
+            'user_id' => 2,
+            'answered_question_id' => 41,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 42,
+            'user_id' => 2,
+            'answered_question_id' => 42,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 43,
+            'user_id' => 2,
+            'answered_question_id' => 43,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 44,
+            'user_id' => 2,
+            'answered_question_id' => 43,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 45,
+            'user_id' => 2,
+            'answered_question_id' => 43,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 46,
+            'user_id' => 2,
+            'answered_question_id' => 46,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 47,
+            'user_id' => 2,
+            'answered_question_id' => 47,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 48,
+            'user_id' => 2,
+            'answered_question_id' => 48,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 49,
+            'user_id' => 2,
+            'answered_question_id' => 49,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 50,
+            'user_id' => 2,
+            'answered_question_id' => 49,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 51,
+            'user_id' => 1,
+            'answered_question_id' => 51,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 52,
+            'user_id' => 1,
+            'answered_question_id' => 51,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 53,
+            'user_id' => 1,
+            'answered_question_id' => 51,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 54,
+            'user_id' => 1,
+            'answered_question_id' => 51,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 55,
+            'user_id' => 1,
+            'answered_question_id' => 51,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 56,
+            'user_id' => 1,
+            'answered_question_id' => 56,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 57,
+            'user_id' => 1,
+            'answered_question_id' => 57,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 58,
+            'user_id' => 1,
+            'answered_question_id' => 57,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 59,
+            'user_id' => 1,
+            'answered_question_id' => 57,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        AnswerResults::create([
+            'question_id' => 60,
+            'user_id' => 1,
+            'answered_question_id' => 57,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

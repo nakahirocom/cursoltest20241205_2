@@ -67,7 +67,7 @@ class AnswerController extends Controller
 {
     public function __invoke(AnswerResultRequest $request)
     {
-//        dump($request);
+        //        dump($request);
 
         // 問題1のidをrequestから取得する
         $question1_Id = $request->input('question1_Id');
@@ -237,7 +237,5 @@ class AnswerController extends Controller
             ->with('allseikairituModels', $allseikairituModels)
             ->with('uidseikairituModels', $uidseikairituModels);
 
-        // ユーザーが10問解いたら結果画面に遷移
-        // そうでなければ次の問題
     }
 }

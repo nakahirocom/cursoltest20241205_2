@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\MiddleLabel;
+use App\Models\SmallLabel;
 use App\Models\LabelStorages;
 use App\Providers\RouteServiceProvider;
 use App\Mail\NewUserIntroduction;
@@ -47,10 +47,12 @@ class RegisteredUserController extends Controller
         ]);
 
         $newUser = User::create([
+            'region_id' => $request->region,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
 
         event(new Registered($newUser));
 
@@ -59,25 +61,24 @@ class RegisteredUserController extends Controller
         //新規登録した自身のuseridを取得する
         $id = auth()->id();
 
-        //MiddleLabelテーブルの全てのデータ(中分類)を$middlelabelNewListに保存する
-        $middleLabelNewList = MiddleLabel::all();
+        //SmallLabelテーブルの全てのデータ(中分類)を$smalllabelNewListに保存する
+        $smallLabelNewList = SmallLabel::all();
 
-        //LabelStoragesテーブルの[user_id=全て自分の$id][large_label_id=ミドルラベルから][middle_label_id=全てのid][selected=全て1]
-        foreach ($middleLabelNewList as $item) {
+        //LabelStoragesテーブルの[user_id=全てログインユーザーの$id][small_label_id=全てのid][selected=全て1]
+        foreach ($smallLabelNewList as $item) {
             $selectNewList = new LabelStorages();
             $selectNewList->user_id = $id; // ここでUserIdを保存している　❌ =$id();
-            $selectNewList->large_label_id = $item->large_label_id; //large_label_idを登録
-            $selectNewList->middle_label_id = $item->id; //middle_label_idを登録
+            $selectNewList->small_label_id = $item->id; //small_label_idを登録
             $selectNewList->selected = 1; //中分類を選んだ状態の「１」を登録
             $selectNewList->save();
         }
 
         //メールの送信処理を追加
-        $allUser = User::get();
-        foreach ($allUser as $user) {
-            $mailer->to($user->email)
-            ->send(new NewUserIntroduction($user, $newUser));
-        }
+        //        $allUser = User::get();
+        //        foreach ($allUser as $user) {
+        //            $mailer->to($user->email)
+        //            ->send(new NewUserIntroduction($user, $newUser));
+        //        }
 
         return redirect(RouteServiceProvider::HOME);
     }

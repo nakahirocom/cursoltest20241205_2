@@ -16,25 +16,45 @@ class UsersSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'naka1 100%',
-            'email' => 'naka1@aa',
+            'name' => 'ko1',
+            'email' => 'ko1@aa',
             'email_verified_at' => now(),
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
+            'region_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        User::create([
+            'name' => 'ko2',
+            'email' => 'ko2@aa',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
+            'remember_token' => Str::random(10),
+            'region_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         User::create([
-            'name' => 'naka2 75%',
-            'email' => 'naka2@aa',
+            'name' => 'ko3',
+            'email' => 'ko3@aa',
             'email_verified_at' => now(),
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
+            'region_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         User::create([
-            'name' => 'naka3 50%',
-            'email' => 'naka3@aa',
+            'name' => 'ko4',
+            'email' => 'ko4@aa',
             'email_verified_at' => now(),
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
+            'region_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

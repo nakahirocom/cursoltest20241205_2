@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AnswerResults extends Model
+class Kaizen extends Model
 {
     use HasFactory;
 
-    protected $table = 'answer_results';
+    protected $table = 'kaizens';
+
 
     public function user()
     {
+        //UserモデルのUserクラス
         return $this->belongsTo(User::class);
     }
 
     public function question()
     {
+        //QuestionモデルのQuestionクラス
         return $this->belongsTo(Question::class);
     }
 }

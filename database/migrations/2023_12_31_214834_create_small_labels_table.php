@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('answer_results', function (Blueprint $table) {
+        Schema::create('small_labels', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('middle_label_id');
+            $table->string('small_label');
+            $table->timestamps();
+
+            $table->foreign('middle_label_id')->references('id')->on('middle_labels');
         });
     }
 
@@ -24,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('answer_results', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('small_labels');
     }
 };
