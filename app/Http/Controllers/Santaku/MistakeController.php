@@ -16,15 +16,15 @@ class MistakeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        
+
         $questions = Question::getMissThreeQuestions();
 
-        if($questions[0] === null) {
+        if ($questions[0] === null) {
             // 選択されたジャンルが無いためindex画面へ変遷させる
             return view('santaku.index');
         }
 
-        $question = $questions[0];//シャッフル前に[0]を正解用として$questionに保存する
+        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
         shuffle($questions);
 
         return view('santaku.mistake')

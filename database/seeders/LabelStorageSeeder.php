@@ -17,547 +17,339 @@ class LabelStorageSeeder extends Seeder
     {
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
+            'small_label_id' => 1,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'small_label_id' => 2,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 3,
-            'selected' => 1,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 4,
-            'selected' => 1,
+            'small_label_id' => 3,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 5,
-            'selected' => 1,
+            'small_label_id' => 4,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 6,
-            'selected' => 1,
+            'small_label_id' => 5,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 1,
-            'middle_label_id' => 7,
-            'selected' => 1,
+            'small_label_id' => 6,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 8,
-            'selected' => 1,
+            'small_label_id' => 7,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 9,
-            'selected' => 1,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 10,
+            'small_label_id' => 8,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 11,
+            'small_label_id' => 9,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 12,
+            'small_label_id' => 10,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 2,
-            'middle_label_id' => 13,
-            'selected' => 0,
+            'small_label_id' => 11,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 14,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 15,
-            'selected' => 0,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 16,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 17,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 18,
-            'selected' => 0,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 19,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 20,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 21,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 22,
+            'small_label_id' => 12,
             'selected' => 1,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 23,
-            'selected' => 1,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 24,
-            'selected' => 1,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 25,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 3,
-            'middle_label_id' => 26,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 4,
-            'middle_label_id' => 27,
-            'selected' => 1,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 4,
-            'middle_label_id' => 28,
-            'selected' => 1,
-        ]);
-        LabelStorages::create([
-            'user_id' => 1,
-            'large_label_id' => 4,
-            'middle_label_id' => 29,
-            'selected' => 1,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
+            'small_label_id' => 1,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 3,
+            'small_label_id' => 2,
             'selected' => 0,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 4,
-            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 5,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 6,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 1,
-            'middle_label_id' => 7,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 8,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 9,
-            'selected' => 0,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 10,
+            'small_label_id' => 3,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 11,
+            'small_label_id' => 4,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 12,
+            'small_label_id' => 5,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 2,
-            'middle_label_id' => 13,
+            'small_label_id' => 6,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 14,
+            'small_label_id' => 7,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 15,
+            'small_label_id' => 8,
             'selected' => 1,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 16,
-            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 17,
+            'small_label_id' => 9,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 18,
+            'small_label_id' => 10,
             'selected' => 1,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 19,
-            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 20,
+            'small_label_id' => 11,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 21,
+            'small_label_id' => 12,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 22,
+            'user_id' => 3,
+            'small_label_id' => 1,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 23,
+            'user_id' => 3,
+            'small_label_id' => 2,
             'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 24,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 25,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 3,
-            'middle_label_id' => 26,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 4,
-            'middle_label_id' => 27,
+            'user_id' => 3,
+            'small_label_id' => 3,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 4,
-            'middle_label_id' => 28,
+            'user_id' => 3,
+            'small_label_id' => 4,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 2,
-            'large_label_id' => 4,
-            'middle_label_id' => 29,
+            'user_id' => 3,
+            'small_label_id' => 5,
             'selected' => 1,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 1,
-            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 2,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 3,
-            'selected' => 0,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 4,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 5,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 6,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 1,
-            'middle_label_id' => 7,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 8,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 9,
-            'selected' => 0,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 10,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 11,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 12,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 2,
-            'middle_label_id' => 13,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 14,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 15,
-            'selected' => 0,
-        ]);
-
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 16,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 17,
-            'selected' => 0,
-        ]);
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 18,
-            'selected' => 0,
-        ]);
-
-
-        LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 19,
+            'small_label_id' => 6,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 20,
+            'small_label_id' => 7,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 21,
+            'small_label_id' => 8,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 22,
+            'small_label_id' => 9,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 23,
+            'small_label_id' => 10,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 24,
-            'selected' => 1,
+            'small_label_id' => 11,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
             'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 25,
-            'selected' => 1,
+            'small_label_id' => 12,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 3,
-            'middle_label_id' => 26,
-            'selected' => 1,
+            'user_id' => 4,
+            'small_label_id' => 1,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 4,
-            'middle_label_id' => 27,
-            'selected' => 1,
+            'user_id' => 4,
+            'small_label_id' => 2,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 4,
-            'middle_label_id' => 28,
+            'user_id' => 4,
+            'small_label_id' => 3,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         LabelStorages::create([
-            'user_id' => 3,
-            'large_label_id' => 4,
-            'middle_label_id' => 29,
+            'user_id' => 4,
+            'small_label_id' => 4,
             'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 5,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 6,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 7,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 8,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 9,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 10,
+            'selected' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 11,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        LabelStorages::create([
+            'user_id' => 4,
+            'small_label_id' => 12,
+            'selected' => 0,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

@@ -33,47 +33,63 @@
         <form action="{{ route('check.register') }}" method="post">
             @csrf
             @foreach($largelabelList as $largelabel)
-            <div>
-                <summary>
-                    <div class="collapse show" id="collapseExample" style="">
-                        <p>＝＝＝＝＝＝＝＝＝＝＝＝＝＝{{ $largelabel->large_label }}（大分類）</p>
 
-                        @foreach ($selectList as $user_select)
-                        @if( $largelabel->id == $user_select->largelabel->id )
-                        <form>
-                            <div class="form-group">
-                                <div class="checkbox-inline">
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden"
-                                        name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
-                                    @if ($user_select['selected'] == 1)
-                                    <input type="checkbox" checked="checked"
-                                        id={{$user_select->middleLabel->middle_label }} name="labelstorages_id[{{
-                                    $user_select['id'] }}]" value="1">
-                                    <label class="form-check-label" for={{ $user_select->middleLabel->middle_label }}>
-                                        {{ $user_select->middleLabel->middle_label }}（中分類）
-                                    </label>
-                                    @else
-                                    <input type="checkbox" id={{$user_select->middleLabel->middle_label }}
-                                    name="labelstorages_id[{{ $user_select['id'] }}]" value="1">
+            <summary>
+                <div class="collapse show" id="collapseExample" style="">
+                    <p>(大分類){{ $largelabel->large_label }}</p>
 
-                                    <label class="form-check-label" for={{ $user_select->middleLabel->middle_label }}>
-                                        {{ $user_select->middleLabel->middle_label }}（中分類）
-                                    </label>
-                                    @endif
+                    @foreach ($middlelabelList as $middlelabel)
+                    @if( $largelabel->id == $middlelabel->large_label_id )
 
-                                </div>
-                                @endif
+                    <div>
+                        <summary>
+                            <div class="collapse show" id="collapseExample" style="">
+                                <p>　(中分類){{ $middlelabel->middle_label }}</p>
 
-                                @endforeach
-                                <br>
-                                @endforeach
+                                @foreach ($selectList as $user_select)
+                                @if( $middlelabel->id == $user_select->smallLabel->middle_label_id )
 
-                                <button class="btn btn-outline-primary" name="KeepForIndex"
-                                    type="submit">ジャンルを保存後にインデックス画面へ</button>
-                                <button class="btn btn-outline-primary" name="KeepForSantaku"
-                                    type="submit">ジャンル保存後に問題を解く</button>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="checkbox-inline">
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="hidden"
+                                                name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
+                                            @if ($user_select['selected'] == 1)
+                                            <input type="checkbox" checked="checked"
+                                                id={{$user_select->smallLabel->small_label
+                                            }} name="labelstorages_id[{{
+                                            $user_select['id'] }}]" value="1">
+                                            <label class="form-check-label" for={{ $user_select->smallLabel->small_label
+                                                }}>
+                                                {{ $user_select->smallLabel->small_label }}（小分類）
+                                            </label>
+                                            @else
+                                            <input type="checkbox" id={{$user_select->smallLabel->small_label }}
+                                            name="labelstorages_id[{{ $user_select['id'] }}]" value="1">
 
-                        </form>
+                                            <label class="form-check-label" for={{ $user_select->smallLabel->small_label
+                                                }}>
+                                                {{ $user_select->smallLabel->small_label }}（小分類）
+                                            </label>
+                                            @endif
+
+                                        </div>
+                                        @endif
+
+                                        @endforeach
+                                        <br>
+                                        @endif
+
+                                        @endforeach
+
+                                        @endforeach
+
+                                        <button class="btn btn-outline-primary" name="KeepForIndex"
+                                            type="submit">ジャンルを保存後にインデックス画面へ</button>
+                                        <button class="btn btn-outline-primary" name="KeepForSantaku"
+                                            type="submit">ジャンル保存後に問題を解く</button>
+
+                                </form>
 </body>

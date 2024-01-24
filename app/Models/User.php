@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'region_id',
         'password',
     ];
 
@@ -41,6 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function labelStorage()
+    {
+        return $this->hasMany(LabelStorages::class);
+    }
+
     public function question()
     {
         return $this->hasMany(Question::class);
@@ -49,5 +60,10 @@ class User extends Authenticatable
     public function answerResult()
     {
         return $this->hasMany(AnswerResults::class);
+    }
+
+    public function kaizen()
+    {
+        return $this->hasMany(Kaizen::class);
     }
 }

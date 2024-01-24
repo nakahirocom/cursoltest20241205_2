@@ -33,9 +33,9 @@ class IncorrectListController extends Controller
                     'questions.question as q_question',
                     'questions.answer as q_answer',
                     'questions.comment as q_comment',
-//                    'middle_labels.middle_label as m_middle_label'
+                    //                    'middle_labels.middle_label as m_middle_label'
 
-                    )
+                )
                 ->join(
                     'questions',
                     'answer_results.answered_question_id',

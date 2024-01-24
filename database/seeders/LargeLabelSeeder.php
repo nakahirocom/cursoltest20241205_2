@@ -16,35 +16,13 @@ class LargeLabelSeeder extends Seeder
     public function run()
     {
         LargeLabel::create([
-            'large_label' => 'ひかり税理士',
+            'large_label' => '小学校習う',
         ]);
         LargeLabel::create([
-            'large_label' => '必要な資格',
-        ]);
-        LargeLabel::create([
-            'large_label' => 'システム系',
+            'large_label' => '税理士業務',
         ]);
         LargeLabel::create([
             'large_label' => 'その他',
         ]);
-        LargeLabel::create([
-            'large_label' => '予備1',
-        ]);
-        LargeLabel::create([
-            'large_label' => '予備2',
-        ]);
-        LargeLabel::create([
-            'large_label' => '予備3',
-        ]);
-        LargeLabel::create([
-            'large_label' => '予備4',
-        ]);
-        LargeLabel::create([
-            'large_label' => '予備5',
-        ]);
-
-
-
-
     }
 }

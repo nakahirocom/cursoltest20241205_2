@@ -15,12 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-            UsersSeeder::class,
+            RegionSeeder::class,
             LargeLabelSeeder::class,
             MiddleLabelSeeder::class,
+            SmallLabelSeeder::class,
+            UsersSeeder::class,
             LabelStorageSeeder::class,
             QuestionSeeder::class,
             AnswerResultsSeeder::class,
+            KaizenSeeder::class
+
 
         ]);
         // \App\Models\User::factory()->create([

@@ -10,18 +10,13 @@ class LabelStorages extends Model
     use HasFactory;
     protected $table = 'label_storages';
 
-    public function MiddleLabel()
+    public function smallLabel()
     {
-        return $this->belongsTo(MiddleLabel::class);
+        return $this->belongsTo(SmallLabel::class);
     }
 
-    public function largeLabel()
+    public function user()
     {
-        return $this->belongsTo(LargeLabel::class);
-    }
-
-    public function question()
-    {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(User::class);
     }
 }

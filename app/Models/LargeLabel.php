@@ -11,18 +11,9 @@ class LargeLabel extends Model
     protected $table = 'large_labels';
 
 
-    public function question()
-    {
-        return $this->hasMany(Question::class);
-    }
 
-    public function answerResult()
+    public function middleLabel()
     {
-        return $this->hasMany(AnswerResults::class);
-    }
-
-    public function labelStrages()
-    {
-        return $this->hasMany(LabelStorages::class);
+        return $this->hasMany(MiddleLabel::class);
     }
 }

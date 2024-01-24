@@ -13,7 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('answer_results', function (Blueprint $table) {
+        Schema::table('label_storages', function (Blueprint $table) {
+            // label_storagesテーブルのsmall_label_idカラムにsmall_labelテーブルのidカラムを関連づける
+            $table->foreign('small_label_id')->references('id')->on('small_labels');
         });
     }
 
@@ -24,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('answer_results', function (Blueprint $table) {
+        Schema::table('label_storages', function (Blueprint $table) {
             //
         });
     }

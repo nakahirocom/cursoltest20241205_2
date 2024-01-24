@@ -40,8 +40,7 @@
         <span class="placeholder col-12 placeholder-xs"></span>
         <br />
 
-        @for ($i = 0; $i < count($viewModels); $i++) 
-            @if ($viewModels[$i]->isCorrect() )
+        @for ($i = 0; $i < count($viewModels); $i++) @if ($viewModels[$i]->isCorrect() )
             <span class="btn btn-outline-primary">■選択肢{{ $i + 1 }}：{{ "正解" }}</span>
             @else
             <span class="btn btn-outline-danger">■選択肢{{ $i + 1 }}：{{ "不正解" }}</span>

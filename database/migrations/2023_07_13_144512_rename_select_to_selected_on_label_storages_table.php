@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('label_storages', function (Blueprint $table) {
-            $table->renameColumn('select', 'selected');//<-記述
-            
+            $table->renameColumn('select', 'selected'); //<-記述
+
         });
     }
 
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('label_storages', function (Blueprint $table) {
-            $table->renameColumn('selected', 'select');//<-記述
+            $table->renameColumn('selected', 'select'); //<-記述
         });
     }
 };
