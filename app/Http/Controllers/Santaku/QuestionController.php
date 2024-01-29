@@ -20,14 +20,16 @@ class QuestionController extends Controller
     {
         $questions = Question::getThreeQuestionsAtRandom();
 
-        $questions_a = $questions; //答え選択肢用の配列
-
-        if ($questions[0] === null) {
-            // 選択されたジャンルが無いためindex画面へ変遷させる
-            return view('santaku.index');
+        foreach ($questions as $question) {
+            if ($question === null) {
+                // nullの要素がある場合は、'santaku.index'ビューにリダイレクトする
+                return view('santaku.index');
+            }
         }
 
-        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
+        $questions_a = $questions; //答え選択肢用の配列
+        
+//        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
         $questions_q = collect($questions)->take(3)->shuffle(); //4問取得したものを前から３つ取得してシャッフルする
 
         //        shuffle($questions_q);//問題をランダムに出題するためのシャッフル
