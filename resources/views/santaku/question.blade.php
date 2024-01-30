@@ -16,7 +16,7 @@
 </head>
 
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-64">
-    @auth
+        @auth
         <div class="flex justify-between items-center">
             <!-- flexとjustify-betweenを追加 -->
             <div>
@@ -27,7 +27,7 @@
                 <!-- max-w-4xlとmx-autoを追加 -->
                 三択問題モード
             </p>
-
+        
             <div class="flex ml-auto">
                 <!-- ml-auto を追加 -->
                 <nav aria-label="breadcrumb">
@@ -38,6 +38,8 @@
                 </nav>
             </div>
         </div>
+    
+
     @endauth
 
 
@@ -193,6 +195,7 @@
                 </button>
             </div>
         </div>
+
         </form>
 
         <script>
