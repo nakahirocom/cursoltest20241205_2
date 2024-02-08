@@ -14,8 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <title>santakuアプリ</title>
 </head>
-
-<body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-64">
+<body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
         @auth
         <div class="flex justify-between items-center">
             <!-- flexとjustify-betweenを追加 -->
@@ -183,7 +182,7 @@
                 <button id="kakutei" type="submit" value="回答を確定する"
                     class="h-12 w-full my-2 px-4 py-2 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
                     onclick="buttonClick1()">
-                    答え合わせをする
+                    答え合わせ
                 </button>
             </div>
 
@@ -191,7 +190,7 @@
                 <button type="button"
                     class="h-12 my-2 px-4 py-2 border-2 border-red-500 rounded-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition duration-300 from-pink-600 to-yellow-600"
                     onclick="buttonClick2()">
-                    選んだ選択を元に戻す
+                    選択リセット
                 </button>
             </div>
         </div>
