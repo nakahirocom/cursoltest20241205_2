@@ -1915,5 +1915,16 @@ select {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+  
 }
+@media (max-width: 768px) {
+    /* スマートフォン向けのスタイル */
+    .question {
+        font-size: 14px; /* フォントサイズを小さくする */
+    }
 
+    .btn {
+        padding: 10px 15px; /* ボタンのパディングを調整 */
+        font-size: 14px; /* ボタンのフォントサイズを調整 */
+    }
+}
