@@ -33,15 +33,27 @@
     @endif
 
     <form action="{{ route('update.put', ['questionId' => $question->id])
-              }}" method="post">
+              }}" method="post" enctype="multipart/form-data">
       @method('PUT')
       @csrf
       <br />
+      <span>編集前の小分類：{{ $question->small_label_id }}</span>
+      <input type="text" name="small_label_id" class="form-control" value="{{ $question->small_label_id }}">
+
+
       <span>編集前の問題：{{ $question->question }}</span>
       <input type="text" name="question" class="form-control" value="{{ $question->question }}">
       @error('question')
       <p style="coler: red;">{{ $message }}</p>
       @enderror
+      <br />
+      <span>question_path：{{ $question->question_path }}</span>
+      <br />
+      <img src="{{ $question->question_path }}">
+      <br />
+
+      <input type="file" name="question_image" placeholder="画像をセットしてください">
+      <br />
 
 
       <br />
@@ -57,6 +69,15 @@
       @error('comment')
       <p style="coler: red;">{{ $message }}</p>
       @enderror
+      <br />
+      <span>comment_path：{{ $question->comment_path }}</span>
+      <br />
+      <img src="{{ $question->comment_path }}">
+
+
+      <br />
+      <input type="file" name="comment_image" placeholder="画像をセットしてください">
+      <br />
 
       <br />
 

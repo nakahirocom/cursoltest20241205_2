@@ -18,24 +18,25 @@
         @auth
         <div class="flex justify-between items-center">
             <!-- flexとjustify-betweenを追加 -->
-            <div>
-                <a class="btn btn-link" href="/">index画面へ戻る</a>
-                <button type="button" onClick="history.back()" class="btn btn-link">前の画面に戻る</button>
-            </div>
             <p class="h6 max-w-4xl mx-auto mp-4">
                 <!-- max-w-4xlとmx-autoを追加 -->
-                三択問題モード
+                回答モード
             </p>
+
+            <div>
+                <a class="btn btn-link" href="/">HOME</a>
+            <!--    <button type="button" onClick="history.back()" class="btn btn-link">前の画面に戻る</button>-->
+            </div>
         
-            <div class="flex ml-auto">
+            <!--<div class="flex ml-auto">-->
                 <!-- ml-auto を追加 -->
-                <nav aria-label="breadcrumb">
+                <!--<nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><span>{{ Auth::user()->name }}</span> がログイン中</li>
                         <li class="breadcrumb-item active" aria-current="page">id{{ Auth::user()->id }}</li>
                     </ol>
                 </nav>
-            </div>
+            </div>-->
         </div>
     
 
@@ -51,10 +52,11 @@
             <div id="question-{{ $loop->iteration }}"
                 class="question flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
                 <div class="w-14 h-6 flex justify-center items-center">
-                    <strong class="text-lg text-white text-center">{{$loop->iteration}}問目</strong>
+                    <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
                 </div>
                 <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
                     {{$question_q->question}}
+                    <img src="{{ asset($question_q->question_path) }}">
                 </div>
             </div>
         </div>

@@ -28,13 +28,21 @@
     @endauth
     <br>
 
-    <form method="post" action="{{ route('create.index') }}">
+    <form method="post" action="{{ route('create.index') }}" enctype="multipart/form-data">
       @csrf
+
+      <input type="text" name="small_label_id" class="form-control" placeholder="small_label_idの数字を入力。larabelは11です">
+      <br />
+
       <input type="text" name="question" class="form-control" placeholder="問題を登録してください">
       @error('question')
       <p class="text-danger">{{ $message }}</p>
       @enderror
+
+      <input type="file" name="question_image" placeholder="画像をセットしてください">
       <br />
+      <br />
+
       <input type="text" name="answer" class="form-control" placeholder="答えを登録してください">
       @error('answer')
       <p class="text-danger">{{ $message }}</p>
@@ -46,9 +54,12 @@
       <p class="text-danger">{{ $message }}</p>
       @enderror
       <br />
+      <input type="file" name="comment_image" placeholder="画像をセットしてください">
+      <br />
+      <br />
 
       <div class="col-12">
-        <button type="submit" class="btn btn-outline-primary">新規登録しインデックス画面へ戻る</button>
+        <button type="submit" class="btn btn-outline-primary">新規登録し確認</button>
       </div>
       <br />
     </form>

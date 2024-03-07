@@ -26,6 +26,12 @@ class AnswerViewModel
         return $this->question->question;
     }
 
+    //出題されたquestionコレクションの中からquestion_imageを返す
+    public function getQuestion_path(): string
+    {
+        return $this->question->question_path;
+    }
+
     //出題されたquestionコレクションの中から正しい正解のanswerを返す
     public function getAnswer(): string
     {
@@ -36,6 +42,12 @@ class AnswerViewModel
     public function getComment(): string
     {
         return $this->question->comment;
+    }
+
+    //出題されたquestionコレクションの中からcomment_imageを返す
+    public function getComment_path(): string
+    {
+        return $this->question->comment_path;
     }
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
@@ -229,7 +241,7 @@ class AnswerController extends Controller
             $viewModel2,
             $viewModel3,
         ];
-
+//dd($viewModels);
         return view('santaku.answer')
             ->with('viewModels', $viewModels)
             ->with('allkaitousuuModels', $allkaitousuuModels)

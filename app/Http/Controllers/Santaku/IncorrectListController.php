@@ -31,8 +31,10 @@ class IncorrectListController extends Controller
                     'answer_results.updated_at',
                     'questions.id as q_id',
                     'questions.question as q_question',
+                    'questions.question_path as q_question_path',
                     'questions.answer as q_answer',
                     'questions.comment as q_comment',
+                    'questions.comment_path as q_comment_path',
                     //                    'middle_labels.middle_label as m_middle_label'
 
                 )
@@ -45,6 +47,7 @@ class IncorrectListController extends Controller
                 ->orderBy('answer_results.created_at', 'DESC')
                 ->take(30)
                 ->get();
+//dd($incorrectList);
             return view('santaku.incorrect')
                 ->with('incorrectList', $incorrectList);
         }

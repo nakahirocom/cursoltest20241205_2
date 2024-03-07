@@ -34,18 +34,32 @@
           <summary>
             <div class="collapse show" id="collapseExample" style="">
               <div class="card card-body">
+                <p>🟧最新の間違いから{{$loop->iteration}}つ目</p>
 
                 <p>解答日時　{{ $incorrect->updated_at}}</p>
                 <p>出題問題　{{ $incorrect->question->question }}</p>
+                <img src="{{ asset($incorrect->question->question_path) }}">
                 <p>間違えた答え　{{ $incorrect->q_answer }}</p>
                 <br>
                 <p>出題問題　{{ $incorrect->question->question }}</p>
+                <img src="{{ asset($incorrect->question->question_path) }}">
                 <p>答え　{{ $incorrect->question->answer }}</p>
                 <p>解説　{{ $incorrect->question->comment }}</p>
+                <img src="{{ asset($incorrect->question->comment_path) }}">
+                  <div>
+                    <a href="{{ route('edit', ['questionId' => $incorrect->question_id])}}">▶️{{ $incorrect->question->question }}編集</a>
+                  </div>
+        
                 <br>
                 <p>間違えた答えの問題　{{ $incorrect->q_question }}</p>
+                <img src="{{ asset($incorrect->q_question_path) }}">
                 <p>答え　{{ $incorrect->q_answer }}</p>
                 <p>解説　{{ $incorrect->q_comment }}</p>
+                <img src="{{ asset($incorrect->q_comment_path) }}">
+                  <div>
+                    <a href="{{ route('edit', ['questionId' => $incorrect->answered_question_id])}}">▶︎{{ $incorrect->q_question }}編集</a>
+                  </div>
+        
               </div>
             </div>
           </summary>

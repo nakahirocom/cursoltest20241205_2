@@ -54,8 +54,12 @@
                 <div class="card card-body">
                     @if ($viewModels[$i]->isCorrect() )
                     <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
+                    <p><img src="{{ asset($viewModels[$i]->getQuestion_path() ) }}"></p>
+
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+                    <p><img src="{{ asset($viewModels[$i]->getComment_path()) }}"></p>
+
                     @else
                     <p>出題問題：{{ $viewModels[$i]->getQuestion() }}</p>
                     <p>誤答：{{ $viewModels[$i]->getmissAnswer() }}</p>
