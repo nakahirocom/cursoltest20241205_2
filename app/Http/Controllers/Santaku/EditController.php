@@ -28,7 +28,7 @@ class EditController extends Controller
         }
 
         $question = Question::where('id', $questionId)->firstOrFail();
-
+        //dump($question);
         return view('santaku.edit')->with('question', $question);
     }
 }
