@@ -10,8 +10,6 @@ class LargeLabel extends Model
     use HasFactory;
     protected $table = 'large_labels';
 
-
-
     public function middleLabel()
     {
         return $this->hasMany(MiddleLabel::class);

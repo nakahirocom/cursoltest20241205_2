@@ -23,7 +23,7 @@ class SantakusetController extends Controller
         $id = auth()->id();
         //　ログインしたユーザーの選んだジャンルを呼び出し、Eagerロードのためにwith([ミドルラベル、ラージラベル])してdbへのアクセスを少なくする
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
-//        dump($selectList);
+        //        dump($selectList);
         $largelabelList = LargeLabel::all();
         $middlelabelList = MiddleLabel::all();
 

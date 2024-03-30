@@ -11,13 +11,26 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>santakuアプリ</title>
+    <!-- ここにCSSを追加 -->
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            img {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <a class="btn btn-link" href="/">index画面へ戻る</a>
         @auth
-        <p class="h3">三択アプリ 正解率のワースト１位を解直すモード　⭐️ジャンルを問わずあなたの解いた問題の中から出題されます</p>
+        <p class="h3">三択アプリ ⭐️ジャンルを問わずあなたの解いた問題の中から出題されます</p>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>

@@ -10,6 +10,7 @@ class AnswerResults extends Model
     use HasFactory;
 
     protected $table = 'answer_results';
+    //    protected $fillable = 'user_id';
 
     public function user()
     {

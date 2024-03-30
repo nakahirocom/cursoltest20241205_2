@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AnswerResults;
 
-
 class IncorrectListController extends Controller
 {
     /**
@@ -20,7 +19,7 @@ class IncorrectListController extends Controller
             // 現在認証しているユーザーのIDを取得
             $id = auth()->id();
             //　不正解問題（正解idと解答idが不一致）で認証ユーザーの問題を新しい日時順でdbから抽出する
-            $incorrectList = AnswerResults::with('question')
+            $incorrectList = AnswerResults::with('question.smallLabel.middleLabel.largeLabel')
                 ->whereColumn('answer_results.question_id', '!=', 'answer_results.answered_question_id')
                 ->where('answer_results.user_id', '=', $id)
                 ->select(
@@ -45,9 +44,9 @@ class IncorrectListController extends Controller
                     'questions.id'
                 )
                 ->orderBy('answer_results.created_at', 'DESC')
-                ->take(30)
+                ->take(20)
                 ->get();
-//dd($incorrectList);
+            //dd($incorrectList);
             return view('santaku.incorrect')
                 ->with('incorrectList', $incorrectList);
         }

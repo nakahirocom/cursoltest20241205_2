@@ -11,25 +11,32 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>santakuアプリ</title>
+    <!-- ここにCSSを追加 -->
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            img {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <a class="btn btn-link" href="/">index画面へ戻る</a>
-        <a class="btn btn-link" href="/question">ひたすら三択_次の問題へ</a>
-        <a class="btn btn-link" href="/mistake">苦手な問題_次の問題へ</a>
+        <a class="btn btn-link" href="/">HOME画面へ戻る</a>
+        <a class="btn btn-link" href="/question">次の問題へ</a>
 
         @auth
 
         @endauth
 
         <p class="h2">三択アプリ　答え合わせ</p>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
-                <li class="breadcrumb-item active" aria-current="page">ユーザーid{{ Auth::user()->id }}</li>
-            </ol>
-        </nav>
+
 
         <p>-------------------------------------------------------</p>
 
@@ -54,11 +61,14 @@
                 <div class="card card-body">
                     @if ($viewModels[$i]->isCorrect() )
                     <p>問題：{{ $viewModels[$i]->getQuestion() }}</p>
-                    <p><img src="{{ asset($viewModels[$i]->getQuestion_path() ) }}"></p>
-
+                    @if($viewModels[$i]->getQuestion_path())
+                    <img src="{{ $viewModels[$i]->getQuestion_path() }}" alt="Question Image">
+                    @endif
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
-                    <p><img src="{{ asset($viewModels[$i]->getComment_path()) }}"></p>
+                    @if($viewModels[$i]->getComment_path())
+                    <img src="{{ $viewModels[$i]->getComment_path() }}" alt="Comment Image">
+                    @endif
 
                     @else
                     <p>出題問題：{{ $viewModels[$i]->getQuestion() }}</p>
@@ -75,9 +85,8 @@
             <br>
 
             @endfor
-            <a class="btn btn-link" href="/">index画面へ戻る</a>
+            <a class="btn btn-link" href="/">HOME画面へ戻る</a>
             <a class="btn btn-link" href="/question">次の問題へ</a>
-            <a class="btn btn-link" href="/mistake">苦手な問題_次の問題へ</a>
 
     </div>
 </body>
