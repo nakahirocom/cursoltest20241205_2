@@ -56,7 +56,7 @@
                 <a class="btn btn-outline-dark" style="text-align:left" href="/question"
                     role="button">1.選んだジャンルを解きまくるモード</a>
                 <br>
-<!--                <a class="btn btn-outline-dark" style="text-align:left" href="/mistake"
+                <!--                <a class="btn btn-outline-dark" style="text-align:left" href="/mistake"
                     role="button">2.自己分析モード（UI画面開発中）</a>
                 <br>
 -->

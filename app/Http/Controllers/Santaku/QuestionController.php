@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 class QuestionController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * 受け取ったリクエストを処理します。
      *
      * @param  Request  $request
      * @return View
@@ -19,28 +19,28 @@ class QuestionController extends Controller
     public function __invoke(Request $request): View
     {
         $questions = Question::getThreeQuestionsAtRandom();
-
-        foreach ($questions as $question) {
-            if ($question === null) {
-                // nullの要素がある場合は、'santaku.index'ビューにリダイレクトする
-                return view('santaku.index');
-            }
+        //dump($questions);
+        // 配列が空か、nullを含む場合にチェック
+        if (empty($questions)) {
+            // santoku.indexビューにリダイレクト
+            return view('santaku.index');
         }
 
-        $questions_a = $questions; //答え選択肢用の配列
-        
-//        $question = $questions[0]; //シャッフル前に[0]を正解用として$questionに保存する
-        $questions_q = collect($questions)->take(3)->shuffle(); //4問取得したものを前から３つ取得してシャッフルする
+        $questionj = collect($questions)->take(1); // ジャンル表示用の最初の問題
+        //dd($questionj);
+        $questionsA = $questions;   // 回答選択肢用の配列
+        shuffle($questionsA);
 
-        //        shuffle($questions_q);//問題をランダムに出題するためのシャッフル
-        shuffle($questions_a); //答えの選択肢をランダムに出題するためのシャッフル
+        $numQuestions = $request->input('num_questions', 7); // リクエストから問題数を取得、デフォルトは7
+        $numQuestions = max(1, $numQuestions); // 最小値を1とする
 
-        return view('santaku.question')
-            ->with('questions_q', $questions_q)
-            ->with('questions_a', $questions_a)
-            ->with('question', $question)
-            ->with('question1_Id', $questions_q[0]->id)
-            ->with('question2_Id', $questions_q[1]->id)
-            ->with('question3_Id', $questions_q[2]->id);
+        $questionsQ = collect($questions)->take($numQuestions)->shuffle();
+        //dd($questionsQ);
+        return view('santaku.question', [
+            'questions_q' => $questionsQ,
+            'questions_a' => $questionsA,
+            'questionj' => $questionj,
+            'questionIds' => $questionsQ->pluck('id')->all()
+        ]);
     }
 }
