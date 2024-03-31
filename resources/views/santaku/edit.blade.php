@@ -49,11 +49,19 @@
       <br />
       <span>question_path：{{ $question->question_path }}</span>
       <br />
+
       <img src="{{ $question->question_path }}">
       <br />
 
-      <input type="file" name="question_image" placeholder="画像をセットしてください">
-      <br />
+      <!-- 画像アップロード用のinput要素 -->
+      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像があればセット
+
+      <div id="questionimageContainer" class="mt-4">
+        <!-- 画像がここに表示される -->
+      </div>
+      Ï
+
+
 
 
       <br />
@@ -76,8 +84,11 @@
 
 
       <br />
-      <input type="file" name="comment_image" placeholder="画像をセットしてください">
-      <br />
+      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像があればセット
+      <div id="commentimageContainer" class="mt-4">
+        <!-- 画像がここに表示される -->
+      </div>
+
 
       <br />
 
@@ -94,18 +105,33 @@
       @method('DELETE')
       @csrf
       <button type="submit" class="btn btn-outline-danger">この問題を削除</button>
-      <br>
-      <br>
-      <span>ジャンル:</span>
-      <br />
-      <select name="blood"><br />
-        <option value="taxmaster">税理士</option>
-        <option value="programer">プログラミング</option>
-        <option value="rule">会社ルール</option>
-        <option value="sonota">その他</option>
-      </select>
     </form>
   </div>
+  <script>
+    document.getElementById('questionImage').addEventListener('change', function(event) {
+      const imageContainer = document.getElementById('questionimageContainer');
+      imageContainer.innerHTML = ''; // コンテナをクリア
+
+      const file = event.target.files[0];
+      const imgElement = document.createElement('img');
+      imgElement.classList.add('w-full'); // Tailwind CSSを適用
+      imgElement.src = URL.createObjectURL(file);
+      imageContainer.appendChild(imgElement);
+    });
+
+    document.getElementById('commentImage').addEventListener('change', function(event) {
+      const imageContainer = document.getElementById('commentimageContainer');
+      imageContainer.innerHTML = ''; // コンテナをクリア
+
+      const file = event.target.files[0];
+      const imgElement = document.createElement('img');
+      imgElement.classList.add('w-full'); // Tailwind CSSを適用
+      imgElement.src = URL.createObjectURL(file);
+      imageContainer.appendChild(imgElement);
+    });
+
+  </script>
+
 </body>
 
 </html>
