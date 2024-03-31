@@ -21,39 +21,48 @@ class UpdateController extends Controller
      */
     public function __invoke(UpdateRequest $request, SantakuService $santakuService)
     {
+
+        // 現在のユーザーが指定されたIDのmondaiを所有しているかチェック
         if (!$santakuService->checkOwnMondai(
             $request->user()->id,
             $request->id()
         )) {
             return redirect()
                 ->route('list')
-                ->with('feedback.success', '他のユーザーの問題は更新出来ません');
-
+                ->with('feedback.success', '他のユーザーの問題は更新できません');
             throw new AccessDeniedHttpException();
         }
+
         // ディレクトリ名
         $dir = 'images';
 
-        // アップロードされたファイル名を取得
-        $file_name1 = $request->file('question_image')->getClientOriginalName();
-        $file_name2 = $request->file('comment_image')->getClientOriginalName();
 
-        // S3に保存
-        $path1 = Storage::disk('s3')->putFile($dir, $request->file('question_image'), $file_name1, 'public');
-        $path2 = Storage::disk('s3')->putFile($dir, $request->file('comment_image'), $file_name2, 'public');
-
-        //⭐️登録した問題の全てがquestionに保存されていることを修正必要。dbへ保存する処理を追加する必要あり
+        // データベースから質問を取得し、更新する
         $question = Question::where('id', $request->id())->firstOrFail();
-        $question->small_label_id = $request->small_label_id; //数字を入れる場合は、->small_label_id()←カッコは不要。
+        $question->small_label_id = $request->small_label_id;
         $question->question = $request->question();
-        $question->question_path = Storage::disk('s3')->url($path1);
         $question->answer = $request->answer();
         $question->comment = $request->comment();
-        $question->comment_path = Storage::disk('s3')->url($path2);
+
+
+        // 質問画像がある場合、S3に保存
+        if ($request->hasFile('question_image')) {
+            $file_name1 = $request->file('question_image')->getClientOriginalName();
+            $path1 = Storage::disk('s3')->putFile($dir, $request->file('question_image'));
+            $question->question_path = Storage::disk('s3')->url($path1);
+        }
+
+        // コメント画像がある場合、S3に保存
+        if ($request->hasFile('comment_image')) {
+            $file_name2 = $request->file('comment_image')->getClientOriginalName();
+            $path2 = Storage::disk('s3')->putFile($dir, $request->file('comment_image'));
+            $question->comment_path = Storage::disk('s3')->url($path2);
+        }
+
         $question->save();
 
         return redirect()
             ->route('edit', ['questionId' => $question->id])
-            ->with('feedback.success', '編集が完了しました');
+            ->with('feedback.success', '更新が完了しました');
     }
 }
