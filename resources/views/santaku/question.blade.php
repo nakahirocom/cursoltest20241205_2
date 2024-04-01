@@ -203,7 +203,7 @@
                         <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
                     </div>
                     <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
-                        {{$question_q->question}}{{$question_q->id}}
+                        {{$question_q->question}}
                         <img src="{{ asset($question_q->question_path) }}">
                         <div>
                             <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
