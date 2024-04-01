@@ -203,8 +203,16 @@
                         <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
                     </div>
                     <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
-                        {{$question_q->question}}
+                        {{$question_q->question}}{{$question_q->id}}
                         <img src="{{ asset($question_q->question_path) }}">
+                        <div>
+                            <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
+                              class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
+                              問題セットを編集
+                            </a>
+                          </div>
+                
+
                     </div>
                 </div>
             </div>

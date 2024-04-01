@@ -66,6 +66,9 @@
                     @endif
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
+                    <a href="{{ $viewModels[$i]->getComment() }}">解説link</a>
+            
+
                     @if($viewModels[$i]->getComment_path())
                     <img src="{{ $viewModels[$i]->getComment_path() }}" alt="Comment Image">
                     @endif
@@ -75,8 +78,15 @@
                     <p>誤答：{{ $viewModels[$i]->getmissAnswer() }}</p>
                     <p>正答：{{ $viewModels[$i]->getAnswer() }}</p>
                     <p>正答解説：{{ $viewModels[$i]->getComment() }}</p>
+                    <a href="{{ $viewModels[$i]->getComment() }}">正答link</a>
+
+           
+                    <br>
                     <p>誤答問題：{{ $viewModels[$i]->getmissQuestion() }}</p>
                     <p>誤答解説：{{ $viewModels[$i]->getmissComment() }}</p>
+                    <a href="{{ $viewModels[$i]->getmissComment() }}">誤答link</a>
+
+            
                     @endif
 
 
