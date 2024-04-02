@@ -39,6 +39,13 @@ class AnswerViewModel
         return $this->question->answer;
     }
 
+    //出題されたquestionコレクションの中から正しい正解のanswerを返す
+    public function getAnswerId(): string
+    {
+        return $this->question->id;
+    }
+
+
     //出題されたquestionコレクションの中からcommentを返す
     public function getComment(): string
     {
@@ -59,6 +66,13 @@ class AnswerViewModel
     }
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissQuestion_path(): string
+    {
+        return $this->choice->question_path ?? null;
+    }
+
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
     public function getmissAnswer(): string
     {
         return $this->choice->answer;
@@ -69,6 +83,19 @@ class AnswerViewModel
     {
         return $this->choice->comment;
     }
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissCommentId(): string
+    {
+        return $this->choice->id;
+    }
+
+    //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
+    public function getmissComment_path(): string
+    {
+        return $this->choice->comment_path ?? null;
+    }
+
 
     //選択されたchoiceコレクションの中のidと出題されたquestionコレクションの中のidが一致しているか判定し、一致ならtrueを返す
     public function isCorrect(): bool
