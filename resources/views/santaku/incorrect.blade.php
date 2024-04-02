@@ -12,7 +12,6 @@
   <title>santakuアプリ</title>
 
 </head>
-
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
   @auth
   @if (session('feedback.success'))
@@ -24,21 +23,30 @@
     </div>
   </div>
   @endauth
+ <!-- 前の要素に戻るボタン -->
+ <button id="show-prev-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
+  前の問題を表示</button>
+<!-- 表示用ボタン -->
+<button id="show-next-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
+  次の問題を表示</button>
 
   <div class="container text-left relative">
     <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
       <div class="flex justify-between m-0">
         <div class="flex-none m-0">
-          【回答違い直近20問】
+          【回答違い直近30問】
         </div>
       </div>
 
       @csrf
-
+      <div id="display-area" class="incorrect-item flex flex-col">
+        <!-- 表示エリア。ここにforeachループの要素が表示される -->
+      </div>
       @foreach($incorrectList as $incorrect)
-      <div class="flex flex-col">
+      <div id="item-{{ $loop->index }}" class="incorrect-item flex flex-col" style="display:none;">
+  
 
-        <div class="text-sm">🟧ジャンル</div>
+      <div class="flex flex-col">
 
         <div class="text-sm">
 
@@ -145,13 +153,14 @@
 
         </details>
       </div>
+    </div>
       <br>
       <br>
       <br>
       <br>
       <br>
       <br>
-
+      
       @endforeach
 
       <style>
@@ -188,4 +197,46 @@
       </style>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var current = 0; // 現在の要素のインデックス
+      var max = {{ count($incorrectList) }}; // 要素の合計数
+      var displayArea = document.getElementById('display-area'); // 表示エリア
+      var nextButton = document.getElementById('show-next-button');
+      var prevButton = document.getElementById('show-prev-button');
+
+      nextButton.addEventListener('click', function() {
+        current = (current + 1) % max; // インデックスをインクリメントし、必要ならループする
+        displayContent(current);
+        updateButtonState();
+      });
+
+      prevButton.addEventListener('click', function() {
+        if (current > 0) {
+          current--; // インデックスをデクリメント
+        } else {
+          current = max - 1; // リストの最後に移動
+        }
+        displayContent(current);
+        updateButtonState();
+      });
+
+      function displayContent(index) {
+        var content = document.getElementById('item-' + index).innerHTML;
+        displayArea.innerHTML = content; // 表示エリアに内容を挿入
+      }
+
+      function updateButtonState() {
+        prevButton.disabled = false;
+        nextButton.disabled = false;
+      }
+
+      // 初期化
+      if (max > 0) {
+        displayContent(0);
+        updateButtonState();
+      }
+    });
+  </script>
 </body>
+</html>

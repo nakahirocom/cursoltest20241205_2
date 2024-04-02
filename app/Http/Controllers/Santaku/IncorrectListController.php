@@ -44,7 +44,7 @@ class IncorrectListController extends Controller
                     'questions.id'
                 )
                 ->orderBy('answer_results.created_at', 'DESC')
-                ->take(20)
+                ->take(30)
                 ->get();
             //dd($incorrectList);
             return view('santaku.incorrect')
