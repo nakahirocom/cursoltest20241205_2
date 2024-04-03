@@ -204,7 +204,10 @@
                     </div>
                     <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
                         {{$question_q->question}}
+                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         <img src="{{ asset($question_q->question_path) }}">
+                        </div>
+                    </div>
                         <div>
                             <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
                               class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
