@@ -7,11 +7,30 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- CSS only -->
-
   <link rel="stylesheet" href="/css/app.css">
+
+
   <title>santakuアプリ</title>
 
 </head>
+<!-- 横スクロールコンテナ -->
+<div class="flex overflow-x-auto">
+  <!-- 画像リスト -->
+  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
+  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
+  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
+  <!-- さらに画像を追加 -->
+</div>
+
+<!-- 横スクロール可能なコンテナ -->
+<div class="overflow-x-auto">
+  <!-- 大きな画像 -->
+  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png
+  " alt="Large Image">
+</div>
+<img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png
+    ">
+ 
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
   @auth
   @if (session('feedback.success'))
@@ -29,6 +48,12 @@
 <!-- 表示用ボタン -->
 <button id="show-next-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
   次の問題を表示</button>
+  <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+ 
+  </div>
+
+  
+
 
   <div class="container text-left relative">
     <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
@@ -67,6 +92,17 @@
           <img src="{{ asset($incorrect->question->question_path) }}">
         </div>
       </div>
+      <div id="question-{{ $loop->iteration }}"
+        class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+          <div class="w-14 h-6 flex justify-center items-center">
+            <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
+          </div>
+          <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+          {{$incorrect->question->question}}
+          <img src="{{ asset($incorrect->question->question_path) }}">
+          </div>
+      </div>
+
 
       <div class="flex flex-col justify-end items-end">
         <!-- Incorrect button -->
@@ -89,13 +125,13 @@
           <div>問題側セットと編集ボタン</div>
           <div id="question-{{ $loop->iteration }}"
             class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-            <div class="w-14 h-6 flex justify-center items-center">
-              <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
-            </div>
-            <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+              <div class="w-14 h-6 flex justify-center items-center">
+                <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
+              </div>
+              <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
               {{$incorrect->question->question}}
               <img src="{{ asset($incorrect->question->question_path) }}">
-            </div>
+              </div>
           </div>
 
           <div class="flex flex-col justify-end items-end">
