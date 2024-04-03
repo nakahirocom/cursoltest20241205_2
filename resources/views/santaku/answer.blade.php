@@ -77,7 +77,8 @@
 
 -->
 
-
+<!-- 表示エリア -->
+<div id="display-area"></div>
 
   @auth
   <div class="flex justify-end items-center">
@@ -86,12 +87,10 @@
     </div>
   </div>
   @endauth
- <!-- 前の要素に戻るボタン -->
- <button id="show-prev-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
-  前の問題を表示</button>
+
 <!-- 表示用ボタン -->
 <button id="show-next-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
-  次の問題を表示</button>
+  １問ずつ答え合わせする</button>
 
   <div class="container text-left relative">
     <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
@@ -105,19 +104,18 @@
 
 
       @for ($i = 0; $i < count($viewModels); $i++) 
-      @if ($viewModels[$i]->isCorrect() )
-      <span class="btn btn-outline-primary">■選択肢{{ $i + 1 }}：{{ "正解" }}</span>
-      @else
-      <span class="btn btn-outline-danger">■選択肢{{ $i + 1 }}：{{ "不正解" }}</span>
-      @endif
-      <div class="d-inline p-2 bd-highlight">あなたの正解率：{{ $uidseikairituModels[$i] }}% /累計回答数：{{
-        $uidkaitousuuModels[$i] }}</div>
-    <div class="d-sm-inline p-2 bd-highlight">みんなの正解率：{{ $allseikairituModels[$i] }}% /累計回答数：{{
-        $allkaitousuuModels[$i] }}</div>
+    
+@if ($viewModels[$i]->isCorrect() )
+<div id="youso{{ $i }}">
+<span id="result-{{ $i }}" class="btn btn-outline-primary">■出題{{ $i + 1 }}問目：正解</span>
+@else
+  <span id="result-{{ $i }}" class="btn btn-outline-danger">■出題{{ $i + 1 }}問目：不正解</span>
+@endif
+
 
       <div class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
         <div class="w-12 h-6 flex items-center">
-          <strong class="text-xs text-white">直近{{$i}}</strong>
+          <strong class="text-xs text-white">出題{{$i+1}}問目</strong>
         </div>
         <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
             {{ $viewModels[$i]->getQuestion() }}
@@ -127,19 +125,26 @@
       <div class="flex flex-col justify-end items-end">
         <!-- Incorrect button -->
 
-          <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
-            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+        <div id="answer-{{ $i }}" class="flex items-center">
+
+        <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
+            class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4"
+            data-correct="{{ $viewModels[$i]->isCorrect() ? 'true' : 'false' }}">
             {{ $viewModels[$i]->getmissAnswer() }}
           </button>
+          <span class="ml-2 hidden" id="mark-{{ $i }}"></span>
+        </div>
 
       </div>
 
       <div class="flex justify-start">
 
         <details class="my-0">
-          <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
-            問題・答え・解説をセットで見る
-          </summary>
+            <div class="d-inline p-0 bd-highlight">あなたの正解率：{{ $uidseikairituModels[$i] }}% /累計回答数：{{
+                $uidkaitousuuModels[$i] }}</div>
+            <div class="d-sm-inline p-0 bd-highlight">みんなの正解率：{{ $allseikairituModels[$i] }}% /累計回答数：{{
+                $allkaitousuuModels[$i] }}</div>
+        
 
                     @if ($viewModels[$i]->isCorrect() )
                     <p>解説：{{ $viewModels[$i]->getComment() }}</p>
@@ -155,7 +160,7 @@
           <div id="question-{{ $i }}"
             class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
             <div class="w-14 h-6 flex justify-center items-center">
-              <strong class="text-lg text-white text-center">{{$i}}</strong>
+              <strong class="text-lg text-white text-center">{{$i+1}}</strong>
             </div>
             <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                 {{ $viewModels[$i]->getQuestion() }}
@@ -180,7 +185,7 @@
           <div id="question-{{ $i }}"
             class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
             <div class="w-14 h-6 flex justify-center items-center">
-              <strong class="text-lg text-white text-center">{{$i}}</strong>
+              <strong class="text-lg text-white text-center">{{$i+1}}</strong>
             </div>
             <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                 {{ $viewModels[$i]->getmissQuestion() }}
@@ -205,7 +210,7 @@
         </details>
       </div>
     </div>
-
+</div>
       
     @endfor
 
@@ -243,45 +248,59 @@
       </style>
     </div>
   </div>
+
+  <div class="relative container border-2 border-gray-300 rounded-md p-4 shadow-lg">
+    <div class="absolute top-0 left-0">
+        【答え合わせ完了】
+    </div>
+
+    <div id="q-4" class="py-0 hidden">出題1問目</div>
+    <div id="a-4" class="py-0 text-right"></div>
+    <div id="q-5" class="py-0 hidden">出題2問目</div>
+    <div id="a-5" class="py-0 text-right"></div>
+    <div id="q-6" class="py-0 hidden">出題3問目</div>
+    <div id="a-6" class="py-0 text-right"></div>
+    <div id="q-7" class="py-0 hidden">出題4問目</div>
+    <div id="a-7" class="py-0 text-right"></div>
+    <div id="q-8" class="py-0 hidden">出題5問目</div>
+    <div id="a-8" class="py-0 text-right"></div>
+    <div id="q-9" class="py-0 hidden">出題6問目</div>
+    <div id="a-9" class="py-0 text-right"></div>
+    <div id="q-10" class="py-0 hidden">出題7問目</div>
+    <div id="a-10" class="py-0 text-right"></div>
+</div>
+
+
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var current = 0; // 現在の要素のインデックス
-      var max = {{ count($viewModels) }}; // 要素の合計数
-      var displayArea = document.getElementById('display-area'); // 表示エリア
-      var nextButton = document.getElementById('show-next-button');
-      var prevButton = document.getElementById('show-prev-button');
+document.getElementById('show-next-button').addEventListener('click', function() {
+  var answers = document.querySelectorAll('.answer-button');
+  function showAnswer(index) {
+    if (index < answers.length) {
+      var answer = answers[index];
+      var mark = document.getElementById('mark-' + index);
+      var questionDiv = document.getElementById('q-' + (index + 4)); // Adjust index for question div
+      var answerDiv = document.getElementById('a-' + (index + 4)); // Adjust index for answer div
 
-      nextButton.addEventListener('click', function() {
-        current = (current + 1) % max; // インデックスをインクリメントし、必要ならループする
-        displayContent(current);
-        updateButtonState();
-      });
+      mark.classList.remove('hidden');
+      questionDiv.classList.remove('hidden'); // Make question div visible
 
-      prevButton.addEventListener('click', function() {
-        if (current > 0) {
-          current--; // インデックスをデクリメント
-        } else {
-          current = max - 1; // リストの最後に移動
-        }
-        displayContent(current);
-        updateButtonState();
-      });
-
-      function displayContent(index) {
-        var content = document.getElementById('item-' + index).innerHTML;
-        displayArea.innerHTML = content; // 表示エリアに内容を挿入
+      if (answer.getAttribute('data-correct') === 'true') {
+        mark.textContent = '〇'; // Correct mark
+        mark.classList.add('text-green-500', 'font-bold', 'text-xl');
+        answerDiv.textContent = '正解'; // Update answer div text for correct
+      } else {
+        mark.textContent = '✕'; // Incorrect mark
+        mark.classList.add('text-red-500', 'font-bold', 'text-xl');
+        answerDiv.textContent = '不正解'; // Update answer div text for incorrect
       }
 
-      function updateButtonState() {
-        prevButton.disabled = false;
-        nextButton.disabled = false;
-      }
+      setTimeout(function() { showAnswer(index + 1); }, 1000); // Show next answer after 1 second
+    }
+  }
 
-      // 初期化
-      if (max > 0) {
-        displayContent(0);
-        updateButtonState();
-      }
-    });
+  showAnswer(0); // Start with the first element
+});
+
   </script>
+    
 </body>
