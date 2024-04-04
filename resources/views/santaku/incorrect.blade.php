@@ -13,26 +13,11 @@
   <title>santakuアプリ</title>
 
 </head>
-<!-- 横スクロールコンテナ -->
-<div class="flex overflow-x-auto">
-  <!-- 画像リスト -->
-  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
-  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
-  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png" alt="Image 1" class="flex-none">
-  <!-- さらに画像を追加 -->
-</div>
 
-<!-- 横スクロール可能なコンテナ -->
-<div class="overflow-x-auto">
-  <!-- 大きな画像 -->
-  <img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png
-  " alt="Large Image">
-</div>
-<img src="https://santakubucket.s3.ap-northeast-1.amazonaws.com/images/O8AHIdmvwWmWNxdReIGfxtjlKNmuZnHktwtiVgEh.png
-    ">
- 
-<body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
-  @auth
+<body class="min-h-screen bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100">
+  <div class="container mx-auto px-4 sm:px-8 lg:px-16">
+    
+    @auth
   @if (session('feedback.success'))
   <p class="text-green-500">{{ session('feedback.success') }}</p>
   @endif
@@ -82,25 +67,19 @@
 
         <div class="text-xs">{{ $incorrect->updated_at}}</div>
       </div>
-      <div id="question-{{ $loop->iteration }}"
-        class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-        <div class="w-12 h-6 flex items-center">
-          <strong class="text-xs text-white">直近{{$loop->iteration}}</strong>
-        </div>
-        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-          {{$incorrect->question->question}}
-          <img src="{{ asset($incorrect->question->question_path) }}">
-        </div>
-      </div>
+
       <div id="question-{{ $loop->iteration }}"
         class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
           <div class="w-14 h-6 flex justify-center items-center">
+
             <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
           </div>
-          <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-          {{$incorrect->question->question}}
-          <img src="{{ asset($incorrect->question->question_path) }}">
+
+          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+               {{$incorrect->question->question}}
+          <img src="{{ asset($incorrect->question->question_path) }}"class="max-w-none max-h-[300px]">
           </div>
+
       </div>
 
 
@@ -114,7 +93,7 @@
         </div>
       </div>
 
-      <div class="flex justify-start">
+      <div class="justify-start">
 
         <details class="my-0">
           <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
@@ -122,15 +101,19 @@
           </summary>
 
 
+
           <div>問題側セットと編集ボタン</div>
+
           <div id="question-{{ $loop->iteration }}"
             class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
               <div class="w-14 h-6 flex justify-center items-center">
                 <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
               </div>
-              <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-              {{$incorrect->question->question}}
-              <img src="{{ asset($incorrect->question->question_path) }}">
+
+                <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                {{$incorrect->question->question}}
+              <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
               </div>
           </div>
 
@@ -142,14 +125,18 @@
               {{ $incorrect->question->answer }}
             </button>
           </div>
-          <br>
+          解説
 
-          <div>解説{{ $incorrect->question->comment }}</div>
-          <img src="{{ asset($incorrect->question->comment_path) }}">
+          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+            {{$incorrect->question->comment}}
+          <img src="{{ asset($incorrect->question->comment_path) }}" class="max-w-none max-h-[300px]">
+          </div>
+
           <div>
             <a href="{{ route('edit', ['questionId' => $incorrect->question_id]) }}"
-              class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
-              問題側セットを編集
+              class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+              編集
             </a>
           </div>
           <br>
@@ -163,8 +150,13 @@
               <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
             </div>
             <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-              {{$incorrect->q_question}}
-              <img src="{{ asset($incorrect->q_question_path) }}">
+
+              <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                {{$incorrect->q_question}}
+              <img src="{{ asset($incorrect->q_question_path) }}" class="max-w-none max-h-[300px]">
+              </div>
+
             </div>
           </div>
           <div class="flex flex-col justify-end items-end">
@@ -177,12 +169,16 @@
 
           </div>
           <br>
-          <div>解説　{{ $incorrect->q_comment }}</div>
-          <img src="{{ asset($incorrect->q_comment_path) }}">
-          <div>
+
+          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+            解説:{{$incorrect->q_comment}}
+          <img src="{{ asset($incorrect->q_comment_path) }}" class="max-w-none max-h-[300px]">
+          </div>
+
             <a href="{{ route('edit', ['questionId' => $incorrect->answered_question_id]) }}"
-              class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
-              選択ミス側セットを編集
+              class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+              編集
             </a>
           </div>
 
@@ -191,11 +187,7 @@
       </div>
     </div>
       <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+
       
       @endforeach
 
@@ -274,5 +266,6 @@
       }
     });
   </script>
+  </div>
 </body>
 </html>

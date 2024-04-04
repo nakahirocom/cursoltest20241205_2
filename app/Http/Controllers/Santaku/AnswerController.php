@@ -66,7 +66,7 @@ class AnswerViewModel
     }
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
-    public function getmissQuestion_path(): string
+    public function getmissQuestion_path(): ?string
     {
         return $this->choice->question_path ?? null;
     }
@@ -91,7 +91,7 @@ class AnswerViewModel
     }
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
-    public function getmissComment_path(): string
+    public function getmissComment_path(): ?string
     {
         return $this->choice->comment_path ?? null;
     }

@@ -113,27 +113,8 @@ class Question extends Model
                 // $q5がnullならgetThreeQuestionsAtRandom()に$q4までの戻り値を返す
                 return [$q1, $q2, $q3, $q4];
             }
-            $q6 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer])->inRandomOrder()->first();
 
-            if ($q6 === null) {
-                // $q6がnullならgetThreeQuestionsAtRandom()に$q5までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5];
-            }
-            $q7 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer, $q6?->answer])->inRandomOrder()->first();
-
-            if ($q7 === null) {
-                // $q7がnullならgetThreeQuestionsAtRandom()に$q6までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5, $q6];
-            }
-
-
-            return [$q1, $q2, $q3, $q4, $q5, $q6, $q7];
+            return [$q1, $q2, $q3, $q4, $q5];
         }
 
 
@@ -274,27 +255,8 @@ class Question extends Model
                 // $q5がnullならgetThreeQuestionsAtRandom()に$q4までの戻り値を返す
                 return [$q1, $q2, $q3, $q4];
             }
-            $q6 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer])->inRandomOrder()->first();
-            //dump($q6);
 
-            if ($q6 === null) {
-                // $q6がnullならgetThreeQuestionsAtRandom()に$q5までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5];
-            }
-            $q7 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer, $q6?->answer])->inRandomOrder()->first();
-            //dump($q7);
-            if ($q7 === null) {
-                // $q7がnullならgetThreeQuestionsAtRandom()に$q6までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5, $q6];
-            }
-
-            return [$q1, $q2, $q3, $q4, $q5, $q6, $q7];
+            return [$q1, $q2, $q3, $q4, $q5];
         }
 
         //⭐️ユーザーの選択した小分類のquestion_idより回答済みの'question_id'が少ない場合、未回答問題があるため、未回答問題から出題する。
@@ -357,27 +319,9 @@ class Question extends Model
                 // $q5がnullならgetThreeQuestionsAtRandom()に$q4までの戻り値を返す
                 return [$q1, $q2, $q3, $q4];
             }
-            $q6 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer])->inRandomOrder()->first();
-
-            if ($q6 === null) {
-                // $q6がnullならgetThreeQuestionsAtRandom()に$q5までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5];
-            }
-            $q7 = Question::
-                //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer, $q5?->answer, $q6?->answer])->inRandomOrder()->first();
-
-            if ($q7 === null) {
-                // $q7がnullならgetThreeQuestionsAtRandom()に$q6までの戻り値を返す
-                return [$q1, $q2, $q3, $q4, $q5, $q6];
-            }
 
 
-            return [$q1, $q2, $q3, $q4, $q5, $q6, $q7];
+            return [$q1, $q2, $q3, $q4, $q5];
         }
     }
     public function user()
