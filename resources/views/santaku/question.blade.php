@@ -198,29 +198,32 @@
             <div id="questionz-{{ $loop->iteration }}">
                 <!-- 例: pt-8 で上部にスペースを追加 -->
                 <div id="question-{{ $loop->iteration }}"
-                    class="question flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1 mb-2">
-                    <div class="w-14 h-6 flex justify-center items-center">
-                        <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
+                    class="question items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1 mb-2">
+                    <div class="w-14 h-6 justify-center items-center">
+                        <strong class="text-lg text-white text-center">{{$loop->iteration}}問目</strong>
                     </div>
                     <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
-                        {{$question_q->question}}
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                        <img src="{{ asset($question_q->question_path) }}">
-                        </div>
-                    </div>
-                        <div>
-                            <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
-                              class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">
-                              問題セットを編集
+
+                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                            {{$question_q->question}} <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
+                                class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                                編集
                             </a>
-                          </div>
-                
+
+                            <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[300px]">
+                        </div>
 
                     </div>
+
                 </div>
+
+
             </div>
-            @endif
-            @endforeach
+
+    </div>
+    @endif
+    @endforeach
     </div>
 
     <div class="relative container border-2 border-gray-300 rounded-md p-4 shadow-lg">
