@@ -14,7 +14,7 @@
 
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
   <div class="container mx-auto p-4">
-    <a class="text-blue-500 hover:text-blue-700" href="/">HOME画面へ</a>
+    <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
 
     @auth
     <p class="text-2xl font-bold">三択アプリ　新しく問題を登録する</p>

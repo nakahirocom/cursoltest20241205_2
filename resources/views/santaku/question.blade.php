@@ -19,13 +19,14 @@
         <!-- flexとjustify-betweenを追加 -->
         @foreach($questionj as $question_j)
         ｼﾞｬﾝﾙ:
-        {{ $question_j->smallLabel->middleLabel->largeLabel->large_label }}-
+        {{ $question_j->smallLabel->middleLabel->middle_label }}-
 
-        {{ $question_j->smallLabel->middleLabel->middle_label }}
+        {{ $question_j->smallLabel->small_label }}
+
         @endforeach
 
         <div>
-            <a class="btn btn-link" href="/">HOME画面へ</a>
+            <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
         </div>
 
     </div>
@@ -35,16 +36,28 @@
 
     <div class="container text-left relative">
         <form action="{{ route('answer.index') }}" method="post" id="kotae"
-            class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
+            class="border-2 border-gray-300 rounded-md p-0 shadow-lg relative">
             <input type="hidden" name="maxQuestions" value="{{ count($questions_a) }}">
             <div class="flex justify-between m-0">
                 <div class="flex-none m-0">
                     【選択肢】
                 </div>
-                <div class="flex-none text-right m-0">
-                    {{ $question_j->smallLabel->small_label }}
+                    <div class="w-full">
+                        <button id="kakutei" type="submit" value="回答を確定する"
+                                class="h-8 w-full my-0 px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                                onclick="buttonClick1()">
+                            答え合わせ
+                        </button>
+                    </div>
+                    <div class="w-full">
+                        <button type="button"
+                            class="h-8 w-full my-0 px-0 py-1 border-2 border-red-500 rounded-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold text-sm shadow-lg hover:shadow-xl transition duration-300"
+                            onclick="buttonClick2()">
+                            選択リセット
+                        </button>
+                    </div>
                 </div>
-            </div>
+    
             <!--このリファクタリングでは、$questionIds 配列の各要素に対してループを行います。$loop->iteration は現在のループの繰り返し数を表し、これを使ってフォームフィールドの名前を動的に生成しています。これにより、各質問IDに対応する隠しフィールドが作成されます。また、@csrf ディレクティブはループの外に一度だけ配置するのが適切です。-->
             @foreach($questionIds as $questionId)
             @csrf
@@ -56,30 +69,13 @@
                 <div id="buttonz-{{ $question_a->id }}">
                     <button type="button" value="{{ $question_a->answer }}" id="button-{{ $question_a->id }}"
                         onclick="buttonClick({{ $question_a->id }})"
-                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
                         {{$question_a->answer}}
                     </button>
                 </div>
                 @endforeach
             </div>
 
-            <div class="flex justify-between gap-4">
-                <div class="flex-grow">
-                    <button id="kakutei" type="submit" value="回答を確定する"
-                        class="h-12 w-full my-2 px-4 py-2 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
-                        onclick="buttonClick1()">
-                        答え合わせ
-                    </button>
-                </div>
-
-                <div>
-                    <button type="button"
-                        class="h-12 my-2 px-4 py-2 border-2 border-red-500 rounded-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition duration-300 from-pink-600 to-yellow-600"
-                        onclick="buttonClick2()">
-                        選択リセット
-                    </button>
-                </div>
-            </div>
 
 
             <style>
@@ -187,7 +183,7 @@
     </div>
     </form>
 
-    <div class="relative container border-2 border-gray-300 rounded-md p-8 shadow-lg">
+    <div class="relative container border-2 border-gray-300 rounded-md p-6 shadow-lg">
         <!-- 【問題】の位置を左上に寄せ、パディングを追加 -->
         <div class="absolute top-0 left-0">
             【問題】
@@ -211,7 +207,7 @@
                                 編集
                             </a>
 
-                            <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[300px]">
+                            <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">
                         </div>
 
                     </div>
@@ -221,16 +217,19 @@
 
             </div>
 
-    </div>
+
+
+
     @endif
+
     @endforeach
-    </div>
+</div>
 
     <div class="relative container border-2 border-gray-300 rounded-md p-4 shadow-lg">
         <div class="absolute top-0 left-0">
             【回答済】
         </div>
-
+<br>
         <div id="q-4" class="py-0 hidden">出題1問目</div>
         <div id="a-4" class="py-0 text-right"></div>
         <div id="q-5" class="py-0 hidden">出題2問目</div>

@@ -24,7 +24,7 @@
   @auth
   <div class="flex justify-end items-center">
     <div>
-      <a class="btn btn-link" href="/">HOME画面へ</a>
+        <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
     </div>
   </div>
   @endauth
@@ -51,12 +51,6 @@
 
       @for ($i = 0; $i < count($viewModels); $i++) 
     
-@if ($viewModels[$i]->isCorrect() )
-<div id="youso{{ $i }}">
-<span id="result-{{ $i }}" class="btn btn-outline-primary"></span>
-@else
-  <span id="result-{{ $i }}" class="btn btn-outline-danger"></span>
-@endif
 
 
       <div class="items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
@@ -78,7 +72,7 @@
         <div id="answer-{{ $i }}" class="flex items-center">
 
         <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
-            class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4"
+            class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1"
             data-correct="{{ $viewModels[$i]->isCorrect() ? 'true' : 'false' }}">
             {{ $viewModels[$i]->getmissAnswer() }}
           </button>
@@ -91,7 +85,7 @@
 
         <details class="my-0">
             <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
-                問題・答え・解説をセットで見る
+                {{$i+1}}問目の問題・答え・解説を見る
               </summary>
     
             <div class="d-inline p-0 bd-highlight">あなたの正解率：{{ $uidseikairituModels[$i] }}% /累計回答数：{{
@@ -135,11 +129,13 @@
 
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
+            <div class="text-sm mb-1">
 
             <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
               class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
               {{ $viewModels[$i]->getAnswer() }}
-            </button>
+            </button>⭕️
+            </div>
           </div>
           <br>
 
@@ -166,12 +162,13 @@
           </div>
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
+            <div class="text-sm mb-1">
 
             <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
               class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
               {{ $viewModels[$i]->getmissAnswer() }}
-            </button>
-
+            </button>⭕️
+            </div>
           </div>
           <br>
           <div>解説　{{ $viewModels[$i]->getmissComment() }}</div>
@@ -185,9 +182,11 @@
           @endif
 
         </details>
+        <br>
+        <br>
       </div>
     </div>
-</div>
+
       
     @endfor
 
@@ -227,82 +226,67 @@
   </div>
 
 
-    <div id="q-4" class="py-0 hidden">出題1問目</div>
-    <div id="a-4" class="py-0 text-right hidden"></div>
-    <div id="q-5" class="py-0 hidden">出題2問目</div>
-    <div id="a-5" class="py-0 text-right hidden"></div>
-    <div id="q-6" class="py-0 hidden">出題3問目</div>
-    <div id="a-6" class="py-0 text-right hidden"></div>
-    <div id="q-7" class="py-0 hidden">出題4問目</div>
-    <div id="a-7" class="py-0 text-right hidden"></div>
-    <div id="q-8" class="py-0 hidden">出題5問目</div>
-    <div id="a-8" class="py-0 text-right hidden"></div>
-    <div id="q-9" class="py-0 hidden">出題6問目</div>
-    <div id="a-9" class="py-0 text-right hidden"></div>
-    <div id="q-10" class="py-0 hidden">出題7問目</div>
-    <div id="a-10" class="py-0 text-right hidden"></div>
 </div>
 
 
 <script>
+    var isFirstClick = true; // 初めてのクリックを追跡するためのフラグ
+
     document.getElementById('show-next-button').addEventListener('click', function() {
-      var answers = document.querySelectorAll('.answer-button');
-      var displayArea = document.getElementById('display-area'); // 表示エリアの取得
-      var button = document.getElementById('show-next-button'); // ボタンの取得
-    
-      function allAnswersDisplayed() {
-        // ボタンのテキストとクラスを変更
-        button.textContent = '次の問題へ';
-        button.classList.remove('bg-blue-500', 'hover:bg-blue-700'); // 青い背景のクラスを削除
-        button.classList.add('bg-green-500', 'hover:green-700'); // 緑色の背景のクラスを追加
-    
-        // ボタンのクリックイベントを変更
-        button.removeEventListener('click', allAnswersDisplayed); // 既存のイベントを削除
-        button.addEventListener('click', function() {
-          window.location.href = '/question'; // 次の問題へのリンクにリダイレクト
-        });
-      }
-    
-      function showAnswer(index) {
-        if (index < answers.length) {
-          var answer = answers[index];
-          var mark = document.getElementById('mark-' + index);
-          var questionDiv = document.getElementById('q-' + (index + 4));
-          var answerDiv = document.getElementById('a-' + (index + 4));
-    
-          mark.classList.remove('hidden');
-          questionDiv.classList.remove('hidden');
-    
-          var displayMark = document.createElement('span'); // 新しいスパン要素を作成
-          displayMark.classList.add('text-xl', 'font-bold'); // スタイリングの適用
-    
-          if (answer.getAttribute('data-correct') === 'true') {
-            mark.textContent = '〇';
-            mark.classList.add('text-green-500');
-            answerDiv.textContent = '正解';
-            displayMark.textContent = '⭕️'; // ⭕️マークを追加
-            displayMark.classList.add('justify-left','text-2xl','text-green-500'); // 緑色で表示
-          } else {
-            mark.textContent = '✕';
-            mark.classList.add('text-red-500');
-            answerDiv.textContent = '不正解';
-            displayMark.textContent = '✕'; // ❌マークを追加
-            displayMark.classList.add('justify-left','text-2xl','text-red-500'); // 赤色で表示
-          }
-    
-          displayArea.appendChild(displayMark); // マークを表示エリアに追加
-    
-          if (index >= answers.length - 1) {
-            setTimeout(allAnswersDisplayed, 1000); // 1秒後に allAnswersDisplayed 関数を実行
-          } else {
-            setTimeout(function() { showAnswer(index + 1); }, 1000);
-          }
+        if (isFirstClick) {
+            isFirstClick = false; // フラグを更新
+            var answers = document.querySelectorAll('.answer-button');
+            var displayArea = document.getElementById('display-area'); // 表示エリアの取得
+            var button = document.getElementById('show-next-button'); // ボタンの取得
+
+            function allAnswersDisplayed() {
+                button.textContent = '次の問題へ';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+                button.classList.add('bg-green-500', 'hover:green-700');
+
+                button.removeEventListener('click', allAnswersDisplayed);
+                button.addEventListener('click', function() {
+                    window.location.href = '/question';
+                });
+            }
+
+            function showAnswer(index) {
+                if (index < answers.length) {
+                    var answer = answers[index];
+                    var mark = document.getElementById('mark-' + index);
+
+                    mark.classList.remove('hidden');
+
+                    var displayMark = document.createElement('span');
+                    displayMark.classList.add('text-xl', 'font-bold');
+
+                    if (answer.getAttribute('data-correct') === 'true') {
+                        mark.textContent = '⭕️';
+                        displayMark.textContent = '⭕️';
+                        displayMark.classList.add('justify-left', 'text-2xl', 'text-green-500');
+                    } else {
+                        mark.textContent = '❌';
+                        displayMark.textContent = '✕';
+                        displayMark.classList.add('justify-left', 'text-2xl', 'text-red-500');
+                    }
+
+                    displayArea.appendChild(displayMark);
+
+                    if (index >= answers.length - 1) {
+                        setTimeout(allAnswersDisplayed, 1);
+                    } else {
+                        setTimeout(function() { showAnswer(index + 1); }, 1000);
+                    }
+                }
+            }
+
+            showAnswer(0);
+        } else {
+            // ここに2回目以降のクリック時の処理を記述する（現在は空）
         }
-      }
-    
-      showAnswer(0);
     });
-    </script>
+</script>
+
     
     
 </body>
