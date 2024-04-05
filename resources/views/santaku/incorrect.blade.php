@@ -23,7 +23,7 @@
   @endif
   <div class="flex justify-end items-center">
     <div>
-      <a class="btn btn-link" href="/">HOME画面へ</a>
+      <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
     </div>
   </div>
   @endauth
@@ -85,11 +85,11 @@
 
       <div class="flex flex-col justify-end items-end">
         <!-- Incorrect button -->
-        <div class="text-sm mb-1">誤り⇨
+        <div class="text-sm mb-1">
           <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
             {{ $incorrect->q_answer }}
-          </button>
+          </button>❌
         </div>
       </div>
 
@@ -97,7 +97,7 @@
 
         <details class="my-0">
           <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
-            問題・答え・解説をセットで見る
+            問題・答え・解説を見る
           </summary>
 
 
@@ -119,11 +119,12 @@
 
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
-
+            <div class="text-sm mb-1">
             <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
               {{ $incorrect->question->answer }}
-            </button>
+            </button>⭕️
+            </div>
           </div>
           解説
 
@@ -161,12 +162,12 @@
           </div>
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
-
+            <div class="text-sm mb-1">
             <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
               {{ $incorrect->q_answer }}
-            </button>
-
+            </button>⭕️
+            </div>
           </div>
           <br>
 

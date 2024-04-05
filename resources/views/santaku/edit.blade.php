@@ -16,7 +16,7 @@
 <body>
   <div class="container">
 
-    <a class="btn btn-link" href="/">index画面へ戻る</a></p>
+    <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
     @auth
     <p class="h2">三択アプリ　編集・削除画面</p>
     <nav aria-label="breadcrumb">
