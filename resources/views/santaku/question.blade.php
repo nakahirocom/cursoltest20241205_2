@@ -24,6 +24,7 @@
         {{ $question_j->smallLabel->small_label }}
 
         @endforeach
+        連続{{ Auth::user()->continuous_correct_answers }}問正解中
 
         <div>
             <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
