@@ -27,6 +27,8 @@
     </div>
   </div>
   @endauth
+  連続{{ Auth::user()->continuous_correct_answers }}問正解中
+
  <!-- 前の要素に戻るボタン -->
  <button id="show-prev-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
   前の問題を表示</button>

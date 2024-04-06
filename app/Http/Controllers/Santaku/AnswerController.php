@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Santaku\AnswerResultRequest;
 use App\Models\AnswerResults;
 use App\Models\Question;
+use App\Models\User; // 必要に応じて適切な名前空間を使用してください
+
 use Illuminate\Support\Facades\DB;
 
 class AnswerViewModel
@@ -109,6 +111,9 @@ class AnswerController extends Controller
     public function __invoke(AnswerResultRequest $request)
     {
         $maxQuestions = $request->input('maxQuestions');
+        $uid = $request->userId();
+        $user = User::find($uid); // ユーザーを取得
+
 
         $viewModels = [];
         $allkaitousuuModels = [];
@@ -116,7 +121,6 @@ class AnswerController extends Controller
         $uidkaitousuuModels = [];
         $uidseikairituModels = [];
 
-        $uid = $request->userId();
 
         for ($i = 1; $i <= $maxQuestions; $i++) {
             $questionId = $request->input("question{$i}_Id");
@@ -156,7 +160,16 @@ class AnswerController extends Controller
 
             $viewModel = new AnswerViewModel($cho, $ques);
             $viewModels[] = $viewModel;
+
+            // 正解判定と連続正解数の更新
+            if ($questionId == $choiceId) {
+                $user->continuous_correct_answers++;
+            } else {
+                $user->continuous_correct_answers = 0;
+            }
         }
+
+        $user->save(); // ユーザー情報を更新
 
         return view('santaku.answer')
             ->with('viewModels', $viewModels)
