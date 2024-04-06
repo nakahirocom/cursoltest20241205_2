@@ -22,6 +22,7 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 1,
+            'continuous_correct_answers' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -33,6 +34,7 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 1,
+            'continuous_correct_answers' => 15,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -43,6 +45,7 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'continuous_correct_answers' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -53,6 +56,7 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'continuous_correct_answers' => 25,
             'created_at' => now(),
             'updated_at' => now()
         ]);
