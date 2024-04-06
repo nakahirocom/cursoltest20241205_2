@@ -65,7 +65,8 @@
                     class="{{ $user->id == $currentUser ? 'bg-blue-300 border-blue-500' : 'bg-white border-gray-200' }} flex items-center justify-between border-b p-1 mb-1">
                     <span class="text-lg font-semibold">{{ $loop->iteration }}位</span>
                     <div class="flex items-center">
-                        <div class="text-sm font-semibold text-gray-800 mr-3">名前: {{ $user->name }}</div>
+                        <div class="text-sm font-semibold text-gray-800 mr-3">name: {{ $user->id == $currentUser ?
+                            $user->name : '非表示' }}</div>
                         <div class="text-sm text-gray-600">連続正解数: {{ $user->continuous_correct_answers }}</div>
                     </div>
                 </div>
