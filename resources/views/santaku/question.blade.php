@@ -24,10 +24,11 @@
         {{ $question_j->smallLabel->small_label }}
 
         @endforeach
-        連続{{ Auth::user()->continuous_correct_answers }}問正解中
+        {{ Auth::user()->continuous_correct_answers }}問連続
 
         <div>
-            <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
+            <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
+                href="/">HOMEへ</a>
         </div>
 
     </div>
@@ -43,22 +44,22 @@
                 <div class="flex-none m-0">
                     【選択肢】
                 </div>
-                    <div class="w-full">
-                        <button id="kakutei" type="submit" value="回答を確定する"
-                                class="h-8 w-full my-0 px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
-                                onclick="buttonClick1()">
-                            答え合わせ
-                        </button>
-                    </div>
-                    <div class="w-full">
-                        <button type="button"
-                            class="h-8 w-full my-0 px-0 py-1 border-2 border-red-500 rounded-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold text-sm shadow-lg hover:shadow-xl transition duration-300"
-                            onclick="buttonClick2()">
-                            選択リセット
-                        </button>
-                    </div>
+                <div class="w-full">
+                    <button id="kakutei" type="submit" value="回答を確定する"
+                        class="h-8 w-full my-0 px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                        onclick="buttonClick1()">
+                        答え合わせ
+                    </button>
                 </div>
-    
+                <div class="w-full">
+                    <button type="button"
+                        class="h-8 w-full my-0 px-0 py-1 border-2 border-red-500 rounded-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold text-sm shadow-lg hover:shadow-xl transition duration-300"
+                        onclick="buttonClick2()">
+                        選択リセット
+                    </button>
+                </div>
+            </div>
+
             <!--このリファクタリングでは、$questionIds 配列の各要素に対してループを行います。$loop->iteration は現在のループの繰り返し数を表し、これを使ってフォームフィールドの名前を動的に生成しています。これにより、各質問IDに対応する隠しフィールドが作成されます。また、@csrf ディレクティブはループの外に一度だけ配置するのが適切です。-->
             @foreach($questionIds as $questionId)
             @csrf
@@ -221,16 +222,16 @@
 
 
 
-    @endif
+            @endif
 
-    @endforeach
-</div>
+            @endforeach
+    </div>
 
     <div class="relative container border-2 border-gray-300 rounded-md p-4 shadow-lg">
         <div class="absolute top-0 left-0">
             【回答済】
         </div>
-<br>
+        <br>
         <div id="q-4" class="py-0 hidden">出題1問目</div>
         <div id="a-4" class="py-0 text-right"></div>
         <div id="q-5" class="py-0 hidden">出題2問目</div>

@@ -16,182 +16,186 @@
 
 <body class="min-h-screen bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100">
   <div class="container mx-auto px-4 sm:px-8 lg:px-16">
-    
+
     @auth
-  @if (session('feedback.success'))
-  <p class="text-green-500">{{ session('feedback.success') }}</p>
-  @endif
-  <div class="flex justify-end items-center">
-    <div>
-      <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
+    @if (session('feedback.success'))
+    <p class="text-green-500">{{ session('feedback.success') }}</p>
+    @endif
+    <div class="flex justify-end items-center">
+      {{ Auth::user()->continuous_correct_answers }}問連続正解中
+
+      <div>
+        <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
+          href="/">HOMEへ</a>
+      </div>
     </div>
-  </div>
-  @endauth
-  連続{{ Auth::user()->continuous_correct_answers }}問正解中
+    @endauth
 
- <!-- 前の要素に戻るボタン -->
- <button id="show-prev-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
-  前の問題を表示</button>
-<!-- 表示用ボタン -->
-<button id="show-next-button" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
-  次の問題を表示</button>
-  <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
- 
-  </div>
+    <!-- 前の要素に戻るボタン -->
+    <button id="show-prev-button" type="button"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
+      前の問題を表示</button>
+    <!-- 表示用ボタン -->
+    <button id="show-next-button" type="button"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
+      次の問題を表示</button>
+    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-  
+    </div>
 
 
-  <div class="container text-left relative">
-    <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
-      <div class="flex justify-between m-0">
-        <div class="flex-none m-0">
-          【回答違い直近30問】
-        </div>
-      </div>
 
-      @csrf
-      <div id="display-area" class="incorrect-item flex flex-col">
-        <!-- 表示エリア。ここにforeachループの要素が表示される -->
-      </div>
-      @foreach($incorrectList as $incorrect)
-      <div id="item-{{ $loop->index }}" class="incorrect-item flex flex-col" style="display:none;">
-  
 
-      <div class="flex flex-col">
-
-        <div class="text-sm">
-
-          {{ $incorrect->question->smallLabel->middleLabel->largeLabel->large_label }}→
-          {{ $incorrect->question->smallLabel->middleLabel->middle_label }}→
-          {{ $incorrect->question->smallLabel->small_label }}
+    <div class="container text-left relative">
+      <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
+        <div class="flex justify-between m-0">
+          <div class="flex-none m-0">
+            【回答違い直近30問】
+          </div>
         </div>
 
-        <div class="text-xs">{{ $incorrect->updated_at}}</div>
-      </div>
-
-      <div id="question-{{ $loop->iteration }}"
-        class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-          <div class="w-14 h-6 flex justify-center items-center">
-
-            <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
-          </div>
-
-          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-               {{$incorrect->question->question}}
-          <img src="{{ asset($incorrect->question->question_path) }}"class="max-w-none max-h-[300px]">
-          </div>
-
-      </div>
-
-
-      <div class="flex flex-col justify-end items-end">
-        <!-- Incorrect button -->
-        <div class="text-sm mb-1">
-          <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-            {{ $incorrect->q_answer }}
-          </button>❌
+        @csrf
+        <div id="display-area" class="incorrect-item flex flex-col">
+          <!-- 表示エリア。ここにforeachループの要素が表示される -->
         </div>
-      </div>
-
-      <div class="justify-start">
-
-        <details class="my-0">
-          <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
-            問題・答え・解説を見る
-          </summary>
+        @foreach($incorrectList as $incorrect)
+        <div id="item-{{ $loop->index }}" class="incorrect-item flex flex-col" style="display:none;">
 
 
+          <div class="flex flex-col">
 
-          <div>問題側セットと編集ボタン</div>
+            <div class="text-sm">
 
-          <div id="question-{{ $loop->iteration }}"
-            class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-              <div class="w-14 h-6 flex justify-center items-center">
-                <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
-              </div>
-
-                <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-
-                {{$incorrect->question->question}}
-              <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
-              </div>
-          </div>
-
-          <div class="flex flex-col justify-end items-end">
-            <!-- Incorrect button -->
-            <div class="text-sm mb-1">
-            <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-              {{ $incorrect->question->answer }}
-            </button>⭕️
+              {{ $incorrect->question->smallLabel->middleLabel->largeLabel->large_label }}→
+              {{ $incorrect->question->smallLabel->middleLabel->middle_label }}→
+              {{ $incorrect->question->smallLabel->small_label }}
             </div>
-          </div>
-          解説
 
-          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-
-            {{$incorrect->question->comment}}
-          <img src="{{ asset($incorrect->question->comment_path) }}" class="max-w-none max-h-[300px]">
+            <div class="text-xs">{{ $incorrect->updated_at}}</div>
           </div>
 
-          <div>
-            <a href="{{ route('edit', ['questionId' => $incorrect->question_id]) }}"
-              class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-              編集
-            </a>
-          </div>
-          <br>
-          <br>
-          <br>
-
-          <div>選択ミス側セットと編集ボタン</div>
           <div id="question-{{ $loop->iteration }}"
             class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
             <div class="w-14 h-6 flex justify-center items-center">
+
               <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
             </div>
-            <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-              <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-
-                {{$incorrect->q_question}}
-              <img src="{{ asset($incorrect->q_question_path) }}" class="max-w-none max-h-[300px]">
-              </div>
-
+            <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+              {{$incorrect->question->question}}
+              <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
             </div>
+
           </div>
+
+
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
             <div class="text-sm mb-1">
-            <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
-              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-              {{ $incorrect->q_answer }}
-            </button>⭕️
+              <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
+                {{ $incorrect->q_answer }}
+              </button>❌
             </div>
           </div>
-          <br>
 
-          <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+          <div class="justify-start">
 
-            解説:{{$incorrect->q_comment}}
-          <img src="{{ asset($incorrect->q_comment_path) }}" class="max-w-none max-h-[300px]">
+            <details class="my-0">
+              <summary class="text-lg font-bold text-blue-600 hover:text-blue-800 cursor-pointer">
+                問題・答え・解説を見る
+              </summary>
+
+
+
+              <div>問題側セットと編集ボタン</div>
+
+              <div id="question-{{ $loop->iteration }}"
+                class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+                <div class="w-14 h-6 flex justify-center items-center">
+                  <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
+                </div>
+
+                <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                  {{$incorrect->question->question}}
+                  <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-end items-end">
+                <!-- Incorrect button -->
+                <div class="text-sm mb-1">
+                  <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
+                    {{ $incorrect->question->answer }}
+                  </button>⭕️
+                </div>
+              </div>
+              解説
+
+              <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                {{$incorrect->question->comment}}
+                <img src="{{ asset($incorrect->question->comment_path) }}" class="max-w-none max-h-[300px]">
+              </div>
+
+              <div>
+                <a href="{{ route('edit', ['questionId' => $incorrect->question_id]) }}"
+                  class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                  編集
+                </a>
+              </div>
+              <br>
+              <br>
+              <br>
+
+              <div>選択ミス側セットと編集ボタン</div>
+              <div id="question-{{ $loop->iteration }}"
+                class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+                <div class="w-14 h-6 flex justify-center items-center">
+                  <strong class="text-lg text-white text-center">{{$loop->iteration}}</strong>
+                </div>
+                <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                  <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                    {{$incorrect->q_question}}
+                    <img src="{{ asset($incorrect->q_question_path) }}" class="max-w-none max-h-[300px]">
+                  </div>
+
+                </div>
+              </div>
+              <div class="flex flex-col justify-end items-end">
+                <!-- Incorrect button -->
+                <div class="text-sm mb-1">
+                  <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
+                    {{ $incorrect->q_answer }}
+                  </button>⭕️
+                </div>
+              </div>
+              <br>
+
+              <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                解説:{{$incorrect->q_comment}}
+                <img src="{{ asset($incorrect->q_comment_path) }}" class="max-w-none max-h-[300px]">
+              </div>
+
+              <a href="{{ route('edit', ['questionId' => $incorrect->answered_question_id]) }}"
+                class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                編集
+              </a>
           </div>
 
-            <a href="{{ route('edit', ['questionId' => $incorrect->answered_question_id]) }}"
-              class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-              編集
-            </a>
-          </div>
 
-
-        </details>
+          </details>
+        </div>
       </div>
-    </div>
       <br>
 
-      
+
       @endforeach
 
       <style>
@@ -271,4 +275,5 @@
   </script>
   </div>
 </body>
+
 </html>

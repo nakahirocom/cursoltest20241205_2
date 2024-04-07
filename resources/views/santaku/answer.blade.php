@@ -24,13 +24,13 @@
     @auth
     <div class="flex justify-end items-center">
         <div>
+            <!-- 連続正解数を表示するスパン -->
+            <span id="continuous-correct-answers">問連続正解中</span>
             <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
                 href="/">HOMEへ</a>
         </div>
     </div>
     @endauth
-    <!-- 連続正解数を表示するスパン -->
-    <span id="continuous-correct-answers">連続問正解中</span>
 
     <!-- 表示用ボタン -->
     <div class="flex items-center">
@@ -237,7 +237,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
-        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 連続問正解中'; // 最初の表示
+        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 問連続正解中'; // 最初の表示
     });
 
     document.getElementById('show-next-button').addEventListener('click', function() {
@@ -269,10 +269,12 @@
                     displayMark.classList.add('text-xl', 'font-bold');
 
                     if (answer.getAttribute('data-correct') === 'true') {
+                        mark.textContent = '⭕️';
                         continuousCorrectAnswers++; // 正解の場合
                         displayMark.textContent = '⭕️';
-                        displayMark.classList.add('text-green-500');
+                        displayMark.classList.add('text-red-500');
                     } else {
+                        mark.textContent = '❌';
                         continuousCorrectAnswers = 0; // 不正解の場合
                         displayMark.textContent = '❌';
                         displayMark.classList.add('text-red-500');
