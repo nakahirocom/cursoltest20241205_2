@@ -34,8 +34,7 @@
             <nav>
                 <ol>
                     <li class="breadcrumb-item"><span>{{ Auth::user()->name }}</span> がログイン中</li>
-                    <li class="breadcrumb-item active" aria-current="page">ユーザーid{{ Auth::user()->id }}</li>
-                    連続{{ Auth::user()->continuous_correct_answers }}問正解中
+                    {{ Auth::user()->continuous_correct_answers }}問連続正解中
                 </ol>
             </nav>
         </div>
@@ -43,15 +42,15 @@
 
         <div class="mx-auto my-4">
             <ul>
-                <li class="mb-2">
+                <li class="mb-3">
                     <a href="/santakuset"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">出題ジャンルの選択を行う</a>
                 </li>
-                <li class="mb-2">
+                <li class="mb-3">
                     <a href="/question"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">1.選んだジャンルを解きまくる</a>
                 </li>
-                <li class="mb-2">
+                <li class="mb-3">
                     <a href="/incorrect"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.最近間違えた問題を確認する</a>
                 </li>
@@ -60,20 +59,38 @@
 
         <div class="container mx-auto my-1">
             <div class="flex flex-col">
+                <!-- 見出し -->
+                <div class="bg-gray-200 p-2 mb-2">
+                    <div class="flex justify-between">
+                        <span class="text-xs font-semibold flex-grow text-left">今の連続記録 / user</span>
+                        <span class="text-xs font-semibold flex-grow text-right">/ 過去最高記録</span>
+                    </div>
+                </div>
+                <!-- ユーザーリスト -->
                 @foreach ($users as $index => $user)
                 <div
                     class="{{ $user->id == $currentUser ? 'bg-blue-300 border-blue-500' : 'bg-white border-gray-200' }} flex items-center justify-between border-b p-1 mb-1">
-                    <span class="text-lg font-semibold">{{ $loop->iteration }}位</span>
-                    <div class="flex items-center">
-                        <div class="text-sm font-semibold text-gray-800 mr-3">name: {{ $user->id == $currentUser ?
-                            $user->name : '非表示' }}</div>
-                        <div class="text-sm text-gray-600">連続正解数: {{ $user->continuous_correct_answers }}</div>
+                    <span class="text-xs">{{ $loop->iteration }}位　</span>
+                    <div class="text-xs text-gray-600 flex-grow text-cdnter font-semibold">{{
+                        $user->continuous_correct_answers }}問　/</div>
+                    <div class="flex-grow-0 flex-shrink-0 w-1/4 flex items-left">
+                        <div class="text-xs text-gray-800 mr-3">{{ $user->id == $currentUser ? $user->name: '非表示' }}さん
+                        </div>
                     </div>
+                    <div class="text-xs flex-grow text-right">
+                        @if ($user->continuous_correct_answers > $user->best_record)
+                        <span class="font-bold text-red-600 bg-yellow-100 p-1 rounded">/ 記録更新中</span>
+                        @else
+                        /　 {{ $user->best_record }}問
+                        @endif
+                    </div>
+                    <div class="text-xs text-gray-600 flex-grow ml-auto text-right">{{ date('Y-m-d',
+                        strtotime($user->best_record_at)) }}</div>
                 </div>
                 @endforeach
-
-
             </div>
         </div>
+
+
     </div>
 </body>

@@ -23,6 +23,8 @@ class UsersSeeder extends Seeder
             'remember_token' => Str::random(10),
             'region_id' => 1,
             'continuous_correct_answers' => null,
+            'best_record' => null,
+            'best_record_at' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -35,6 +37,8 @@ class UsersSeeder extends Seeder
             'remember_token' => Str::random(10),
             'region_id' => 1,
             'continuous_correct_answers' => 15,
+            'best_record' => null,
+            'best_record_at' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -46,6 +50,8 @@ class UsersSeeder extends Seeder
             'remember_token' => Str::random(10),
             'region_id' => 2,
             'continuous_correct_answers' => 1,
+            'best_record' => null,
+            'best_record_at' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -57,6 +63,8 @@ class UsersSeeder extends Seeder
             'remember_token' => Str::random(10),
             'region_id' => 2,
             'continuous_correct_answers' => 25,
+            'best_record' => null,
+            'best_record_at' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
