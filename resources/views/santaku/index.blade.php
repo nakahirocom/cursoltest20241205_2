@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="text-xs flex-grow text-right">
-                        @if ($user->continuous_correct_answers > $user->best_record)
+                        @if ($user->continuous_correct_answers >= $user->best_record)
                         <span class="font-bold text-red-600 bg-yellow-100 p-1 rounded">/ 記録更新中</span>
                         @else
                         /　 {{ $user->best_record }}問

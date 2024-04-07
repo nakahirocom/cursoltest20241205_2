@@ -19,7 +19,7 @@
 
     @endauth
 
-
+Ï
 
     @auth
     <div class="flex justify-end items-center">
@@ -281,7 +281,7 @@
                     }
 
                     displayArea.appendChild(displayMark);
-                    document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 連続問正解中'; // 更新されたスコアを表示
+                    document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 問連続正解中'; // 更新されたスコアを表示
 
                     if (index >= answers.length - 1) {
                         setTimeout(allAnswersDisplayed, 1);
