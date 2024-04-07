@@ -161,9 +161,14 @@ class AnswerController extends Controller
             $viewModel = new AnswerViewModel($cho, $ques);
             $viewModels[] = $viewModel;
 
-            // 正解判定と連続正解数の更新
+            // 正解判定と連続正解数、最高記録の更新
             if ($questionId == $choiceId) {
                 $user->continuous_correct_answers++;
+                if ($user->continuous_correct_answers > $user->best_record) {
+                    $user->best_record = $user->continuous_correct_answers;
+                    $user->best_record_at = now();
+                    $isBestRecordUpdated = true; // 最高記録が更新されたかどうかのフラグ
+                }
             } else {
                 $user->continuous_correct_answers = 0;
             }
@@ -176,6 +181,7 @@ class AnswerController extends Controller
             ->with('allkaitousuuModels', $allkaitousuuModels)
             ->with('uidkaitousuuModels', $uidkaitousuuModels)
             ->with('allseikairituModels', $allseikairituModels)
-            ->with('uidseikairituModels', $uidseikairituModels);
+            ->with('uidseikairituModels', $uidseikairituModels)
+            ->with('isBestRecordUpdated', $isBestRecordUpdated ?? false);
     }
 }
