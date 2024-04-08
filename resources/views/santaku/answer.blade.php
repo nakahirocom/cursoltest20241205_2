@@ -19,8 +19,6 @@
 
     @endauth
 
-Ï
-
     @auth
     <div class="flex justify-end items-center">
         <div>
