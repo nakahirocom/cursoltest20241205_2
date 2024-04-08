@@ -452,7 +452,7 @@ qquestionArea10.classList.add('hidden');
     milliseconds = parseInt((timer % 100) / 10, 10); // 0.1秒刻みのミリ秒を取得
     seconds = parseInt(timer / 100, 10); // 秒
 
-    display.textContent = "　残り" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
+    display.textContent = "　残" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
 
     if (--timer < 0) {
         clearInterval(countdownInterval);
@@ -463,7 +463,7 @@ qquestionArea10.classList.add('hidden');
 }
 
     window.onload = function () {
-        var tenSeconds = 15, // 15秒
+        var tenSeconds = 30, // 30秒
             display = document.querySelector('#countdown-timer');
         startCountdown(tenSeconds, display);
     };
