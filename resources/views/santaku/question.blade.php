@@ -32,8 +32,6 @@
         </div>
 
     </div>
-
-
     @endauth
 
     <div class="container text-left relative">
@@ -45,10 +43,11 @@
                     【選択肢】
                 </div>
                 <div class="w-full">
-                    <button id="kakutei" type="submit" value="回答を確定する"
-                        class="h-8 w-full my-0 px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                    <button id="kakutei" type="submit"
+                        class="h-8 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
                         onclick="buttonClick1()">
                         答え合わせ
+                        <div id="countdown-timer" class="text-gray-500">15</div>
                     </button>
                 </div>
                 <div class="w-full">
@@ -57,6 +56,7 @@
                         onclick="buttonClick2()">
                         選択リセット
                     </button>
+
                 </div>
             </div>
 
@@ -444,6 +444,31 @@ qquestionArea10.classList.add('hidden');
             }
         }
     </script>
+    <script>
+        function startCountdown(duration, display) {
+    var timer = duration * 100, // 10秒を100で乗算してミリ秒に変換
+        seconds, milliseconds;
+        var countdownInterval = setInterval(function () {
+    milliseconds = parseInt((timer % 100) / 10, 10); // 0.1秒刻みのミリ秒を取得
+    seconds = parseInt(timer / 100, 10); // 秒
+
+    display.textContent = "　残り" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
+
+    if (--timer < 0) {
+        clearInterval(countdownInterval);
+        alert('時間切れ(連続正解ストップ)');
+        // ここにカウントダウン終了後の動作を記述します。
+    }
+}, 10); // 10ミリ秒ごとに更新
+}
+
+    window.onload = function () {
+        var tenSeconds = 15, // 15秒
+            display = document.querySelector('#countdown-timer');
+        startCountdown(tenSeconds, display);
+    };
+    </script>
+
     </div>
     </div>
 </body>
