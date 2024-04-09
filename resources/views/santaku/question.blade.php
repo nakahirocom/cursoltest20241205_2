@@ -38,16 +38,17 @@
         <form action="{{ route('answer.index') }}" method="post" id="kotae"
             class="border-2 border-gray-300 rounded-md p-0 shadow-lg relative">
             <input type="hidden" name="maxQuestions" value="{{ count($questions_a) }}">
+            <input type="hidden" name="timeout">
             <div class="flex justify-between m-0">
                 <div class="flex-none m-0">
                     【選択肢】
                 </div>
                 <div class="w-full">
-                    <button id="kakutei" type="submit"
+                    <button id="kakutei" type="button"
                         class="h-8 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
                         onclick="buttonClick1()">
                         答え合わせ
-                        <div id="countdown-timer" class="text-gray-500">15</div>
+                        <div id="countdown-timer" class="text-gray-500"></div>
                     </button>
                 </div>
                 <div class="w-full">
@@ -250,9 +251,13 @@
 
     <script>
         function buttonClick1(){
+            if (arr.length !== maxQuestions) {
+        // 条件を満たしていない場合、何もしない
+        return;
+    }
                             //操作するid要素を取得する
                             var kotae = document.getElementById('kotae');
-
+                            document.getElementById('kakutei').type = 'submit';
                             // 3回転ループし、追加する配列の数だけinput要素を作成
                             for (let step = 0; step < 8; step++) {
                             // input要素の中身を作成
@@ -443,8 +448,7 @@ qquestionArea10.classList.add('hidden');
                         }
             }
         }
-    </script>
-    <script>
+
         function startCountdown(duration, display) {
     var timer = duration * 100, // 10秒を100で乗算してミリ秒に変換
         seconds, milliseconds;
@@ -455,17 +459,23 @@ qquestionArea10.classList.add('hidden');
     display.textContent = "　残" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
 
     if (--timer < 0) {
-        clearInterval(countdownInterval);
-        alert('時間切れ(連続正解ストップ)');
-        // ここにカウントダウン終了後の動作を記述します。
-    }
+            clearInterval(countdownInterval);
+            document.getElementsByName('timeout')[0].value = 'true'; // タイムアウトフラグを設定
+            alert('時間切れ(連続正解ストップ)');    }
 }, 10); // 10ミリ秒ごとに更新
 }
 
     window.onload = function () {
-        var tenSeconds = 30, // 30秒
+        var seconds = 30, // 30秒
             display = document.querySelector('#countdown-timer');
-        startCountdown(tenSeconds, display);
+        startCountdown(seconds, display);
+            // 最初の問題を特定
+    let firstQuestion = document.getElementById('question-1');
+
+// 最初の問題が存在する場合、強調表示クラスを追加
+if (firstQuestion) {
+    firstQuestion.classList.add('highlighted-question');
+}
     };
     </script>
 
