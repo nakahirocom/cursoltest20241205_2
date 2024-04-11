@@ -39,6 +39,7 @@
             <div class="bflex justify-between m-0">
                 <div class="font-bold text-lg">
                     分類：{{ $largelabel->large_label }}
+
                     <button type="button" onclick="toggleCheckboxes('{{ $largelabel->id }}')"
                         class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-0 px-0 border border-gray-300 rounded shadow-sm hover:shadow-md transition ease-in-out duration-150">
                         選択解除</button>

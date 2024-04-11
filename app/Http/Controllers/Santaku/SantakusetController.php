@@ -30,23 +30,23 @@ class SantakusetController extends Controller
         $smalelabelList = SmallLabel::all();
 
 
-// 両方のリストの数を比較
-// $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
-if ($selectList->count() != $smalelabelList->count()) {
-    foreach ($smalelabelList as $item) {
-        // $selectListに$itemが含まれていないかチェック
-        if (!$selectList->contains('small_label_id', $item->id)) {
-            $selectNewList = new LabelStorages();
-            $selectNewList->user_id = $id; // UserIdを保存
-            $selectNewList->small_label_id = $item->id; // small_label_idを登録
-            $selectNewList->selected = 1; // 中分類を選んだ状態の「1」を登録
-            $selectNewList->save();
+        // 両方のリストの数を比較
+        // $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
+        if ($selectList->count() != $smalelabelList->count()) {
+            foreach ($smalelabelList as $item) {
+                // $selectListに$itemが含まれていないかチェック
+                if (!$selectList->contains('small_label_id', $item->id)) {
+                    $selectNewList = new LabelStorages();
+                    $selectNewList->user_id = $id; // UserIdを保存
+                    $selectNewList->small_label_id = $item->id; // small_label_idを登録
+                    $selectNewList->selected = 1; // 中分類を選んだ状態の「1」を登録
+                    $selectNewList->save();
+                }
+            }
+        } else {
+            // $selectListと$smalelabelListの数が同じ場合の処理
+            // ここに必要なコードを記述します
         }
-    }
-} else {
-    // $selectListと$smalelabelListの数が同じ場合の処理
-    // ここに必要なコードを記述します
-}
         $largelabelList = LargeLabel::all();
         $middlelabelList = MiddleLabel::all();
 

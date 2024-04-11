@@ -44,7 +44,7 @@
             <ul>
                 <li class="mb-3">
                     <a href="/santakuset"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">出題ジャンルの選択を行う</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">0.出題ジャンルの選択を行う</a>
                 </li>
                 <li class="mb-3">
                     <a href="/question"
@@ -54,6 +54,11 @@
                     <a href="/incorrect"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.最近間違えた問題を確認する</a>
                 </li>
+                <li class="mb-3">
+                    <a href="/new"
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">3.新しく問題を登録する</a>
+                </li>
+
             </ul>
         </div>
 
