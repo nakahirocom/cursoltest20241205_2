@@ -63,7 +63,7 @@ class MasterController extends Controller
             ->groupBy('small_label_id')
             ->selectRaw('count(*) as total')
             ->get();
-
+dump($countBySmallLabelId);
         // $selectListの各要素に対して$totalを追加
         $selectList->each(function ($smallLabel) use ($countBySmallLabelId) {
             // 同じsmall_label_idを持つ$countBySmallLabelIdの要素を探す
