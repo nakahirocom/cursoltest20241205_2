@@ -16,21 +16,23 @@
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
     @auth
     <div class="flex justify-between items-center">
-        <!-- flexとjustify-betweenを追加 -->
-        @foreach($questionj as $question_j)
-        ｼﾞｬﾝﾙ:
-        {{ $question_j->smallLabel->middleLabel->middle_label }}-
+        <!-- ジャンル表示と連続正解数を含む新しいdivを追加 -->
+        <div class="flex items-center">
+            <!-- ジャンル表示部分 -->
+            @foreach($questionj as $question_j)
+            ジャンル: {{ $question_j->smallLabel->middleLabel->middle_label }} - {{ $question_j->smallLabel->small_label }}
+            @endforeach
+            <!-- 連続正解数表示部分 -->
+            <div id="continuousCorrect" class="text-left ml-4">
+                {{ Auth::user()->continuous_correct_answers }}問連続
+            </div>
+        </div>
 
-        {{ $question_j->smallLabel->small_label }}
-
-        @endforeach
-        {{ Auth::user()->continuous_correct_answers }}問連続
-
+        <!-- HOMEへのリンク -->
         <div>
             <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
                 href="/">HOMEへ</a>
         </div>
-
     </div>
     @endauth
 
@@ -456,13 +458,20 @@ qquestionArea10.classList.add('hidden');
     milliseconds = parseInt((timer % 100) / 10, 10); // 0.1秒刻みのミリ秒を取得
     seconds = parseInt(timer / 100, 10); // 秒
 
+        // 10秒未満になったら文字色を赤に変更
+        if (seconds < 10) {
+            display.style.color = 'red';
+        }
+
     display.textContent = "　残" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
 
     if (--timer < 0) {
             clearInterval(countdownInterval);
             document.getElementsByName('timeout')[0].value = 'true'; // タイムアウトフラグを設定
-            alert('時間切れ(連続正解ストップ)');    }
-}, 10); // 10ミリ秒ごとに更新
+            document.getElementById('continuousCorrect').textContent = '0問連続'; // 連続正解数を0に更新
+            alert('時間切れ（連続正解ストップ）');
+        }
+    }, 10); // 10ミリ秒ごとに更新
 }
 
     window.onload = function () {

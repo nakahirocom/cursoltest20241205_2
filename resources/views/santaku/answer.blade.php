@@ -231,7 +231,7 @@
 
     <script>
         var isFirstClick = true; // 初めてのクリックを追跡するためのフラグ
-    var continuousCorrectAnswers = {{ Auth::user()->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
+    var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
 
     document.addEventListener('DOMContentLoaded', function () {
         var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
