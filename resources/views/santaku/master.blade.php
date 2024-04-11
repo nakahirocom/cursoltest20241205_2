@@ -26,7 +26,7 @@
             class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
             <div class="flex justify-between m-0">
                 <div class="flex-none m-0">
-                    【ジャンルを選択】
+                    【ジャンルを選択:管理者画面】
                 </div>
                 <button type="button" onclick="toggleAllCheckboxes()"
                     class="bg-gradient-to-br from-orange-300 to-orange-800 hover:bg-gradient-to-tl text-white rounded px-1 py-1">
@@ -38,7 +38,7 @@
             @foreach($largelabelList as $largelabel)
             <div class="bflex justify-between m-0">
                 <div class="font-bold text-lg">
-                    分類：{{ $largelabel->large_label }}
+                    分類：{{ $largelabel->large_label }}id：{{ $largelabel->id }}
 
                     <button type="button" onclick="toggleCheckboxes('{{ $largelabel->id }}')"
                         class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-0 px-0 border border-gray-300 rounded shadow-sm hover:shadow-md transition ease-in-out duration-150">
@@ -49,7 +49,8 @@
                     @foreach ($middlelabelList as $middlelabel)
                     @if($largelabel->id == $middlelabel->large_label_id)
                     <div class="flex flex-col">
-                        <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}</div>
+                        <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}{{ $middlelabel->id }}
+                        </div>
 
                         @foreach ($selectList as $user_select)
                         @if ($middlelabel->id == $user_select->smallLabel->middle_label_id)
@@ -63,6 +64,9 @@
                             <label for="{{ $user_select->smallLabel->small_label }}"
                                 class="text-sm ml-2 text-gray-700 font-medium">
                                 {{ $user_select->smallLabel->small_label }}
+                                id:{{$user_select->smallLabel->id}}
+                                数:{{$user_select->total}}
+
                             </label>
                         </div>
                         @endif
@@ -134,6 +138,41 @@
     </script>
 
     </div>
+    成績ランキング：管理者画面
+    <div class="container mx-auto my-1">
+        <div class="flex flex-col">
+            <!-- 見出し -->
+            <div class="bg-gray-200 p-2 mb-2">
+                <div class="flex justify-between">
+                    <span class="text-xs font-semibold flex-grow text-left">今の連続記録 / user</span>
+                    <span class="text-xs font-semibold flex-grow text-right">/ 過去最高記録</span>
+                </div>
+            </div>
+            <!-- ユーザーリスト -->
+            @foreach ($users as $index => $user)
+            <div
+                class="{{ $user->id == $currentUser ? 'bg-blue-300 border-blue-500' : 'bg-white border-gray-200' }} flex items-center justify-between border-b p-1 mb-1">
+                <span class="text-xs">{{ $loop->iteration }}位　</span>
+                <div class="text-xs text-gray-600 flex-grow text-cdnter font-semibold">{{
+                    $user->continuous_correct_answers }}問　/</div>
+                <div class="flex-grow-0 flex-shrink-0 w-1/4 flex items-left">
+                    <div class="text-xs text-gray-800 mr-3">{{ $user->name }}さん
+                    </div>
+                </div>
+                <div class="text-xs flex-grow text-right">
+                    @if ($user->continuous_correct_answers >= $user->best_record)
+                    <span class="font-bold text-red-600 bg-yellow-100 p-1 rounded">/ 記録更新中</span>
+                    @else
+                    /　 {{ $user->best_record }}問
+                    @endif
+                </div>
+                <div class="text-xs text-gray-600 flex-grow ml-auto text-right">{{ date('Y-m-d',
+                    strtotime($user->best_record_at)) }}</div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
 
 </body>
 

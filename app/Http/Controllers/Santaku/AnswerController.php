@@ -114,15 +114,16 @@ class AnswerController extends Controller
 
         $uid = $request->userId();
         $user = User::find($uid); // ユーザーを取得
-
+        //dump($user);
         // timeoutがtrueならば、連続正解数をリセットする
         $timeout = $request->input('timeout');
-        dump($timeout);
+        //dump($timeout);
         if ($timeout) {
             $user->continuous_correct_answers = 0;
             $user->save(); // ユーザー情報を更新
         }
-
+        $timeoutuser = User::find($uid); // ユーザーを取得
+        //dump($timeoutuser);
 
         $viewModels = [];
         $allkaitousuuModels = [];
@@ -172,19 +173,20 @@ class AnswerController extends Controller
 
 
             // 正解判定と連続正解数、最高記録の更新
-                if ($questionId == $choiceId) {
-                    $user->continuous_correct_answers++;
-                    if ($user->continuous_correct_answers > $user->best_record) {
-                        $user->best_record = $user->continuous_correct_answers;
-                        $user->best_record_at = now();
-                        $isBestRecordUpdated = true; // 最高記録が更新されたかどうかのフラグ
-                    }
-                } else {
-                    $user->continuous_correct_answers = 0;
+            if ($questionId == $choiceId) {
+                $user->continuous_correct_answers++;
+                if ($user->continuous_correct_answers > $user->best_record) {
+                    $user->best_record = $user->continuous_correct_answers;
+                    $user->best_record_at = now();
+                    $isBestRecordUpdated = true; // 最高記録が更新されたかどうかのフラグ
+                }
+            } else {
+                $user->continuous_correct_answers = 0;
             }
         }
 
         $user->save(); // ユーザー情報を更新
+
 
         return view('santaku.answer')
             ->with('viewModels', $viewModels)
@@ -192,6 +194,7 @@ class AnswerController extends Controller
             ->with('uidkaitousuuModels', $uidkaitousuuModels)
             ->with('allseikairituModels', $allseikairituModels)
             ->with('uidseikairituModels', $uidseikairituModels)
-            ->with('isBestRecordUpdated', $isBestRecordUpdated ?? false);
+            ->with('isBestRecordUpdated', $isBestRecordUpdated ?? false)
+            ->with('timeoutuser', $timeoutuser);
     }
 }

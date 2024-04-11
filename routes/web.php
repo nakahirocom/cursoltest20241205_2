@@ -41,18 +41,16 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/delete/{questionId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
 
- //とき直しモード
-    Route::get('/mistake', App\Http\Controllers\Santaku\MistakeController::class);
+    //とき直しモード
+    Route::get('/master', App\Http\Controllers\Santaku\MasterController::class);
 
     Route::get('/incorrect', App\Http\Controllers\Santaku\IncorrectListController::class);
 
-    Route::post('/check_register', [App\Http\Controllers\TestController::class,'register'])->name('check.register');
-
-
+    Route::post('/check_register', [App\Http\Controllers\TestController::class, 'register'])->name('check.register');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

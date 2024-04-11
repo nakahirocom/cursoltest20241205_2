@@ -7,10 +7,14 @@ use App\Models\LabelStorages;
 use App\Models\LargeLabel;
 use App\Models\MiddleLabel;
 use App\Models\SmallLabel;
+use App\Models\User;
+use App\Models\Question;
+
 
 use Illuminate\Http\Request;
 
-class SantakusetController extends Controller
+
+class MasterController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -28,7 +32,7 @@ class SantakusetController extends Controller
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
 
         $smalelabelList = SmallLabel::all();
-
+        dump($smalelabelList);
 
         // 両方のリストの数を比較
         // $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
@@ -50,9 +54,34 @@ class SantakusetController extends Controller
         $largelabelList = LargeLabel::all();
         $middlelabelList = MiddleLabel::all();
 
-        return view('santaku.santakuset')
+
+        $users = User::orderBy('continuous_correct_answers', 'DESC')->get();
+        $authId = auth()->id();
+
+        // questionのうち、small_label_idごとの問題数をカウントする
+        $countBySmallLabelId = Question::select('small_label_id')
+            ->groupBy('small_label_id')
+            ->selectRaw('count(*) as total')
+            ->get();
+
+        // $selectListの各要素に対して$totalを追加
+        $selectList->each(function ($smallLabel) use ($countBySmallLabelId) {
+            // 同じsmall_label_idを持つ$countBySmallLabelIdの要素を探す
+            $matchingQuestion = $countBySmallLabelId->firstWhere('small_label_id', $smallLabel->id);
+
+            // 該当する要素があれば$totalを追加、なければ0を追加
+            $smallLabel->total = $matchingQuestion ? $matchingQuestion->total : 0;
+        });
+
+
+
+
+        dump($selectList);
+        return view('santaku.master')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
-            ->with('middlelabelList', $middlelabelList);
+            ->with('middlelabelList', $middlelabelList)
+            ->with('users', $users)
+            ->with('currentUser', $authId);
     }
 }
