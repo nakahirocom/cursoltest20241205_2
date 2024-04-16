@@ -8,13 +8,25 @@
   <!-- Tailwind CSSのみ -->
   <link rel="stylesheet" href="/css/app.css">
   <title>santakuアプリ</title>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          return false;
+        }
+      });
+    });
+  </script>
 
 </head>
 
 
 <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
   <div class="container mx-auto p-4">
-    <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out" href="/">HOMEへ</a>
+    <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
+      href="/">HOMEへ</a>
 
     @auth
     <p class="text-2xl font-bold">三択アプリ　新しく問題を登録する</p>
@@ -28,7 +40,7 @@
     <form method="post" action="{{ route('create.index') }}" enctype="multipart/form-data">
       @csrf
 
-      <input type="text" name="small_label_id" class="form-control" placeholder="ジャンル１つ選ぶ">ジャンル選択
+      <input type="text" name="small_label_id" class="form-control" placeholder="ジャンル１つ選ぶ" value="{{ old('small_label_id') }}">ジャンル選択
 
       <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
         <!-- 他のコンテンツ -->
@@ -93,7 +105,7 @@
 
 
 
-      <input type="text" name="question" class="form-control" placeholder="問題を登録">
+      <input type="text" name="question" class="form-control" placeholder="問題を登録" value="{{ old('question') }}">
       @error('question')
       <p class="text-red-500">{{ $message }}</p>
       @enderror
@@ -105,14 +117,14 @@
         <!-- 画像がここに表示される -->
       </div>
 
-      <input type="text" name="answer" class="form-control" placeholder="答えを登録">
+      <input type="text" name="answer" class="form-control" placeholder="答えを登録" value="{{ old('answer') }}">
       @error('answer')
       <p class="text-red-500">{{ $message }}</p>
       @enderror
       <br>
       <br>
 
-      <input type="text" name="comment" class="form-control" placeholder="コメント・解説を登録">
+      <input type="text" name="comment" class="form-control" placeholder="コメント・解説を登録" value="{{ old('comment') }}">
       @error('comment')
       <p class="text-red-500">{{ $message }}</p>
       @enderror
@@ -155,6 +167,7 @@
     });
 
   </script>
+  
 </body>
 
 </html>
