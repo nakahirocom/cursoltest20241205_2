@@ -53,7 +53,7 @@ class CreateController extends Controller
         $question->save();
 
         return redirect()
-            ->route('new', ['questionId' => $question->id])
+            ->route('new')
             ->with('feedback.success', '新規登録が完了しました');
     }
 }
