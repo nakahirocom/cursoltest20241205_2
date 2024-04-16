@@ -1222,6 +1222,11 @@ select {
   --tw-gradient-to: rgb(216 180 254 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-gray-400 {
+  --tw-gradient-from: #9ca3af;
+  --tw-gradient-to: rgb(156 163 175 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .via-blue-100 {
   --tw-gradient-to: rgb(219 234 254 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), #dbeafe, var(--tw-gradient-to);
