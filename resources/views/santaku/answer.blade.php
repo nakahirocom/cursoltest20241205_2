@@ -94,18 +94,24 @@
                     $allkaitousuuModels[$i] }}</div>
 
                 @if ($viewModels[$i]->isCorrect() )
-                <div class="items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
                     <div class="w-12 h-6 flex items-center">
                         <strong class="text-xs text-white">{{$i+1}}</strong>
                     </div>
                     <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                        {{ $viewModels[$i]->getComment() }}
+                        解説:{{ $viewModels[$i]->getComment() }}
                         <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
                             <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
                         </div>
                     </div>
+
                 </div>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    編集
+                </a>
+                <br>
 
                 @else
 
@@ -115,6 +121,7 @@
                 <div>問題側セットと編集ボタン</div>
                 <div id="question-{{ $i }}"
                     class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+
                     <div class="w-14 h-6 flex justify-center items-center">
                         <strong class="text-lg text-white text-center">{{$i+1}}</strong>
                     </div>
@@ -139,13 +146,22 @@
                 </div>
                 <br>
 
-                <div>解説{{ $viewModels[$i]->getComment() }}</div>
-                <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
 
-                    <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        解説:{{ $viewModels[$i]->getComment() }}
+                    </div>
+                    <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                        <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
+                    </div>
                 </div>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    編集
+                </a>
                 <br>
-
+                <br>
                 <div>選択ミス側セットと編集ボタン</div>
                 <div id="question-{{ $i }}"
                     class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
@@ -171,11 +187,22 @@
                     </div>
                 </div>
                 <br>
-                <div>解説　{{ $viewModels[$i]->getmissComment() }}</div>
-                <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
 
-                    <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
+
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        解説:{{ $viewModels[$i]->getmissComment() }}
+                    </div>
+                    <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                        <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
+                    </div>
                 </div>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissCommentId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    編集
+                </a>
+                <br>
                 <div>
                 </div>
 
