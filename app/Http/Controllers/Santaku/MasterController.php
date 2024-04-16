@@ -10,6 +10,8 @@ use App\Models\SmallLabel;
 use App\Models\User;
 use App\Models\Question;
 
+use GuzzleHttp\Client;
+
 
 use Illuminate\Http\Request;
 
@@ -31,13 +33,13 @@ class MasterController extends Controller
         //　ログインしたユーザーの選んだジャンルを呼び出し、Eagerロードのためにwith([ミドルラベル、ラージラベル])してdbへのアクセスを少なくする
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
 
-        $smalelabelList = SmallLabel::all();
-        dump($smalelabelList);
+        $smalllabelList = SmallLabel::all();
+        dump($smalllabelList);
 
         // 両方のリストの数を比較
         // $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
-        if ($selectList->count() != $smalelabelList->count()) {
-            foreach ($smalelabelList as $item) {
+        if ($selectList->count() != $smalllabelList->count()) {
+            foreach ($smalllabelList as $item) {
                 // $selectListに$itemが含まれていないかチェック
                 if (!$selectList->contains('small_label_id', $item->id)) {
                     $selectNewList = new LabelStorages();
@@ -56,25 +58,26 @@ class MasterController extends Controller
 
 
         $users = User::orderBy('continuous_correct_answers', 'DESC')->get();
-        $authId = auth()->id();
-
-        // questionのうち、small_label_idごとの問題数をカウントする
-        $countBySmallLabelId = Question::select('small_label_id')
-            ->groupBy('small_label_id')
-            ->selectRaw('count(*) as total')
-            ->get();
-dump($countBySmallLabelId);
-        // $selectListの各要素に対して$totalを追加
-        $selectList->each(function ($smallLabel) use ($countBySmallLabelId) {
-            // 同じsmall_label_idを持つ$countBySmallLabelIdの要素を探す
-            $matchingQuestion = $countBySmallLabelId->firstWhere('small_label_id', $smallLabel->id);
-
-            // 該当する要素があれば$totalを追加、なければ0を追加
-            $smallLabel->total = $matchingQuestion ? $matchingQuestion->total : 0;
-        });
 
 
+// インスタンス生成
+$client = new Client();
 
+// 取得したAPIトークン
+$token   = "f7f4028e3bfd055ef99673db753c6102";
+// 取得したルームID
+$room_id = "89382092";
+// webhookURL
+$url     = "https://api.chatwork.com/v2/rooms/{$room_id}/messages";
+// 通知内容を設定する
+$body    = "[info]三択アプリからchatworkへ通知[/info]
+url  http://43.206.122.93/login";
+
+
+$client->post($url, [
+    'headers'     => ['X-ChatWorkToken' => $token],
+    'form_params' => ['body' => $body]
+]);
 
         dump($selectList);
         return view('santaku.master')
@@ -82,6 +85,6 @@ dump($countBySmallLabelId);
             ->with('largelabelList', $largelabelList)
             ->with('middlelabelList', $middlelabelList)
             ->with('users', $users)
-            ->with('currentUser', $authId);
+            ->with('currentUser', $id);
     }
 }
