@@ -25,6 +25,7 @@ class UsersSeeder extends Seeder
             'continuous_correct_answers' => null,
             'best_record' => null,
             'best_record_at' => now(),
+            'chatwork_room_id' => '89382092',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -39,6 +40,7 @@ class UsersSeeder extends Seeder
             'continuous_correct_answers' => 15,
             'best_record' => null,
             'best_record_at' => now(),
+            'chatwork_room_id' => '233361375',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -52,6 +54,7 @@ class UsersSeeder extends Seeder
             'continuous_correct_answers' => 1,
             'best_record' => null,
             'best_record_at' => now(),
+            'chatwork_room_id' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -65,6 +68,7 @@ class UsersSeeder extends Seeder
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
+            'chatwork_room_id' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);

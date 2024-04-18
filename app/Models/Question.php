@@ -268,7 +268,7 @@ class Question extends Model
 
             //選択したジャンルに対応する全問題の内、解いた問題以外を抽出する
             $toitenai_question = $usersentakuchoice_question->diff($toita_question);
-            //            dump($toitenai_question);
+                        dump($toitenai_question);
 
             $q1 = $toitenai_question->random();
 

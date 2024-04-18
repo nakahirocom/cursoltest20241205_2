@@ -34,7 +34,7 @@ class MasterController extends Controller
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
 
         $smalllabelList = SmallLabel::all();
-        dump($smalllabelList);
+
 
         // 両方のリストの数を比較
         // $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
@@ -57,29 +57,56 @@ class MasterController extends Controller
         $middlelabelList = MiddleLabel::all();
 
 
+        // 現在認証しているユーザーのIDを取得
+        $id = auth()->id();
+        // 必要なモデルデータの取得
         $users = User::orderBy('continuous_correct_answers', 'DESC')->get();
 
+        $client = new Client([
+            'headers' => [
+                'X-ChatWorkToken' => 'f7f4028e3bfd055ef99673db753c6102' // トークン
+            ]
+        ]);
 
-// インスタンス生成
-$client = new Client();
+        $topThreeUsers = User::orderBy('continuous_correct_answers', 'desc')
+            ->take(3)
+            ->get();
 
-// 取得したAPIトークン
-$token   = "f7f4028e3bfd055ef99673db753c6102";
-// 取得したルームID
-$room_id = "89382092";
-// webhookURL
-$url     = "https://api.chatwork.com/v2/rooms/{$room_id}/messages";
-// 通知内容を設定する
-$body    = "[info]三択アプリからchatworkへ通知[/info]
-url  http://43.206.122.93/login";
+        // chatwork_room_idがnullではないユーザーのみをフィルタリング
+        $filteredUsers = $users->whereNotNull('chatwork_room_id');
 
 
-$client->post($url, [
-    'headers'     => ['X-ChatWorkToken' => $token],
-    'form_params' => ['body' => $body]
-]);
+        // 各フィルタリングされたユーザーをイテレートします
+        foreach ($filteredUsers as $index => $user) {
+            $count = 0;
+            $rank = $index + 1; // 順位を計算
 
-        dump($selectList);
+            // 二つのメッセージを組み合わせる
+            $message = "[info](ec14)三択アプリ 週間Rank
+http://43.206.122.93/login                [hr]
+連続正解now : {$user->continuous_correct_answers}問  (Rank:{$rank}位)
+自己最高best: {$user->best_record}問  [{$user->best_record_at}]
+[/info]";
+
+
+            $message2 = "TOP3:連続正解数\n";
+            foreach ($topThreeUsers as $topUser) {
+                $count = $count + 1;
+                $message2 .= "{$topUser->continuous_correct_answers}問(Rank:{$count}位)\n";
+            }
+
+            $message3 = "[前回ログイン{$user->updated_at->format('Y-m-d H:i')}]";
+
+            $fullMessage = $message . "\n" . $message2 . $message3; // メッセージ部分を組み合わせる
+
+            // ChatWorkに組み合わせたメッセージを送信
+            $client->post("https://api.chatwork.com/v2/rooms/{$user->chatwork_room_id}/messages", [
+                'form_params' => [
+                    'body' => $fullMessage
+                ]
+            ]);
+        }
+
         return view('santaku.master')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
