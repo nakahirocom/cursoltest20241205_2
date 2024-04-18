@@ -60,7 +60,6 @@
       <div id="questionimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
-      Ï
 
 
 
