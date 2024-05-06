@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             LabelStorageSeeder::class,
             QuestionSeeder::class,
             AnswerResultsSeeder::class,
-            KaizenSeeder::class
+            KaizenSeeder::class,
+            MymemoSeeder::class
+
 
 
         ]);

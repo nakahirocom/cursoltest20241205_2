@@ -105,12 +105,23 @@
                             <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
                         </div>
                     </div>
+                    私のメモ:{{ $viewModels[$i]->getMymemo() }}
 
                 </div>
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
                 </a>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    投稿(開発中)
+                </a>
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    私のメモ
+                </a>
+
+
                 <br>
 
                 @else
@@ -155,11 +166,22 @@
 
                         <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
                     </div>
+                    私のメモ:{{ $viewModels[$i]->getMymemo() }}
+
                 </div>
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
                 </a>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    投稿(開発中)
+                </a>
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    私のメモ
+                </a>
+
                 <br>
                 <br>
                 <div>選択ミス側セットと編集ボタン</div>
@@ -197,11 +219,22 @@
 
                         <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
                     </div>
+                    私のメモ:{{ $viewModels[$i]->getmissMymemo() }}
+
                 </div>
-                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissCommentId()]) }}"
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
                 </a>
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    投稿(開発中)
+                </a>
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                    私のメモ
+                </a>
+
                 <br>
                 <div>
                 </div>

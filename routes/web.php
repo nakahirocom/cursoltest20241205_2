@@ -46,6 +46,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/incorrect', App\Http\Controllers\Santaku\IncorrectListController::class);
 
+    Route::get('/kaizen', App\Http\Controllers\Santaku\KaizenController::class);
+
+    Route::get('/mymemo/{questionId}', App\Http\Controllers\Santaku\MymemoController::class)->name('mymemo');
+    Route::put('/mymemo/{questionId}', App\Http\Controllers\Santaku\MymemoupdateController::class)->name('mymemo.put');
+    Route::get('/mymemolist', App\Http\Controllers\Santaku\MymemolistController::class)->name('mymemolist');
+
+
     Route::post('/check_register', [App\Http\Controllers\TestController::class, 'register'])->name('check.register');
 });
 
