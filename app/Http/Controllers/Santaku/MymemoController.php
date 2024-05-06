@@ -23,13 +23,6 @@ class MymemoController extends Controller
         $uid = $request->user()->id;
 
         $questionId = (int) $request->route('questionId');
-        if (!$santakuService->checkOwnMondai($request->user()->id, $questionId)) {
-            return redirect()
-                ->route('list')
-                ->with('feedback.success', '他のユーザーの問題は編集出来ません');
-
-            throw new AccessDeniedHttpException();
-        }
 
         $question = Question::where('id', $questionId)
         ->with(['Mymemo' => function ($query) use ($uid, $questionId) {
