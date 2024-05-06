@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Kaizen::class);
     }
+    public function mymemo()
+    {
+        return $this->hasMany(Mymemo::class);
+    }
+
 }
