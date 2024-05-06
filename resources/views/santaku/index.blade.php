@@ -58,6 +58,10 @@
                     <a href="/new"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">3.新しく問題を登録する</a>
                 </li>
+                <li class="mb-3">
+                    <a href="/mymemolist"
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">4.私のメモ一覧を見る</a>
+                </li>
 
             </ul>
         </div>

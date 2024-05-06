@@ -19,7 +19,7 @@
     <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
       href="/">HOMEへ</a>
     @auth
-    <p class="h2">三択アプリ　編集・削除画面</p>
+    <p class="h2">三択アプリ　Mymemo画面</p>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><span class="mark">{{ Auth::user()->name }}</span> がログイン中</li>
@@ -33,57 +33,20 @@
     <p style="color: green">{{ session('feedback.success') }}</p>
     @endif
 
-    @if($question->mymemo)
-    <span>私のメモ：{{ $question->mymemo->mymemo }}</span>
-    @else
-    <span>私のメモ：</span>
-    @endif
-
-
-    <form action="{{ route('update.put', ['questionId' => $question->id])
+    <form action="{{ route('mymemo.put', ['questionId' => $question->id])
               }}" method="post" enctype="multipart/form-data">
       @method('PUT')
       @csrf
       <br />
       <span>編集前の小分類：{{ $question->small_label_id }}</span>
-      <input type="text" name="small_label_id" class="form-control" value="{{ $question->small_label_id }}">
-
-
       <span>編集前の問題：{{ $question->question }}</span>
-      <input type="text" name="question" class="form-control" value="{{ $question->question }}">
-      @error('question')
-      <p style="coler: red;">{{ $message }}</p>
-      @enderror
-      <br />
       <span>question_path：{{ $question->question_path }}</span>
-      <br />
-
       <img src="{{ $question->question_path }}">
       <br />
 
-      <!-- 画像アップロード用のinput要素 -->
-      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像があればセット
-
-      <div id="questionimageContainer" class="mt-4">
-        <!-- 画像がここに表示される -->
-      </div>
-
-
-
-
-      <br />
       <span>編集前の答え：{{ $question->answer }}</span>
-      <input type="text" name="answer" class="form-control" value="{{ $question->answer }}">
-      @error('answer')
-      <p style="coler: red;">{{ $message }}</p>
-      @enderror
-
       <br />
       <span>編集前の解説：{{ $question->comment }}</span>
-      <input type="text" name="comment" class="form-control" value="{{ $question->comment }}">
-      @error('comment')
-      <p style="coler: red;">{{ $message }}</p>
-      @enderror
       <br />
       <span>comment_path：{{ $question->comment_path }}</span>
       <br />
@@ -91,18 +54,21 @@
 
 
       <br />
-      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像があればセット
-      <div id="commentimageContainer" class="mt-4">
-        <!-- 画像がここに表示される -->
-      </div>
-
-
       <br />
-
+      @if($question->mymemo)
+      <span>私のメモ：{{ $question->mymemo->mymemo }}</span>
+      <input type="text" name="mymemo" class="form-control" value="{{ $question->mymemo->mymemo }}">
+  @else
+      <span>私のメモ：</span>
+      <input type="text" name="mymemo" class="form-control" value="">
+  @endif
+  @if($errors->has('mymemo'))
+  <p style="color: red;">{{ $errors->first('mymemo') }}</p>
+@endif
       <br />
       <br />
       <div class="col-12">
-        <button type="submit" class="btn btn-outline-primary">編集したものを登録する</button>
+        <button type="submit" class="btn btn-outline-primary">私のメモを登録</button>
       </div>
     </form>
     <br />
@@ -111,7 +77,7 @@
                     }}" method="post">
       @method('DELETE')
       @csrf
-      <button type="submit" class="btn btn-outline-danger">この問題を削除(開発中)</button>
+      <button type="submit" class="btn btn-outline-danger">私のメモを削除</button>
     </form>
   </div>
   <script>
