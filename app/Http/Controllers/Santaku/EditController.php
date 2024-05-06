@@ -27,8 +27,8 @@ class EditController extends Controller
             throw new AccessDeniedHttpException();
         }
 
-        $question = Question::where('id', $questionId)->firstOrFail();
-        //dump($question);
+        $question = Question::where('id', $questionId)->with('mymemo')->firstOrFail();
+        //dd($question);
         return view('santaku.edit')->with('question', $question);
     }
 }
