@@ -19,7 +19,7 @@
     <a class="btn btn-link" href="/">HOME画面へ戻る</a></p>
     @auth
 
-    <h2>三択アプリ　{{ Auth::user()->name }}が作った問題一覧画面</h2>
+    <h2>三択アプリ　{{ Auth::user()->name }}のメモ一覧</h2>
     <p>-----------------------------------------------------------------------------------------</p>
     @if (session('feedback.success'))
     <p style="color: green">{{ session('feedback.success') }}</p>
