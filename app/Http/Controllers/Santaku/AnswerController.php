@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Santaku\AnswerResultRequest;
 use App\Models\AnswerResults;
 use App\Models\Question;
+use App\Models\Mymemo;
+
 use App\Models\User; // 必要に応じて適切な名前空間を使用してください
 
 use Illuminate\Support\Facades\DB;
@@ -61,6 +63,14 @@ class AnswerViewModel
         return $this->question->comment_path ?? null;
     }
 
+    // 出題されたquestionコレクションのリレーションからMymemoを返す
+    // nullならnullを返す
+    public function getMymemo(): ?string
+    {
+        return $this->question->Mymemo->mymemo ?? null;
+    }
+
+
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
     public function getmissQuestion(): string
     {
@@ -87,7 +97,7 @@ class AnswerViewModel
     }
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
-    public function getmissCommentId(): string
+    public function getmissAnswerId(): string
     {
         return $this->choice->id;
     }
@@ -96,6 +106,12 @@ class AnswerViewModel
     public function getmissComment_path(): ?string
     {
         return $this->choice->comment_path ?? null;
+    }
+    // 出題されたquestionコレクションのリレーションからMymemoを返す
+    // nullならnullを返す
+    public function getmissMymemo(): ?string
+    {
+        return $this->choice->Mymemo->mymemo ?? null;
     }
 
 
@@ -165,10 +181,23 @@ class AnswerController extends Controller
             $uidkaitousuuModels[] = $uidkaitousuu;
             $uidseikairituModels[] = $uidseikairitu;
 
-            $ques = Question::where('id', $questionId)->firstOrFail();
-            $cho = Question::where('id', $choiceId)->firstOrFail();
+            //ユーザー別のリレーションでMymemoテーブルの私のメモがuserと問題id一致するものだけをリレーション。
+            $ques = Question::where('id', $questionId)
+                ->with(['Mymemo' => function ($query) use ($uid, $questionId) {
+                    $query->where('user_id', $uid)
+                        ->where('question_id', $questionId); // ユーザーIDと質問IDの両方でフィルタリング
+                }])
+                ->firstOrFail();
+            $cho = Question::where('id', $choiceId)
+                ->with(['Mymemo' => function ($query) use ($uid, $choiceId) {
+                    $query->where('user_id', $uid)
+                        ->where('question_id', $choiceId); // ユーザーIDと質問IDの両方でフィルタリング
+                }])
+                ->firstOrFail();
+
 
             $viewModel = new AnswerViewModel($cho, $ques);
+
             $viewModels[] = $viewModel;
 
 
@@ -187,6 +216,9 @@ class AnswerController extends Controller
 
         $user->save(); // ユーザー情報を更新
 
+
+
+        //dump($viewModels);
 
         return view('santaku.answer')
             ->with('viewModels', $viewModels)
