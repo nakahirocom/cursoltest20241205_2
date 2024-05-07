@@ -39,11 +39,13 @@
       @csrf
       <br />
       <span>編集前の小分類：{{ $question->small_label_id }}</span>
+      <br>
       <span>編集前の問題：{{ $question->question }}</span>
+      <br>
       <span>question_path：{{ $question->question_path }}</span>
+      <br>
       <img src="{{ $question->question_path }}">
       <br />
-
       <span>編集前の答え：{{ $question->answer }}</span>
       <br />
       <span>編集前の解説：{{ $question->comment }}</span>
@@ -54,18 +56,19 @@
 
 
       <br />
-      <br />
-      @if($question->mymemo)
+      @if(Auth::user() && $question->user_id === Auth::user()->id && $question->mymemo && $question->mymemo->mymemo)
+      <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
       <span>私のメモ：{{ $question->mymemo->mymemo }}</span>
       <input type="text" name="mymemo" class="form-control" value="{{ $question->mymemo->mymemo }}">
-  @else
+    @else
+      <!-- 条件に一致しない場合 -->
       <span>私のメモ：</span>
       <input type="text" name="mymemo" class="form-control" value="">
-  @endif
-  @if($errors->has('mymemo'))
-  <p style="color: red;">{{ $errors->first('mymemo') }}</p>
-@endif
-      <br />
+    @endif
+    @if($errors->has('mymemo'))
+      <p style="color: red;">{{ $errors->first('mymemo') }}</p>
+    @endif
+          <br />
       <br />
       <div class="col-12">
         <button type="submit" class="btn btn-outline-primary">私のメモを登録</button>

@@ -30,7 +30,7 @@ class MymemoupdateController extends Controller
 
         // リダイレクトとフィードバックメッセージ
         return redirect()
-            ->route('mymemo', ['questionId' => $mymemo->id])
+            ->route('mymemo', ['questionId' => $mymemo->question_id])
             ->with('feedback.success', '私のメモを更新しました');
     }
 }
