@@ -45,14 +45,14 @@
             </div>
           </summary>
 
-        <form action="{{ route('mymemo', ['questionId' => $mymemo->id]) }}">
+        <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
           
           @csrf
           <button class="btn btn-outline-primary" type="submit">私のメモを編集する</button>
         </form>
 
         
-          <form action="{{ route('edit', ['questionId' => $mymemo->id]) }}">
+          <form action="{{ route('edit', ['questionId' => $mymemo->question_id]) }}">
             @method('EDIT')
             @csrf
             <button class="btn btn-outline-primary" type="submit">問題を編集する</button>
