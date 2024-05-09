@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/delete/{questionId}', \App\Http\Controllers\Santaku\DeleteController::class)->name('delete');
 
+    Route::delete('/mymemodelete/{questionId}', \App\Http\Controllers\Santaku\MymemodeleteController::class)->name('mymemodelete');
+
     //とき直しモード
     Route::get('/master', App\Http\Controllers\Santaku\MasterController::class);
 

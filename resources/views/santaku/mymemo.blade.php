@@ -56,7 +56,12 @@
 
 
       <br />
-      @if(Auth::user() && $question->user_id === Auth::user()->id && $question->mymemo && $question->mymemo->mymemo)
+      @if(!$question->Mymemo)
+      <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
+      <span>私のメモ：</span>
+      <input type="text" name="mymemo" class="form-control" value="">
+
+      @elseif($question->Mymemo->user_id === Auth::user()->id)
       <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
       <span>私のメモ：{{ $question->mymemo->mymemo }}</span>
       <input type="text" name="mymemo" class="form-control" value="{{ $question->mymemo->mymemo }}">
@@ -76,7 +81,7 @@
     </form>
     <br />
 
-    <form action="{{ route('delete', ['questionId' => $question->id])
+    <form action="{{ route('mymemodelete', ['questionId' => $question->id])
                     }}" method="post">
       @method('DELETE')
       @csrf
