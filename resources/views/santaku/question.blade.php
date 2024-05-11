@@ -252,7 +252,18 @@
     </div>
 
     <script>
+            var isButtonClicked = false; // ボタンがクリックされたかどうかのフラグ
+
+ 
         function buttonClick1(){
+            if (isButtonClicked) {
+            // ボタンが既にクリックされていた場合、何もしない
+            return;
+        }
+        isButtonClicked = true; // ボタンがクリックされたことを記録
+
+        // 以下はボタンが初めてクリックされた時の処理
+ 
             if (arr.length !== maxQuestions) {
         // 条件を満たしていない場合、何もしない
         return;
