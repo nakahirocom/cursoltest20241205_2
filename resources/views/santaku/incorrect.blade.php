@@ -65,7 +65,11 @@
           <div class="flex flex-col">
 
             <div class="text-sm">
-
+                <span>分類：
+                  {{ $incorrect->syutudai->smallLabel->middleLabel->largeLabel->large_label }}→
+                  {{ $incorrect->syutudai->smallLabel->middleLabel->middle_label }}→
+                  {{ $incorrect->syutudai->smallLabel->small_label }}</span>
+        
             </div>
 
             <div class="text-xs">{{ $incorrect->inco->updated_at}}</div>
