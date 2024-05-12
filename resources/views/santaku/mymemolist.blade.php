@@ -34,36 +34,42 @@
           <summary>
             <div class="collapse show" id="collapseExample" style="">
               <div class="card card-body">
+                <div class="text-sm">
+                  <span>分類：
+                    {{ $mymemo->question->smallLabel->middleLabel->largeLabel->large_label }}→
+                    {{ $mymemo->question->smallLabel->middleLabel->middle_label }}→
+                    {{ $mymemo->question->smallLabel->small_label }}</span>
+                </div>
 
                 <p>私のメモ　{{ $mymemo->mymemo }}</p>
                 <span>問題　{{ $mymemo->question->question }}</span>
                 <img src="{{ $mymemo->question->question_path }}">
-               <span>答え　{{ $mymemo->question->answer }}</span>
-                  <span>解説　{{ $mymemo->question->comment }}</span>
-                  <img src="{{ $mymemo->question->comment_path }}">
+                <span>答え　{{ $mymemo->question->answer }}</span>
+                <span>解説　{{ $mymemo->question->comment }}</span>
+                <img src="{{ $mymemo->question->comment_path }}">
               </div>
             </div>
           </summary>
 
-        <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
-          
-          @csrf
-          <button class="btn btn-outline-primary" type="submit">私のメモを編集する</button>
-        </form>
+          <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
 
-        
+            @csrf
+            <button class="btn btn-outline-primary" type="submit">私のメモを編集する</button>
+          </form>
+
+
           <form action="{{ route('edit', ['questionId' => $mymemo->question_id]) }}">
             @method('EDIT')
             @csrf
             <button class="btn btn-outline-primary" type="submit">問題を編集する</button>
           </form>
 
-            <form action="{{ route('delete', ['questionId' => $mymemo->id]) }}" method="post">
-              @method('DELETE')
-              @csrf
-              <button class="btn btn-outline-danger" type="submit">問題を削除する(開発中)</button>
+          <form action="{{ route('delete', ['questionId' => $mymemo->id]) }}" method="post">
+            @method('DELETE')
+            @csrf
+            <button class="btn btn-outline-danger" type="submit">問題を削除する(開発中)</button>
 
-            </form>
+          </form>
         </div>
         <br>
         @endforeach
