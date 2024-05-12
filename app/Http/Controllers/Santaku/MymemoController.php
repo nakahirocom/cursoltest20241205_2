@@ -23,14 +23,13 @@ class MymemoController extends Controller
         $uid = $request->user()->id;
 
         $questionId = (int) $request->route('questionId');
-
-        $question = Question::where('id', $questionId)
+        $question = Question::with('smallLabel.middleLabel.largeLabel')->where('id', $questionId)
             ->with(['Mymemo' => function ($query) use ($uid, $questionId) {
                 $query->where('user_id', $uid)
                     ->where('question_id', $questionId); // ユーザーIDと質問IDの両方でフィルタリング
             }])
             ->firstOrFail();
-        //dump($question);
+        //dd($question);
 
         return view('santaku.mymemo')->with('question', $question);
     }
