@@ -58,7 +58,7 @@
         <div id="display-area" class="incorrect-item flex flex-col">
           <!-- 表示エリア。ここにforeachループの要素が表示される -->
         </div>
-        @foreach($incorrectList as $incorrect)
+        @foreach($incolist as $incorrect)
         <div id="item-{{ $loop->index }}" class="incorrect-item flex flex-col" style="display:none;">
 
 
@@ -66,12 +66,9 @@
 
             <div class="text-sm">
 
-              {{ $incorrect->question->smallLabel->middleLabel->largeLabel->large_label }}→
-              {{ $incorrect->question->smallLabel->middleLabel->middle_label }}→
-              {{ $incorrect->question->smallLabel->small_label }}
             </div>
 
-            <div class="text-xs">{{ $incorrect->updated_at}}</div>
+            <div class="text-xs">{{ $incorrect->inco->updated_at}}</div>
           </div>
 
           <div id="question-{{ $loop->iteration }}"
@@ -82,19 +79,20 @@
             </div>
 
             <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-              {{$incorrect->question->question}}
-              <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
+              {{$incorrect->syutudai->question}}
+              <img src="{{ asset($incorrect->syutudai->question_path) }}" class="max-w-none max-h-[300px]">
             </div>
 
           </div>
 
 
+
           <div class="flex flex-col justify-end items-end">
             <!-- Incorrect button -->
             <div class="text-sm mb-1">
-              <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+              <button type="button" id="button-{{ $incorrect->syutudai->id }}"
                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-                {{ $incorrect->q_answer }}
+                {{ $incorrect->matigai->answer }}
               </button>❌
             </div>
           </div>
@@ -118,17 +116,17 @@
 
                 <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                  {{$incorrect->question->question}}
-                  <img src="{{ asset($incorrect->question->question_path) }}" class="max-w-none max-h-[300px]">
+                  {{$incorrect->syutudai->question}}
+                  <img src="{{ asset($incorrect->syutudai->question_path) }}" class="max-w-none max-h-[300px]">
                 </div>
               </div>
 
               <div class="flex flex-col justify-end items-end">
                 <!-- Incorrect button -->
                 <div class="text-sm mb-1">
-                  <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+                  <button type="button" id="button-{{ $incorrect->syutudai->id }}"
                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-                    {{ $incorrect->question->answer }}
+                    {{ $incorrect->syutudai->answer }}
                   </button>⭕️
                 </div>
               </div>
@@ -136,15 +134,31 @@
 
               <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                {{$incorrect->question->comment}}
-                <img src="{{ asset($incorrect->question->comment_path) }}" class="max-w-none max-h-[300px]">
+                {{$incorrect->syutudai->comment}}
+                <img src="{{ asset($incorrect->syutudai->comment_path) }}" class="max-w-none max-h-[300px]">
               </div>
+              @if(!$incorrect->syutudai->mymemo)
+              <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
+              <span>現在のメモ：</span>
+              @else
+              <!-- 条件に一致しない場合 -->
+              <span>現在のメモ：{{ $incorrect->syutudai->mymemo->mymemo }}</span>
+              @endif
 
               <div>
-                <a href="{{ route('edit', ['questionId' => $incorrect->question_id]) }}"
-                  class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
+                  class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                   編集
                 </a>
+                <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
+                  class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                  投稿(開発中)
+                </a>
+                <a href="{{ route('mymemo', ['questionId' => $incorrect->syutudai->id]) }}"
+                  class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                  私のメモ
+                </a>
+
               </div>
               <br>
               <br>
@@ -160,8 +174,8 @@
 
                   <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                    {{$incorrect->q_question}}
-                    <img src="{{ asset($incorrect->q_question_path) }}" class="max-w-none max-h-[300px]">
+                    {{$incorrect->matigai->question}}
+                    <img src="{{ asset($incorrect->matigai->question_path) }}" class="max-w-none max-h-[300px]">
                   </div>
 
                 </div>
@@ -169,24 +183,42 @@
               <div class="flex flex-col justify-end items-end">
                 <!-- Incorrect button -->
                 <div class="text-sm mb-1">
-                  <button type="button" value="{{ $incorrect->answer }}" id="button-{{ $incorrect->id }}"
+                  <button type="button" value="{{ $incorrect->matigai->answer }}"
+                    id="button-{{ $incorrect->matigai->id }}"
                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
-                    {{ $incorrect->q_answer }}
+                    {{ $incorrect->matigai->answer }}
                   </button>⭕️
                 </div>
               </div>
               <br>
 
-              <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+              <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                解説:{{$incorrect->q_comment}}
-                <img src="{{ asset($incorrect->q_comment_path) }}" class="max-w-none max-h-[300px]">
+                解説:{{$incorrect->matigai->comment}}
+
+                <img src="{{ asset($incorrect->matigai->comment_path) }}" class="max-w-none max-h-[300px]">
               </div>
-
-              <a href="{{ route('edit', ['questionId' => $incorrect->answered_question_id]) }}"
-                class="bg-green-500 text-white font-bold py-0 px-0 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+              @if(!$incorrect->matigai->mymemo)
+              <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
+              <span>現在のメモ：</span>
+              @else
+              <!-- 条件に一致しない場合 -->
+              <span>現在のメモ：{{ $incorrect->matigai->mymemo->mymemo }}</span>
+              @endif
+              <br>
+              <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"
+                class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                 編集
               </a>
+              <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"
+                class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                投稿(開発中)
+              </a>
+              <a href="{{ route('mymemo', ['questionId' => $incorrect->matigai->id]) }}"
+                class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                私のメモ
+              </a>
+
           </div>
 
 
@@ -235,7 +267,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var current = 0; // 現在の要素のインデックス
-      var max = {{ count($incorrectList) }}; // 要素の合計数
+      var max = {{ count($incolist) }}; // 要素の合計数
       var displayArea = document.getElementById('display-area'); // 表示エリア
       var nextButton = document.getElementById('show-next-button');
       var prevButton = document.getElementById('show-prev-button');
