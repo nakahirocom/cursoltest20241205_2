@@ -20,13 +20,6 @@ class MymemodeleteController extends Controller
     public function __invoke(Request $request, SantakuService $santakuService)
     {
         $questionId = (int) $request->route('questionId');
-        if (!$santakuService->checkOwnMondai($request->user()->id, $questionId)) {
-            return redirect()
-                ->route('list')
-                ->with('feedback.success', '他のユーザーの問題は削除出来ません');
-
-            throw new AccessDeniedHttpException();
-        }
 
         $mymemo = Mymemo::where('question_id', $questionId)->firstOrFail();
         $messege =$mymemo->mymemo;

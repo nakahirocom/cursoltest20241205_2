@@ -52,8 +52,11 @@ class CreateController extends Controller
 
         $question->save();
 
+        // 登録したばかりのQuestionのIDを取得
+        $questionId = $question->id;
+        dump($questionId);
         return redirect()
-            ->route('new')
+            ->route('edit', ['questionId' => $questionId])
             ->with('feedback.success', '新規登録が完了しました');
     }
 }

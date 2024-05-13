@@ -207,10 +207,7 @@
 
                         <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                            {{$question_q->question}} <a href="{{ route('edit', ['questionId' => $question_q->id]) }}"
-                                class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                                編集
-                            </a>
+                            {{$question_q->question}}
 
                             <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">
                         </div>
@@ -252,18 +249,7 @@
     </div>
 
     <script>
-            var isButtonClicked = false; // ボタンがクリックされたかどうかのフラグ
-
- 
         function buttonClick1(){
-            if (isButtonClicked) {
-            // ボタンが既にクリックされていた場合、何もしない
-            return;
-        }
-        isButtonClicked = true; // ボタンがクリックされたことを記録
-
-        // 以下はボタンが初めてクリックされた時の処理
- 
             if (arr.length !== maxQuestions) {
         // 条件を満たしていない場合、何もしない
         return;
