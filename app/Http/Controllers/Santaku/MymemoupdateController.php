@@ -21,21 +21,20 @@ class MymemoupdateController extends Controller
     {
         // 現在認証しているユーザーのIDを取得
         $id = auth()->id();
-    //dump($id);
+        //dump($id);
         // user_id と question_id で Mymemo レコードを探し、なければ新規作成またはあれば更新
         $mymemo = Mymemo::updateOrCreate(
-            ['user_id' => $id, 'question_id' => $questionId],// 検索条件
-            ['mymemo' => $request->mymemo]// 更新または新規作成時にセットする値
+            ['user_id' => $id, 'question_id' => $questionId], // 検索条件
+            ['mymemo' => $request->mymemo] // 更新または新規作成時にセットする値
         );
-    //dd($mymemo);
+        //dd($mymemo);
         // $id と $mymemo->user_id が一致するか確認
         if ($id === $mymemo->user_id) {
             // ユーザーIDが一致する場合、リダイレクトとフィードバックメッセージを設定
             return redirect()
                 ->route('mymemo', ['questionId' => $mymemo->question_id])
-                ->with('mymemos',$mymemo)
+                ->with('mymemos', $mymemo)
                 ->with('feedback.success', '私のメモを更新しました');
-        } 
+        }
     }
-    
 }
