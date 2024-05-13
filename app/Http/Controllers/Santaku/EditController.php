@@ -21,8 +21,8 @@ class EditController extends Controller
         $questionId = (int) $request->route('questionId');
         if (!$santakuService->checkOwnMondai($request->user()->id, $questionId)) {
             return redirect()
-                ->route('list')
-                ->with('feedback.success', '他のユーザーの問題は編集出来ません');
+                ->route('mymemo', ['questionId' => $questionId])
+                ->with('feedback.success', 'あなたが作成した問題以外は編集出来ないので、メモに残しましょう(開発中：依頼を出せるように)');
 
             throw new AccessDeniedHttpException();
         }
