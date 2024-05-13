@@ -33,17 +33,30 @@
     <p style="color: green">{{ session('feedback.success') }}</p>
     @endif
 
-    @if($question->mymemo)
-    <span>私のメモ：{{ $question->mymemo->mymemo }}</span>
-    @else
-    <span>私のメモ：</span>
-    @endif
+
+
 
 
     <form action="{{ route('update.put', ['questionId' => $question->id])
               }}" method="post" enctype="multipart/form-data">
       @method('PUT')
       @csrf
+      @if(!$question->Mymemo)
+      <!-- ログインユーザーが質問のオーナーで、かつmymemoが存在する場合 -->
+      <span>現在のメモ：</span>
+      <br>
+      <span>メモの変更：</span>
+      <input type="text" name="mymemo" class="form-control" value="">
+
+      @else
+      <!-- 条件に一致しない場合 -->
+      <span>現在のメモ：{{ $question->Mymemo->mymemo }}</span>
+      <br>
+      <span>メモの変更：</span>
+      <input type="text" name="mymemo" class="form-control" value="{{ $question->Mymemo->mymemo }}"></span>
+      @endif
+
+
       <br />
       <span>編集前の小分類：{{ $question->small_label_id }}</span>
       <input type="text" name="small_label_id" class="form-control" value="{{ $question->small_label_id }}">
