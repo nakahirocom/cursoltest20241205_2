@@ -8,7 +8,7 @@
   <!-- Tailwind CSSのみ -->
   <link rel="stylesheet" href="/css/app.css">
   <title>santakuアプリ</title>
-    <script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.querySelector('form');
       form.addEventListener('keydown', function(event) {
@@ -40,7 +40,8 @@
     <form method="post" action="{{ route('create.index') }}" enctype="multipart/form-data">
       @csrf
 
-      <input type="text" name="small_label_id" class="form-control" placeholder="ジャンル１つ選ぶ" value="{{ old('small_label_id') }}">ジャンル選択
+      <input type="text" name="small_label_id" class="form-control" placeholder="ジャンル１つ選ぶ"
+        value="{{ old('small_label_id') }}">ジャンル選択
 
       <body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
         <!-- 他のコンテンツ -->
@@ -167,7 +168,7 @@
     });
 
   </script>
-  
+
 </body>
 
 </html>
