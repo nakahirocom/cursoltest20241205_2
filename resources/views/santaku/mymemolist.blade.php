@@ -50,10 +50,17 @@
               </div>
             </div>
           </summary>
+          <br>
+          解説URL{{ $mymemo->question->comment_path }}
+<br>
+          <a href="{{ $mymemo->question->comment_path }}" download="解説リンク"
+            >解説リンク</a>
+
 
           <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
 
             @csrf
+
             <button class="btn btn-outline-primary" type="submit">私のメモを編集する</button>
           </form>
 

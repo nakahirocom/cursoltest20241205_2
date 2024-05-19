@@ -148,8 +148,15 @@
               <!-- 条件に一致しない場合 -->
               <span>現在のメモ：{{ $incorrect->syutudai->mymemo->mymemo }}</span>
               @endif
+              <br>
+              解説URL{{ $incorrect->syutudai->comment_path }}
 
               <div>
+                <a href="{{ $incorrect->syutudai->comment_path }}" download="解説リンク"
+                  class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                  編集>解説リンク</a>
+
+
                 <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
                   class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                   編集
@@ -210,6 +217,14 @@
               <span>現在のメモ：{{ $incorrect->matigai->mymemo->mymemo }}</span>
               @endif
               <br>
+              解説URL{{ $incorrect->matigai->comment_path }}
+
+              <br>
+              <a href="{{ $incorrect->matigai->comment_path }}" download="解説リンク"
+                class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                編集>解説リンク</a>
+
+
               <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"
                 class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                 編集
