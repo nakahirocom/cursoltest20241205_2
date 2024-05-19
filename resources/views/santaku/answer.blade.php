@@ -59,6 +59,8 @@
                 </div>
                 <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                     {{ $viewModels[$i]->getQuestion() }}
+
+                    
                     <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
                         <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="max-w-none max-h-[300px]">
@@ -100,14 +102,18 @@
                     </div>
                     <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         解説:{{ $viewModels[$i]->getComment() }}
-                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
-                            <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
-                        </div>
                     </div>
                     私のメモ:{{ $viewModels[$i]->getMymemo() }}
+                    <br>
+                    解説URL{{ $viewModels[$i]->getComment_path() }}
 
                 </div>
+                <a href="{{ $viewModels[$i]->getComment_path() }}" download="解説リンク"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                    編集>解説リンク</a>
+
+
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
@@ -159,6 +165,7 @@
 
                 <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
 
+                   
                     <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         解説:{{ $viewModels[$i]->getComment() }}
                     </div>
@@ -167,8 +174,16 @@
                         <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
                     </div>
                     私のメモ:{{ $viewModels[$i]->getMymemo() }}
+                    <br>
+                    解説URL{{ $viewModels[$i]->getComment_path() }}
 
                 </div>
+
+                <a href="{{ $viewModels[$i]->getComment_path() }}" download="解説リンク"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                    編集>解説リンク</a>
+
+
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
@@ -220,8 +235,14 @@
                         <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
                     </div>
                     私のメモ:{{ $viewModels[$i]->getmissMymemo() }}
+                    <br>
+                    解説URL{{ $viewModels[$i]->getmissComment_path() }}
 
                 </div>
+                <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="解説リンク"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                    編集>解説リンク</a>
+
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
