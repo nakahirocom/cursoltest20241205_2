@@ -124,7 +124,7 @@
                     }}" method="post">
       @method('DELETE')
       @csrf
-      <button type="submit" class="btn btn-outline-danger">この問題を削除(開発中)</button>
+      <button type="submit" class="btn btn-outline-danger">この問題を削除</button>
     </form>
   </div>
   <script>

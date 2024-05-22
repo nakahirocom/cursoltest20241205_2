@@ -52,9 +52,8 @@
           </summary>
           <br>
           解説URL{{ $mymemo->question->comment_path }}
-<br>
-          <a href="{{ $mymemo->question->comment_path }}" download="解説リンク"
-            >解説リンク</a>
+          <br>
+          <a href="{{ $mymemo->question->comment_path }}" download="解説リンク">解説リンク</a>
 
 
           <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
@@ -74,7 +73,7 @@
           <form action="{{ route('delete', ['questionId' => $mymemo->id]) }}" method="post">
             @method('DELETE')
             @csrf
-            <button class="btn btn-outline-danger" type="submit">問題を削除する(開発中)</button>
+            <button class="btn btn-outline-danger" type="submit">問題を削除する</button>
 
           </form>
         </div>
