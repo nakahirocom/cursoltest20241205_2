@@ -45,6 +45,7 @@ class UpdateController extends Controller
         $question->question = $request->question();
         $question->answer = $request->answer();
         $question->comment = $request->comment();
+        $question->reference_url = $request->reference_url();
 
 
         // 質問画像がある場合、S3に保存

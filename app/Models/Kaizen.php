@@ -11,6 +11,12 @@ class Kaizen extends Model
 
     protected $table = 'kaizens';
 
+    protected $fillable = [
+        'user_id',
+        'question_id',
+        'kaizen',
+    ];
+
 
     public function user()
     {

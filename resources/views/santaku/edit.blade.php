@@ -108,6 +108,8 @@
       <div id="commentimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
+      <span>reference_url：{{ $question->reference_url }}</span>
+      <input type="text" name="reference_url" class="form-control" value="{{ $question->reference_url }}">
 
 
       <br />

@@ -29,6 +29,7 @@ class CreateController extends Controller
         $question->question = $request->question();
         $question->answer = $request->answer();
         $question->comment = $request->comment();
+        $question->reference_url = $request->reference_url();
 
         // 質問画像がある場合、S3に保存。そうでない場合、デフォルト値を設定。
         if ($request->hasFile('question_image')) {
@@ -54,7 +55,7 @@ class CreateController extends Controller
 
         // 登録したばかりのQuestionのIDを取得
         $questionId = $question->id;
-        dump($questionId);
+        //dump($questionId);
         return redirect()
             ->route('edit', ['questionId' => $questionId])
             ->with('feedback.success', '新規登録が完了しました');

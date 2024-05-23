@@ -70,6 +70,12 @@ class AnswerViewModel
         return $this->question->Mymemo->mymemo ?? null;
     }
 
+    public function getReference_url(): ?string
+    {
+        return $this->question->reference_url ?? null;
+    }
+
+
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
     public function getmissQuestion(): string
@@ -112,6 +118,11 @@ class AnswerViewModel
     public function getmissMymemo(): ?string
     {
         return $this->choice->Mymemo->mymemo ?? null;
+    }
+
+    public function getmissReference_url(): ?string
+    {
+        return $this->choice->reference_url ?? null;
     }
 
 

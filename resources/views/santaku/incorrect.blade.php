@@ -149,21 +149,26 @@
               <span>現在のメモ：{{ $incorrect->syutudai->mymemo->mymemo }}</span>
               @endif
               <br>
-              解説URL{{ $incorrect->syutudai->comment_path }}
+              添付File{{ $incorrect->syutudai->comment_path }}
+              <br>
+              参考URL{{ $incorrect->syutudai->reference_url }}
 
               <div>
-                <a href="{{ $incorrect->syutudai->comment_path }}" download="解説リンク"
-                  class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                  編集>解説リンク</a>
+                <a href="{{ $incorrect->syutudai->comment_path }}" download="添付File"
+                  class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                  >添付File</a>
 
-
+                  <a href="{{ $incorrect->syutudai->reference_url }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                    >参考URL</a>
+  
                 <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
                   class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                   編集
                 </a>
-                <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
+                <a href="{{ route('kaizen', ['questionId' => $incorrect->syutudai->id]) }}"
                   class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                  投稿(開発中)
+                  投稿
                 </a>
                 <a href="{{ route('mymemo', ['questionId' => $incorrect->syutudai->id]) }}"
                   class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
@@ -217,21 +222,27 @@
               <span>現在のメモ：{{ $incorrect->matigai->mymemo->mymemo }}</span>
               @endif
               <br>
-              解説URL{{ $incorrect->matigai->comment_path }}
+              添付Fiel{{ $incorrect->matigai->comment_path }}
+              <br>
+              参考URL{{ $incorrect->matigai->reference_url }}
 
               <br>
-              <a href="{{ $incorrect->matigai->comment_path }}" download="解説リンク"
-                class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                編集>解説リンク</a>
+              <a href="{{ $incorrect->matigai->comment_path }}" download="添付File"
+                class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                >添付File</a>
+
+                <a href="{{ $incorrect->matigai->reference_url }}" download="参考URL"
+                  class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
+                  >参考URL</a>
 
 
               <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"
                 class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                 編集
               </a>
-              <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"
+              <a href="{{ route('kaizen', ['questionId' => $incorrect->matigai->id]) }}"
                 class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                投稿(開発中)
+                投稿
               </a>
               <a href="{{ route('mymemo', ['questionId' => $incorrect->matigai->id]) }}"
                 class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
