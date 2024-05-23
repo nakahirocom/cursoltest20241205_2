@@ -43,12 +43,17 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/mymemodelete/{questionId}', \App\Http\Controllers\Santaku\MymemodeleteController::class)->name('mymemodelete');
 
+    Route::delete('/kaizendelete/{questionId}', \App\Http\Controllers\Santaku\KaizendeleteController::class)->name('kaizendelete');
+
     //とき直しモード
     Route::get('/master', App\Http\Controllers\Santaku\MasterController::class);
 
     Route::get('/incorrect', App\Http\Controllers\Santaku\IncorrectListController::class);
 
-    Route::get('/kaizen', App\Http\Controllers\Santaku\KaizenController::class);
+    Route::get('/kaizen/{questionId}', App\Http\Controllers\Santaku\KaizenController::class)->name('kaizen');
+    Route::put('/kaizen/{questionId}', App\Http\Controllers\Santaku\KaizenupdateController::class)->name('kaizen.put');
+    Route::get('/kaizenlist', App\Http\Controllers\Santaku\KaizenlistController::class)->name('kaizenlist');
+
 
     Route::get('/mymemo/{questionId}', App\Http\Controllers\Santaku\MymemoController::class)->name('mymemo');
     Route::put('/mymemo/{questionId}', App\Http\Controllers\Santaku\MymemoupdateController::class)->name('mymemo.put');

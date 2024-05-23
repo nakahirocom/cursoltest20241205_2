@@ -341,7 +341,7 @@ class Question extends Model
 
     public function kaizen()
     {
-        return $this->hasMany(Kaizen::class);
+        return $this->hasOne(Kaizen::class);
     }
     public function mymemo()
     {

@@ -133,6 +133,8 @@
       <div id="commentimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
+      <input type="text" name="reference_url" class="form-control" placeholder="参考URLを登録" value="{{ old('reference_url') }}">
+
       <br />
       <br />
 

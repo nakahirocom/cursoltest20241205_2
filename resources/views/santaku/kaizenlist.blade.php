@@ -19,7 +19,7 @@
     <a class="btn btn-link" href="/">HOME画面へ戻る</a></p>
     @auth
 
-    <h2>三択アプリ　{{ Auth::user()->name }}のメモ一覧</h2>
+    <h2>三択アプリ　{{ Auth::user()->name }}の要望一覧</h2>
     <p>-----------------------------------------------------------------------------------------</p>
     @if (session('feedback.success'))
     <p style="color: green">{{ session('feedback.success') }}</p>
@@ -28,7 +28,7 @@
 
     <body>
       <div>
-        @foreach($mymemolist as $mymemo)
+        @foreach($kaizenlist as $kaizen)
         <div>
 
           <summary>
@@ -36,45 +36,46 @@
               <div class="card card-body">
                 <div class="text-sm">
                   <span>分類：
-                    {{ $mymemo->question->smallLabel->middleLabel->largeLabel->large_label }}→
-                    {{ $mymemo->question->smallLabel->middleLabel->middle_label }}→
-                    {{ $mymemo->question->smallLabel->small_label }}</span>
+                    {{ $kaizen->question->smallLabel->middleLabel->largeLabel->large_label }}→
+                    {{ $kaizen->question->smallLabel->middleLabel->middle_label }}→
+                    {{ $kaizen->question->smallLabel->small_label }}</span>
                 </div>
 
-                <p>私のメモ　{{ $mymemo->mymemo }}</p>
-                <span>問題　{{ $mymemo->question->question }}</span>
-                <img src="{{ $mymemo->question->question_path }}">
-                <span>答え　{{ $mymemo->question->answer }}</span>
-                <span>解説　{{ $mymemo->question->comment }}</span>
-                <img src="{{ $mymemo->question->comment_path }}">
+                <p>私の要望　{{ $kaizen->kaizen }}</p>
+                <p>要望日時　{{ $kaizen->updated_at }}</p>
+                <span>問題　{{ $kaizen->question->question }}</span>
+                <img src="{{ $kaizen->question->question_path }}">
+                <span>答え　{{ $kaizen->question->answer }}</span>
+                <span>解説　{{ $kaizen->question->comment }}</span>
+                <img src="{{ $kaizen->question->comment_path }}">
               </div>
             </div>
           </summary>
           <br>
-          添付File:{{ $mymemo->question->comment_path }}
+          添付File:{{ $kaizen->question->comment_path }}
           <br>
-          <a href="{{ $mymemo->question->comment_path }}" download="添付File">添付File</a>
+          <a href="{{ $kaizen->question->comment_path }}" download="添付File">添付File</a>
           <br>
-          参考URL:{{ $mymemo->question->reference_url }}
+          参考URL:{{ $kaizen->question->reference_url }}
           <br>
-          <a href="{{ $mymemo->question->reference_url }}" download="参考URL">参考URL</a>
+          <a href="{{ $kaizen->question->reference_url }}" download="参考URL">参考URL</a>
 
 
-          <form action="{{ route('mymemo', ['questionId' => $mymemo->question_id]) }}">
+          <form action="{{ route('kaizen', ['questionId' => $kaizen->question_id]) }}">
 
             @csrf
 
-            <button class="btn btn-outline-primary" type="submit">私のメモを編集する</button>
+            <button class="btn btn-outline-primary" type="submit">私の要望を編集する</button>
           </form>
 
 
-          <form action="{{ route('edit', ['questionId' => $mymemo->question_id]) }}">
+          <form action="{{ route('edit', ['questionId' => $kaizen->question_id]) }}">
             @method('EDIT')
             @csrf
             <button class="btn btn-outline-primary" type="submit">問題を編集する</button>
           </form>
 
-          <form action="{{ route('delete', ['questionId' => $mymemo->id]) }}" method="post">
+          <form action="{{ route('delete', ['questionId' => $kaizen->id]) }}" method="post">
             @method('DELETE')
             @csrf
             <button class="btn btn-outline-danger" type="submit">問題を削除する</button>

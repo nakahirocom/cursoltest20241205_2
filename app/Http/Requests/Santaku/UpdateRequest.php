@@ -45,6 +45,12 @@ class UpdateRequest extends FormRequest
         return $this->input('comment');
     }
 
+    public function reference_url(): string
+    {
+        return $this->input('reference_url');
+    }
+
+
     public function id(): int
     {
         return (int) $this->route('questionId');

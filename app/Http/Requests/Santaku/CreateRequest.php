@@ -51,4 +51,10 @@ class CreateRequest extends FormRequest
     {
         return $this->input('comment');
     }
+
+    public function reference_url(): string
+    {
+        return $this->input('reference_url');
+    }
+
 }
