@@ -113,10 +113,12 @@
 
 
       <!-- 画像アップロード用のinput要素 -->
-      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像があればセット
+      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像あればセット(2MBまで)
       <div id="questionimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
+      <input type="text" name="question_path" class="form-control" placeholder="問題の添付ファイルpath" value="{{ old('question_path') }}">
+<br>
 
       <input type="text" name="answer" class="form-control" placeholder="答えを登録" value="{{ old('answer') }}">
       @error('answer')
@@ -129,11 +131,14 @@
       @error('comment')
       <p class="text-red-500">{{ $message }}</p>
       @enderror
-      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像があればセット
+      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像あればセット(2MBまで)
       <div id="commentimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
-      <input type="text" name="reference_url" class="form-control" placeholder="参考URLを登録" value="{{ old('reference_url') }}">
+      <br>
+      <input type="text" name="comment_path" class="form-control" placeholder="コメントの添付ファイルpath" value="{{ old('comment_path') }}">
+<br>
+      <input type="text" name="reference_url" class="form-control" placeholder="参考URL" value="{{ old('reference_url') }}">
 
       <br />
       <br />

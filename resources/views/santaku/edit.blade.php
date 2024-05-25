@@ -73,9 +73,11 @@
 
       <img src="{{ $question->question_path }}">
       <br />
+      <input type="text" name="question_path" class="form-control" value="{{ $question->question_path }}">
+
 
       <!-- 画像アップロード用のinput要素 -->
-      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像があればセット
+      <input type="file" name="question_image" id="questionImage" placeholder="画像があればセット">画像あればセット(2MBまで)
 
       <div id="questionimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
@@ -104,10 +106,13 @@
 
 
       <br />
-      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像があればセット
+      <input type="file" name="comment_image" id="commentImage" placeholder="画像があればセット">画像あればセット(2MBまで)
       <div id="commentimageContainer" class="mt-4">
         <!-- 画像がここに表示される -->
       </div>
+      <input type="text" name="comment_path" class="form-control" value="{{ $question->comment_path }}">
+
+
       <span>reference_url：{{ $question->reference_url }}</span>
       <input type="text" name="reference_url" class="form-control" value="{{ $question->reference_url }}">
 
