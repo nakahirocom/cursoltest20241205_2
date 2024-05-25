@@ -41,6 +41,7 @@ class UpdateController extends Controller
 
         // データベースから質問を取得し、更新する
         $question = Question::where('id', $request->id())->firstOrFail();
+//dd($question);
         $question->small_label_id = $request->small_label_id;
         $question->question = $request->question();
         $question->answer = $request->answer();
@@ -72,9 +73,8 @@ class UpdateController extends Controller
         // user_id と question_id で Mymemo レコードを探し、なければ新規作成またはあれば更新
         $mymemo = Mymemo::updateOrCreate(
             ['user_id' => $id, 'question_id' => $questionId], // 検索条件
-            ['mymemo' => $request->mymemo] // 更新または新規作成時にセットする値
+            ['mymemo' => $request->mymemo ?? ''] // 更新または新規作成時にセットする値
         );
-
         return redirect()
             ->route('edit', ['questionId' => $question->id])
             ->with('feedback.success', '更新が完了しました');

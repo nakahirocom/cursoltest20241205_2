@@ -38,9 +38,15 @@
                 <p>問題　{{ $question->question }}</p>
                 <p>答え　{{ $question->answer }}</p>
                 <p>解説　{{ $question->comment }}</p>
+                <p>添付File　{{ $question->comment_path }}</p>
+                <p>参考URL　{{ $question->reference_url }}</p>
               </div>
             </div>
           </summary>
+          <a href="{{ $question->comment_path }}" download="添付File">添付File</a>
+
+            <a href="{{ $question->reference_url }}" download="参考URL">参考URL</a>
+
           <form action="{{ route('edit', ['questionId' => $question->id]) }}">
             @method('EDIT')
             @csrf
@@ -50,6 +56,12 @@
               @csrf
               <button class="btn btn-outline-danger" type="submit">削除する</button>
 
+              <form action="{{ route('mymemo', ['questionId' => $question->id]) }}" method="post">
+                @method('POST')
+                @csrf
+                <button class="btn btn-outline-danger" type="submit">メモする</button>
+  
+              </form>
             </form>
         </div>
         <br>

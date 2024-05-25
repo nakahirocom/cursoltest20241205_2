@@ -155,13 +155,11 @@
 
               <div>
                 <a href="{{ $incorrect->syutudai->comment_path }}" download="添付File"
-                  class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                  >添付File</a>
+                  class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
 
-                  <a href="{{ $incorrect->syutudai->reference_url }}" download="参考URL"
-                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                    >参考URL</a>
-  
+                <a href="{{ $incorrect->syutudai->reference_url }}" download="参考URL"
+                  class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
+
                 <a href="{{ route('edit', ['questionId' => $incorrect->syutudai->id]) }}"
                   class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                   編集
@@ -228,12 +226,10 @@
 
               <br>
               <a href="{{ $incorrect->matigai->comment_path }}" download="添付File"
-                class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                >添付File</a>
+                class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
 
-                <a href="{{ $incorrect->matigai->reference_url }}" download="参考URL"
-                  class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                  >参考URL</a>
+              <a href="{{ $incorrect->matigai->reference_url }}" download="参考URL"
+                class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
 
 
               <a href="{{ route('edit', ['questionId' => $incorrect->matigai->id]) }}"

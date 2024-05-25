@@ -47,7 +47,7 @@ class UpdateRequest extends FormRequest
 
     public function reference_url(): string
     {
-        return $this->input('reference_url');
+        return $this->input('reference_url') ?? '';
     }
 
 

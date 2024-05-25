@@ -75,6 +75,11 @@ class AnswerViewModel
         return $this->question->reference_url ?? null;
     }
 
+    public function getUser_id(): ?string
+    {
+        return $this->question->user_id ?? null;
+    }
+
 
 
     //選択されたchoiceコレクションの中から間違えて選択したanswerを返す
@@ -123,6 +128,10 @@ class AnswerViewModel
     public function getmissReference_url(): ?string
     {
         return $this->choice->reference_url ?? null;
+    }
+    public function getmissUser_id(): ?string
+    {
+        return $this->choice->user_id ?? null;
     }
 
 
