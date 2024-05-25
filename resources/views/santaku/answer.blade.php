@@ -57,7 +57,7 @@
                 <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                     {{ $viewModels[$i]->getQuestion() }}
 
-                    
+
                     <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
 
                         <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="max-w-none max-h-[300px]">
@@ -114,13 +114,11 @@
 
                 </div>
                 <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                    >添付File</a>
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
 
-                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                        >参考URL</a>
-    
+                <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
+
 
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
@@ -173,7 +171,7 @@
 
                 <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
 
-                   
+
                     <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         解説:{{ $viewModels[$i]->getComment() }}
                     </div>
@@ -189,20 +187,17 @@
                 </div>
 
                 <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                    >添付File</a>
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
 
-                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                        >参考URL</a>
-    
-@auth
-                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                    編集
-                </a>
-                @endauth
-                <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
+
+                    @auth
+                    @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                    <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
+                    @endif
+                    @endauth
+                    <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     要望
                 </a>
@@ -256,13 +251,18 @@
 
                 </div>
                 <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="添付File"
-                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                    >添付File</a>
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
 
-                    <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out"
-                        >参考URL</a>
-                        @auth
+                <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
+
+                    @auth
+                    @if (auth()->user()->id == $viewModels[$i]->getmissUser_id())
+                    <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
+                    @endif
+                    @endauth
+
+                    @auth
                 <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
                     class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     編集
