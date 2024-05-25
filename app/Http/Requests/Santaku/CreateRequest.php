@@ -52,6 +52,17 @@ class CreateRequest extends FormRequest
         return $this->input('comment');
     }
 
+    public function question_path(): string
+    {
+        return $this->input('question_path') ?? '';
+    }
+
+    public function comment_path(): string
+    {
+        return $this->input('comment_path') ?? '';
+    }
+
+
     public function reference_url(): string
     {
         return $this->input('reference_url') ?? '';

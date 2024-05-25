@@ -45,8 +45,10 @@ class UpdateController extends Controller
         $question->small_label_id = $request->small_label_id;
         $question->question = $request->question();
         $question->answer = $request->answer();
+        $question->question_path = $request->question_path();
         $question->comment = $request->comment();
         $question->reference_url = $request->reference_url();
+        $question->comment_path = $request->comment_path();
 
 
         // 質問画像がある場合、S3に保存

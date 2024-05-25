@@ -119,11 +119,12 @@
                 <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
                     class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
 
+                    @auth
+                    @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                    <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
+                    @endif
+                    @endauth
 
-                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                    編集
-                </a>
                 <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
                     class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
                     要望
@@ -258,15 +259,11 @@
 
                     @auth
                     @if (auth()->user()->id == $viewModels[$i]->getmissUser_id())
-                    <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
+                    <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
                     @endif
                     @endauth
 
                     @auth
-                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
-                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                    編集
-                </a>
                 @endauth
                 <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
                     class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
