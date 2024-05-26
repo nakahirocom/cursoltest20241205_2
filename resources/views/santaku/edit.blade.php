@@ -61,6 +61,62 @@
       <span>編集前の小分類：{{ $question->small_label_id }}</span>
       <input type="text" name="small_label_id" class="form-control" value="{{ $question->small_label_id }}">
 
+      <div class="container text-left relative">
+        @foreach($largelabelList as $largelabel)
+        <div class="flex flex-col justify-between m-0">
+          <div class="font-bold text-lg">
+            分類：{{ $largelabel->large_label }}
+          </div>
+
+          <div class="flex flex-wrap gap-x-4 gap-y-2">
+            @foreach ($middlelabelList as $middlelabel)
+            @if($largelabel->id == $middlelabel->large_label_id)
+            <div class="flex flex-col">
+              <span class="font-semibold text-sm">{{ $middlelabel->middle_label }}</span>
+
+              @foreach ($smalllabelList as $smalllabel)
+              @if ($middlelabel->id == $smalllabel->middle_label_id)
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="single-checkbox form-checkbox h-5 w-5 text-blue-600"
+                  data-small-label-id="{{ $smalllabel->id }}">
+                <span class="text-sm">{{ $smalllabel->small_label }}</span>
+              </label>
+              @endif
+              @endforeach
+            </div>
+            @endif
+            @endforeach
+          </div>
+        </div>
+        <br>
+        @endforeach
+      </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+        var checkboxes = document.querySelectorAll('.single-checkbox');
+        var inputField = document.querySelector('input[name="small_label_id"]'); // 入力フィールドを取得
+      
+        checkboxes.forEach(function(checkbox) {
+          checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+              // チェックされた場合、データ属性からIDを取得し、入力フィールドに設定
+              inputField.value = checkbox.getAttribute('data-small-label-id');
+      
+              // 他のすべてのチェックボックスをクリア
+              checkboxes.forEach(function(other) {
+                if (other !== checkbox) {
+                  other.checked = false;
+                }
+              });
+            } else {
+              // チェックが外れた場合、入力フィールドをクリア
+              inputField.value = '';
+            }
+          });
+        });
+      });
+        </script>
+
 
       <span>編集前の問題：{{ $question->question }}</span>
       <input type="text" name="question" class="form-control" value="{{ $question->question }}">

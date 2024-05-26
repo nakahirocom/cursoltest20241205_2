@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Services\SantakuService;
 use Illuminate\Http\Request;
+use App\Models\SmallLabel;
+use App\Models\LargeLabel;
+use App\Models\MiddleLabel;
+
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class EditController extends Controller
@@ -27,8 +31,17 @@ class EditController extends Controller
             throw new AccessDeniedHttpException();
         }
 
+        $largelabelList = LargeLabel::all();
+        $middlelabelList = MiddleLabel::all();
+        $smalllabelList = SmallLabel::all();
+
+
         $question = Question::where('id', $questionId)->with('mymemo')->firstOrFail();
         //dd($question);
-        return view('santaku.edit')->with('question', $question);
+        return view('santaku.edit')
+        ->with('largelabelList', $largelabelList)
+        ->with('middlelabelList', $middlelabelList)
+        ->with('smalllabelList', $smalllabelList)
+        ->with('question', $question);
     }
 }

@@ -131,7 +131,7 @@
                   <button type="button" id="button-{{ $incorrect->syutudai->id }}"
                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
                     {{ $incorrect->syutudai->answer }}
-                  </button>⭕️
+                  </button>-
                 </div>
               </div>
               解説
@@ -201,7 +201,7 @@
                     id="button-{{ $incorrect->matigai->id }}"
                     class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50 text-left mr-1 mb-1">
                     {{ $incorrect->matigai->answer }}
-                  </button>⭕️
+                  </button>-
                 </div>
               </div>
               <br>

@@ -9,61 +9,61 @@ class QuestionSeeder extends Seeder
 {
     public function run()
     {
-        Question::create([
-            'small_label_id' => 1,
-            'user_id' => 1,
-            'question' => "1+1=",
-            'question_path' => null,
-            'answer' => "2",
-            'comment' => "イチタスイチハ",
-            'comment_path' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        Question::create([
-            'small_label_id' => 1,
-            'user_id' => 1,
-            'question' => "2+1=",
-            'question_path' => null,
-            'answer' => "3",
-            'comment' => "ニタスイチハ",
-            'comment_path' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        Question::create([
-            'small_label_id' => 1,
-            'user_id' => 1,
-            'question' => "3+1=",
-            'question_path' => null,
-            'answer' => "4",
-            'comment' => "サンタスイチハ",
-            'comment_path' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        Question::create([
-            'small_label_id' => 1,
-            'user_id' => 1,
-            'question' => "4+1=",
-            'question_path' => null,
-            'answer' => "5",
-            'comment' => "ヨンタスイチハ",
-            'comment_path' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        Question::create([
-            'small_label_id' => 1,
-            'user_id' => 1,
-            'question' => "5+1=",
-            'question_path' => null,
-            'answer' => "6",
-            'comment' => "ゴタスイチハ",
-            'comment_path' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+//        Question::create([
+//            'small_label_id' => 1,
+//            'user_id' => 1,
+//            'question' => "1+1=",
+//            'question_path' => null,
+//            'answer' => "2",
+//            'comment' => "イチタスイチハ",
+//            'comment_path' => null,
+//            'created_at' => now(),
+//            'updated_at' => now()
+//        ]);
+//        Question::create([
+//            'small_label_id' => 1,
+//            'user_id' => 1,
+//            'question' => "2+1=",
+//            'question_path' => null,
+//            'answer' => "3",
+//            'comment' => "ニタスイチハ",
+//            'comment_path' => null,
+//            'created_at' => now(),
+//            'updated_at' => now()
+//        ]);
+//        Question::create([
+//            'small_label_id' => 1,
+//            'user_id' => 1,
+//            'question' => "3+1=",
+//            'question_path' => null,
+//            'answer' => "4",
+//            'comment' => "サンタスイチハ",
+//            'comment_path' => null,
+//            'created_at' => now(),
+//            'updated_at' => now()
+//        ]);
+//        Question::create([
+//            'small_label_id' => 1,
+//            'user_id' => 1,
+//            'question' => "4+1=",
+//            'question_path' => null,
+//            'answer' => "5",
+//            'comment' => "ヨンタスイチハ",
+//            'comment_path' => null,
+//            'created_at' => now(),
+//            'updated_at' => now()
+//        ]);
+//        Question::create([
+//            'small_label_id' => 1,
+//            'user_id' => 1,
+//            'question' => "5+1=",
+//            'question_path' => null,
+//            'answer' => "6",
+//            'comment' => "ゴタスイチハ",
+//            'comment_path' => null,
+//            'created_at' => now(),
+//            'updated_at' => now()
+//        ]);
         Question::create([
             'small_label_id' => 2,
             'user_id' => 1,
