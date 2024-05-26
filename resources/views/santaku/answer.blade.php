@@ -165,7 +165,7 @@
                         <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
                             {{ $viewModels[$i]->getAnswer() }}
-                        </button>⭕️
+                        </button>-
                     </div>
                 </div>
                 <br>
@@ -230,7 +230,7 @@
                         <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
                             {{ $viewModels[$i]->getmissAnswer() }}
-                        </button>⭕️
+                        </button>-
                     </div>
                 </div>
                 <br>
