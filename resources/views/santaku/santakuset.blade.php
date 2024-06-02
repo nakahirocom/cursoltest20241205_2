@@ -22,7 +22,11 @@
             class="border-2 border-gray-300 rounded-md p-4 shadow-lg bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100">
             <div class="flex justify-between items-center mb-4">
                 <div class="text-lg font-semibold">
-                    【ジャンルを選択】
+                    【{{ $countOf }}ジャンル中、星争奪バトル挑戦権🤩を得たのは{{ $countOfFiftyOrMore }}ジャンル】
+                    <br>
+                    20題以上回答したジャンルが対象
+                    <br>
+                    <!-- 星の数:各ジャンル正解率順に1位⭐️5個〜5位⭐️1個まで。同率は平均回答時間短い順) -->
                 </div>
                 <button type="button" onclick="toggleAllCheckboxes()"
                     class="from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-black font-bold py-2 px-4 rounded-full border-2 border-orange-600 shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
@@ -58,8 +62,42 @@
                                 data-large-label-id="{{ $largelabel->id }}">
                             <label for="{{ $user_select->smallLabel->small_label }}"
                                 class="ml-2 text-sm text-gray-700 font-medium">
-                                {{ $user_select->smallLabel->small_label }} ({{ $user_select->small_question_count }}件)
+                                {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
                             </label>
+                            @if ($user_select->answer_count >= 20)
+                            🤩 今週{{ $user_select->answer_count }}題回答
+                            <br>
+                            <?php
+                            $accuracy = 0; // 初期化
+
+                            if ($user_select->small_question_count > 0) {
+                                $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
+                            }
+
+                            // 小数点以下1位まで表示するためのフォーマット
+                            $accuracyFormatted = number_format($accuracy, 1);
+                            ?>
+
+                            正解{{ $accuracyFormatted }}%
+                            <br>平均{{ $user_select->average_time }}秒
+                            @else
+                            今週{{ $user_select->answer_count }}題回答
+                            <br>
+                            <?php
+                            $accuracy = 0; // 初期化
+
+                            if ($user_select->small_question_count > 0) {
+                                $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
+                            }
+
+                            // 小数点以下1位まで表示するためのフォーマット
+                            $accuracyFormatted = number_format($accuracy, 1);
+                            ?>
+
+                            正解{{ $accuracyFormatted }}%
+                            <br>
+                            平均{{ $user_select->average_time }}秒
+                            @endif
                         </div>
                         @endif
                         @endforeach
