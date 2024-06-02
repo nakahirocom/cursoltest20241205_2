@@ -20,7 +20,8 @@
     <div class="flex justify-end items-center">
         <div>
             <!-- 連続正解数を表示するスパン -->
-            <span id="continuous-correct-answers">問連続正解中</span>
+            
+            <span id="continuous-correct-answers"></span>
             <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
                 href="/">HOMEへ</a>
         </div>
@@ -165,7 +166,7 @@
                         <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
                             {{ $viewModels[$i]->getAnswer() }}
-                        </button>-
+                        </button>
                     </div>
                 </div>
                 <br>
@@ -334,7 +335,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
-        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 問連続正解中'; // 最初の表示
+        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 正解中'; // 最初の表示
     });
 
     document.getElementById('show-next-button').addEventListener('click', function() {

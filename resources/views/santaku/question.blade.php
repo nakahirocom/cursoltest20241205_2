@@ -24,7 +24,6 @@
             @endforeach
             <!-- 連続正解数表示部分 -->
             <div id="continuousCorrect" class="text-left ml-4">
-                {{ Auth::user()->continuous_correct_answers }}問連続
             </div>
         </div>
 
@@ -39,8 +38,14 @@
     <div class="container text-left relative">
         <form action="{{ route('answer.index') }}" method="post" id="kotae"
             class="border-2 border-gray-300 rounded-md p-0 shadow-lg relative">
+            @csrf
             <input type="hidden" name="maxQuestions" value="{{ count($questions_a) }}">
             <input type="hidden" name="timeout">
+            <input type="hidden" name="start_solving_time" id="start_solving_time">
+            @foreach($questionIds as $questionId)
+            <input type="hidden" name="question{{ $loop->iteration }}_Id" value="{{ $questionId }}">
+            @endforeach
+
             <div class="flex justify-between m-0">
                 <div class="flex-none m-0">
                     【選択肢】
@@ -59,15 +64,8 @@
                         onclick="buttonClick2()">
                         選択リセット
                     </button>
-
                 </div>
             </div>
-
-            <!--このリファクタリングでは、$questionIds 配列の各要素に対してループを行います。$loop->iteration は現在のループの繰り返し数を表し、これを使ってフォームフィールドの名前を動的に生成しています。これにより、各質問IDに対応する隠しフィールドが作成されます。また、@csrf ディレクティブはループの外に一度だけ配置するのが適切です。-->
-            @foreach($questionIds as $questionId)
-            @csrf
-            <input type="hidden" name="question{{ $loop->iteration }}_Id" value="{{ $questionId }}">
-            @endforeach
 
             <div class="flex flex-wrap items-center my-2">
                 @foreach($questions_a as $question_a)
@@ -81,8 +79,6 @@
                 @endforeach
             </div>
 
-
-
             <style>
                 .question {
                     transition: all 0.3s ease-in-out;
@@ -91,140 +87,213 @@
 
                 .highlighted-question {
                     transform: scale(1.05);
-                    /* サイズを少し大きくする */
                     background-color: #ffd700;
-                    /* ゴールド色で背景を強調 */
                     opacity: 1;
-                    /* 透明度を通常に戻す */
                 }
 
-                /* 選択確定ボタンの通常スタイル */
                 #kakutei {
                     background-color: #e5e7eb;
-                    /* 薄いグレー */
                     color: #9ca3af;
-                    /* 暗いグレー */
                     border-color: #d1d5db;
                     cursor: not-allowed;
                 }
 
-                /* 選択確定ボタンが有効化されたときのスタイル */
                 #kakutei.enabled {
                     background-color: #34d399;
-                    /* 明るい緑色 */
                     color: white;
                     border-color: #059669;
                     cursor: pointer;
                 }
             </style>
 
-
             <script>
                 let maxQuestions = {{ count($questions_a) }};
-                window.onload = function() {
-                       // 最初の問題を強調
-                       let firstQuestion = document.getElementById('question-1');
-                       if (firstQuestion) {
-                           firstQuestion.classList.add('highlighted-question');
-                       }
-                    };
-
-
                 let clickCounter = 1;
                 let idousakiCounter = 4;
                 let x = 1;
-                let arr = [];// 配列を初期化する
+                let arr = [];
+
+                window.onload = function() {
+                    // 解き始めの時間を取得して隠しフィールドに設定
+// 現在の日時を取得
+var now = new Date();
+
+// 日本標準時 (JST) に変換
+var jstOffset = 9 * 60 * 60 * 1000; // 9時間分のミリ秒
+var jstTime = new Date(now.getTime() + jstOffset);
+
+// ISO 8601形式の文字列に変換
+var startTime = jstTime.toISOString().slice(0, -1); // 最後のZを削除
+
+// 隠しフィールドに設定
+document.getElementById('start_solving_time').value = startTime;
+
+
+                    // 最初の問題を強調
+                    let firstQuestion = document.getElementById('question-1');
+                    if (firstQuestion) {
+                        firstQuestion.classList.add('highlighted-question');
+                    }
+
+                    var seconds = 120;
+                    var display = document.querySelector('#countdown-timer');
+                    startCountdown(seconds, display);
+                };
 
                 function buttonClick(questionId) {
-                    // 既に3回クリックされた場合は、それ以上の操作を許可しない
                     if (arr.length >= maxQuestions) {
                         return;
                     }
                     if (x >= 0) {
-                        arr.push(questionId); // 配列にボタンIDを追加
+                        arr.push(questionId);
                     }
 
                     let qq = document.getElementById('question-' + clickCounter);
                     let button = document.getElementById('button-' + questionId);
-                    
-                //回答したボタンをa-4へ移動させるための指定
-                let qquestionArea = document.getElementById('q-' + idousakiCounter);
-                let questionArea = document.getElementById('a-' + idousakiCounter);
-                clickCounter++; // カウンターを増やす
-                idousakiCounter++; // カウンターを増やす
+                    let qquestionArea = document.getElementById('q-' + idousakiCounter);
+                    let questionArea = document.getElementById('a-' + idousakiCounter);
+                    clickCounter++;
+                    idousakiCounter++;
 
-                   if (questionArea) {
-                    qquestionArea.appendChild(qq); // ボタンを適切なエリアに移動
-                    questionArea.appendChild(button); // ボタンを適切なエリアに移動
-                    qquestionArea.classList.remove('hidden');
-                    // 選択された問題と答えをくっつけるためにmb-2クラスを削除してスペースを0にする
-                    qq.classList.remove('mb-2');
+                    if (questionArea) {
+                        qquestionArea.appendChild(qq);
+                        questionArea.appendChild(button);
+                        qquestionArea.classList.remove('hidden');
+                        qq.classList.remove('mb-2');
+                        button.disabled = true;
+                    }
 
-                    button.disabled = true; // ボタンを無効化
-                   }
+                    for (let i = 1; i <= maxQuestions; i++) {
+                        let question = document.getElementById('question-' + i);
+                        question.classList.remove('highlighted-question');
+                    }
 
-                   // すべての問題の強調を解除
-                   for (let i = 1; i <= maxQuestions; i++) {
-                       let question = document.getElementById('question-' + i);
-                       question.classList.remove('highlighted-question');
-                   }
+                    if (clickCounter <= maxQuestions) {
+                        let nextQuestion = document.getElementById('question-' + clickCounter);
+                        if (nextQuestion) {
+                            nextQuestion.classList.add('highlighted-question');
+                        }
+                    }
 
-                   // 次の問題を強調
-                   if (clickCounter <= maxQuestions) {
-                       let nextQuestion = document.getElementById('question-' + clickCounter);
-                       if (nextQuestion) {
-                           nextQuestion.classList.add('highlighted-question');
-                       }
-                   }
-
-                    // 3つの選択が完了したら、確定ボタンを有効化
-                   if (arr.length === maxQuestions) {
+                    if (arr.length === maxQuestions) {
                         let confirmButton = document.getElementById('kakutei');
                         confirmButton.disabled = false;
                         confirmButton.classList.add('enabled');
-                   }
+                    }
+                }
+
+                function buttonClick1() {
+                    if (arr.length !== maxQuestions) {
+                        return;
+                    }
+
+                    var kotae = document.getElementById('kotae');
+                    document.getElementById('kakutei').type = 'submit';
+                    for (let step = 0; step < 8; step++) {
+                        var input_data = document.createElement('input');
+                        input_data.type = 'hidden';
+                        input_data.name = "choice" + (step + 1) + "_Id";
+                        input_data.value = arr[step];
+                        kotae.appendChild(input_data);
+                    }
+                }
+
+                function buttonClick2() {
+                    clickCounter = 1;
+                    idousakiCounter = 4;
+
+                    for (let i = 0; i < arr.length; i++) {
+                        let button = document.getElementById('button-' + arr[i]);
+                        let motonoId = 'buttonz-' + arr[i];
+                        let moto = document.getElementById(motonoId);
+                        let qq = document.getElementById('question-' + (i + 1));
+                        let qmotonoId = 'questionz-' + (i + 1);
+                        let qmoto = document.getElementById(qmotonoId);
+                        let qquestionArea = document.getElementById('q-' + (i + 4));
+
+                        if (moto) {
+                            moto.appendChild(button);
+                            qmoto.appendChild(qq);
+                            qq.classList.add('mb-2');
+                            qquestionArea.classList.add('hidden');
+                            button.disabled = false;
+                        }
+                    }
+
+                    arr = [];
+                    clickCounter = 1;
+                    idousakiCounter = 4;
+
+                    let confirmButton = document.getElementById('kakutei');
+                    if (confirmButton) {
+                        confirmButton.disabled = true;
+                        confirmButton.classList.remove('enabled');
+                    }
+
+                    highlightFirstQuestion();
+                }
+
+                function highlightFirstQuestion() {
+                    for (let i = 1; i <= 7; i++) {
+                        let question = document.getElementById('question-' + i);
+                        if (question) {
+                            question.classList.remove('highlighted-question');
+                        }
+                    }
+
+                    let firstQuestion = document.getElementById('question-1');
+                    if (firstQuestion) {
+                        firstQuestion.classList.add('highlighted-question');
+                    }
+                }
+
+                function startCountdown(duration, display) {
+                    var timer = duration * 100;
+                    var seconds, milliseconds;
+                    var countdownInterval = setInterval(function() {
+                        milliseconds = parseInt((timer % 100) / 10, 10);
+                        seconds = parseInt(timer / 100, 10);
+
+                        if (seconds < 10) {
+                            display.style.color = 'red';
+                        }
+
+                        display.textContent = "　残" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
+
+                        if (--timer < 0) {
+                            clearInterval(countdownInterval);
+                            document.getElementsByName('timeout')[0].value = 'true';
+                            document.getElementById('continuousCorrect').textContent = '0問連続';
+                            alert('時間切れ（連続正解ストップ）');
+                        }
+                    }, 10);
                 }
             </script>
     </div>
     </form>
 
     <div class="relative container border-2 border-gray-300 rounded-md p-6 shadow-lg">
-        <!-- 【問題】の位置を左上に寄せ、パディングを追加 -->
         <div class="absolute top-0 left-0">
             【問題】
         </div>
 
         @foreach($questions_q as $question_q)
-        @if ($loop->index <= 7) <!-- 問題のスペースを調整するためのdiv -->
-            <div id="questionz-{{ $loop->iteration }}">
-                <!-- 例: pt-8 で上部にスペースを追加 -->
-                <div id="question-{{ $loop->iteration }}"
-                    class="question items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1 mb-2">
-                    <div class="w-14 h-6 justify-center items-center">
-                        <strong class="text-lg text-white text-center">{{$loop->iteration}}問目</strong>
-                    </div>
-                    <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
-
-                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-
-                            {{$question_q->question}}
-
-                            <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">
-                        </div>
-
-                    </div>
-
+        @if ($loop->index <= 7) <div id="questionz-{{ $loop->iteration }}">
+            <div id="question-{{ $loop->iteration }}"
+                class="question items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1 mb-2">
+                <div class="w-14 h-6 justify-center items-center">
+                    <strong class="text-lg text-white text-center">{{$loop->iteration}}問目</strong>
                 </div>
-
-
+                <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
+                    <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        {{$question_q->question}}
+                        <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">
+                    </div>
+                </div>
             </div>
-
-
-
-
-            @endif
-
-            @endforeach
+    </div>
+    @endif
+    @endforeach
     </div>
 
     <div class="relative container border-2 border-gray-300 rounded-md p-4 shadow-lg">
@@ -246,246 +315,6 @@
         <div id="a-9" class="py-0 text-right"></div>
         <div id="q-10" class="py-0 hidden">出題7問目</div>
         <div id="a-10" class="py-0 text-right"></div>
-    </div>
-
-    <script>
-        function buttonClick1(){
-            if (arr.length !== maxQuestions) {
-        // 条件を満たしていない場合、何もしない
-        return;
-    }
-                            //操作するid要素を取得する
-                            var kotae = document.getElementById('kotae');
-                            document.getElementById('kakutei').type = 'submit';
-                            // 3回転ループし、追加する配列の数だけinput要素を作成
-                            for (let step = 0; step < 8; step++) {
-                            // input要素の中身を作成
-                            var input_data = document.createElement('input');
-                                input_data.type = 'hidden';
-                                input_data.name = "choice" + (step +1) + "_Id";
-                                input_data.value = arr[step];
-                             // input要素を追加する
-                                kotae.appendChild(input_data);
-                            }
-            };
-                
-            function buttonClick2() {
-                // クリックカウンターと選択肢配列をリセット
-                clickCounter = 1;
-                idousakiCounter = 4;
-              let button0 = document.getElementById('button-'+arr[0]);
-              let motonoId0 = 'buttonz-'+arr[0];
-              let moto0 = document.getElementById(motonoId0);
-
-              let qq1 = document.getElementById('question-' + clickCounter);
-              let q1motonoId = 'questionz-'+ clickCounter;
-            let q1moto = document.getElementById(q1motonoId);
-            let qquestionArea4 = document.getElementById('q-' + idousakiCounter);
-
-              if (moto0) {
-                  moto0.appendChild(button0); // ボタンを適切なエリアに移動
-                  q1moto.appendChild(qq1); // ボタンを適切なエリアに移動
- // mb-2クラスを元に戻す
- qq1.classList.add('mb-2');
- qquestionArea4.classList.add('hidden');
- button0.disabled = false; // ボタンを押せる様に変更
-              }
-            clickCounter ++;
-            idousakiCounter ++;
-              button1 = document.getElementById('button-'+arr[1]);
-              motonoId1 = 'buttonz-'+arr[1];
-              moto1 = document.getElementById(motonoId1);
-            
-              qq2 = document.getElementById('question-'+clickCounter);
-              q2motonoId = 'questionz-'+clickCounter;
-              q2moto = document.getElementById(q2motonoId);
-              let qquestionArea5 = document.getElementById('q-' + idousakiCounter);
-
-              if (moto1) {
-                  moto1.appendChild(button1); // ボタンを適切なエリアに移動
-                  q2moto.appendChild(qq2); // ボタンを適切なエリアに移動
- // mb-2クラスを元に戻す
- qq2.classList.add('mb-2');
- qquestionArea5.classList.add('hidden');
-                  button1.disabled = false; // ボタンを押せる様に変更
-                
-              }
-              clickCounter ++;
-              idousakiCounter ++;
-              button2 = document.getElementById('button-'+arr[2]);
-               motonoId2 = 'buttonz-'+arr[2];
-               moto2 = document.getElementById(motonoId2);
-
-               qq3 = document.getElementById('question-'+clickCounter);
-              q3motonoId = 'questionz-'+clickCounter;
-               q3moto = document.getElementById(q3motonoId);
-               let qquestionArea6 = document.getElementById('q-' + idousakiCounter);
-
-
-              if (moto2) {
-                  moto2.appendChild(button2); // ボタンを適切なエリアに移動
-                  q3moto.appendChild(qq3); // ボタンを適切なエリアに移動
- // mb-2クラスを元に戻す
- qq3.classList.add('mb-2');
- qquestionArea6.classList.add('hidden');
-                  button2.disabled = false; // ボタンを押せる様に変更
-                
-              }
-              clickCounter ++;
-              idousakiCounter ++;
-              button3 = document.getElementById('button-'+arr[3]);
-               motonoId3 = 'buttonz-'+arr[3];
-                moto3 = document.getElementById(motonoId3);
-
-               qq4 = document.getElementById('question-'+clickCounter);
-              q4motonoId = 'questionz-'+clickCounter;
-              q4moto = document.getElementById(q4motonoId);
-              let qquestionArea7 = document.getElementById('q-' + idousakiCounter);
-
-
-              if (moto3) {
-                  moto3.appendChild(button3); // ボタンを適切なエリアに移動
-                  q4moto.appendChild(qq4); // ボタンを適切なエリアに移動
-// mb-2クラスを元に戻す
-qq4.classList.add('mb-2');
-qquestionArea7.classList.add('hidden');
-                   button3.disabled = false; // ボタンを押せる様に変更
-                
-              }
-              clickCounter ++;
-              idousakiCounter ++;
-              button4 = document.getElementById('button-'+arr[4]);
-               motonoId4 = 'buttonz-'+arr[4];
-               moto4 = document.getElementById(motonoId4);
-
-               qq5 = document.getElementById('question-'+clickCounter);
-              q5motonoId = 'questionz-'+clickCounter;
-              q5moto = document.getElementById(q5motonoId);
-              let qquestionArea8 = document.getElementById('q-' + idousakiCounter);
-
-
-              if (moto4) {
-                  moto4.appendChild(button4); // ボタンを適切なエリアに移動
-                  q5moto.appendChild(qq5); // ボタンを適切なエリアに移動
-// mb-2クラスを元に戻す
-qq5.classList.add('mb-2');
-qquestionArea8.classList.add('hidden');
-                   button4.disabled = false; // ボタンを押せる様に変更
-                
-              }
-              clickCounter ++;
-              idousakiCounter ++;
-              button5 = document.getElementById('button-'+arr[5]);
-               motonoId5 = 'buttonz-'+arr[5];
-               moto5 = document.getElementById(motonoId5);
-
-               qq6 = document.getElementById('question-'+clickCounter);
-              q6motonoId = 'questionz-'+clickCounter;
-              q6moto = document.getElementById(q6motonoId);
-              let qquestionArea9 = document.getElementById('q-' + idousakiCounter);
-
-
-              if (moto5) {
-                  moto5.appendChild(button5); // ボタンを適切なエリアに移動
-                  q6moto.appendChild(qq6); // ボタンを適切なエリアに移動
-// mb-2クラスを元に戻す
-qq6.classList.add('mb-2');
-qquestionArea9.classList.add('hidden');
-                  button5.disabled = false; // ボタンを押せる様に変更
-                
-              }
-              clickCounter ++;
-              idousakiCounter ++;
-              button6 = document.getElementById('button-'+arr[6]);
-               motonoId6 = 'buttonz-'+arr[6];
-               moto6 = document.getElementById(motonoId6);
-
-               qq7 = document.getElementById('question-'+clickCounter);
-              q7motonoId = 'questionz-'+clickCounter;
-              q7moto = document.getElementById(q7motonoId);
-              let qquestionArea10 = document.getElementById('q-' + idousakiCounter);
-
-
-              if (moto6) {
-                  moto6.appendChild(button6); // ボタンを適切なエリアに移動
-                  q7moto.appendChild(qq7); // ボタンを適切なエリアに移動
-// mb-2クラスを元に戻す
-qq7.classList.add('mb-2');
-qquestionArea10.classList.add('hidden');
-                  button6.disabled = false; // ボタンを押せる様に変更
-                
-              }
-            
-              arr = [];    // すでに選んだ選択肢IDが入った配列をリセット
-              clickCounter = 1;
-                idousakiCounter = 4;
-
-              // 確定ボタンを無効化してスタイルをリセット
-              let confirmButton = document.getElementById('kakutei');
-              if (confirmButton) {
-                  confirmButton.disabled = true;//無効化する
-                  confirmButton.classList.remove('enabled');
-              }
-            
-              // すべての問題の強調を解除し、最初の問題を強調
-              highlightFirstQuestion();
-            
-            
-            function highlightFirstQuestion() {
-                      // すべての問題の強調を解除
-                      for (let i = 1; i <= 7; i++) {
-                          let question = document.getElementById('question-' + i);
-                              if (question) {
-                              question.classList.remove('highlighted-question');
-                              }
-                      }
-
-                        // 最初の問題を強調
-                       let firstQuestion = document.getElementById('question-1');
-                        if (firstQuestion) {
-                            firstQuestion.classList.add('highlighted-question');
-                        }
-            }
-        }
-
-        function startCountdown(duration, display) {
-    var timer = duration * 100, // 10秒を100で乗算してミリ秒に変換
-        seconds, milliseconds;
-        var countdownInterval = setInterval(function () {
-    milliseconds = parseInt((timer % 100) / 10, 10); // 0.1秒刻みのミリ秒を取得
-    seconds = parseInt(timer / 100, 10); // 秒
-
-        // 10秒未満になったら文字色を赤に変更
-        if (seconds < 10) {
-            display.style.color = 'red';
-        }
-
-    display.textContent = "　残" + seconds + "." + (milliseconds < 10 ? "" : "") + milliseconds;
-
-    if (--timer < 0) {
-            clearInterval(countdownInterval);
-            document.getElementsByName('timeout')[0].value = 'true'; // タイムアウトフラグを設定
-            document.getElementById('continuousCorrect').textContent = '0問連続'; // 連続正解数を0に更新
-            alert('時間切れ（連続正解ストップ）');
-        }
-    }, 10); // 10ミリ秒ごとに更新
-}
-
-    window.onload = function () {
-        var seconds = 30, // 30秒
-            display = document.querySelector('#countdown-timer');
-        startCountdown(seconds, display);
-            // 最初の問題を特定
-    let firstQuestion = document.getElementById('question-1');
-
-// 最初の問題が存在する場合、強調表示クラスを追加
-if (firstQuestion) {
-    firstQuestion.classList.add('highlighted-question');
-}
-    };
-    </script>
-
-    </div>
     </div>
 </body>
 

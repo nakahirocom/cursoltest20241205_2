@@ -21,6 +21,7 @@ class KaizenSeeder extends Seeder
             'kaizen' => '表現が曖昧 1問目をユーザー1がコメント',
             'status' => 1,
             'developer_comment' => '',
+            'developer_comment_update_time' => null,
 
             'created_at' => now(),
             'updated_at' => now()
@@ -31,6 +32,7 @@ class KaizenSeeder extends Seeder
             'kaizen' => '答えが違う 1問目をユーザー2がコメント',
             'status' => 2,
             'developer_comment' => '答えの違いを検証中',
+            'developer_comment_update_time' => now(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -40,6 +42,7 @@ class KaizenSeeder extends Seeder
             'kaizen' => '誤字がある。5問目をユーザー1がコメント',
             'status' => 1,
             'developer_comment' => '',
+            'developer_comment_update_time' => null,
 
             'created_at' => now(),
             'updated_at' => now()
@@ -51,6 +54,7 @@ class KaizenSeeder extends Seeder
 
             'status' => 1,
             'developer_comment' => '',
+            'developer_comment_update_time' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);

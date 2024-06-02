@@ -10,6 +10,7 @@ class AnswerResults extends Model
     use HasFactory;
 
     protected $table = 'answer_results';
+    protected $dateFormat = 'Y-m-d H:i:s.u';
     //    protected $fillable = 'user_id';
 
     public function user()
