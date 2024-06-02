@@ -7,6 +7,7 @@ use App\Http\Requests\Santaku\AnswerResultRequest;
 use App\Models\AnswerResults;
 use App\Models\Question;
 use App\Models\Mymemo;
+use Carbon\Carbon;
 
 use App\Models\User; // 必要に応じて適切な名前空間を使用してください
 
@@ -148,6 +149,14 @@ class AnswerController extends Controller
     {
         $maxQuestions = $request->input('maxQuestions');
 
+        //解き始めの日時をブラウザから取得する;
+        $solving = $request->input('start_solving_time');
+        //dump($solving);
+
+        //形式をtimeに合わせる
+        $startSolvingTime = Carbon::parse($solving)->format('Y-m-d H:i:s');
+        //dump($startSolvingTime);
+
         $uid = $request->userId();
         $user = User::find($uid); // ユーザーを取得
         //dump($user);
@@ -176,6 +185,8 @@ class AnswerController extends Controller
             $answer_results->user_id = $uid;
             $answer_results->question_id = $questionId;
             $answer_results->answered_question_id = $choiceId;
+            $answer_results->start_solving_time = $startSolvingTime;
+
             $answer_results->save();
 
             $allkaitousuu = AnswerResults::where('question_id', $questionId)->count();
