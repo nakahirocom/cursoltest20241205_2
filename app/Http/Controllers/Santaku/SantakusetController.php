@@ -8,8 +8,9 @@ use App\Models\LargeLabel;
 use App\Models\MiddleLabel;
 use App\Models\SmallLabel;
 use App\Models\Question;
-
+use App\Models\AnswerResults;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SantakusetController extends Controller
 {
@@ -21,20 +22,58 @@ class SantakusetController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         // 現在認証しているユーザーのIDを取得
         $id = auth()->id();
 
-        //　ログインしたユーザーの選んだジャンルを呼び出し、Eagerロードのためにwith([ミドルラベル、ラージラベル])してdbへのアクセスを少なくする
+        // 最新の解答結果を取得
+        $latestAnswerResults = AnswerResults::select('question_id', 'answered_question_id', 'created_at', 'start_solving_time')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->unique('question_id');
+
+        // 正解・不正解を判定し、平均回答時間を計算
+        $results = $latestAnswerResults->map(function ($answerResult) {
+            $question = Question::find($answerResult->question_id);
+            $isCorrect = $answerResult->answered_question_id == $question->id;
+            $timeDiffMilliseconds = Carbon::parse($answerResult->created_at)->diffInMilliseconds(Carbon::parse($answerResult->start_solving_time)); // ミリ秒単位で取得
+            $timeDiff = $timeDiffMilliseconds / 1000; // 秒単位に変換
+            return [
+                'small_label_id' => $question->small_label_id,
+                'is_correct' => $isCorrect,
+                'time_diff' => $timeDiff
+            ];
+        });
+
+        // small_label_id毎に数を集計し、平均回答時間を計算
+        $summary = $results->groupBy('small_label_id')->map(function ($group) {
+            $totalCorrect = $group->where('is_correct', true)->count();
+            $totalQuestions = $group->count();
+            $totalTimeDiff = $group->sum('time_diff');
+            $averageTime = $totalQuestions > 0 ? $totalTimeDiff / $totalQuestions : 0;
+            $accuracy = $totalQuestions > 0 ? $totalCorrect / $totalQuestions * 100 : 0;
+            return [
+                'correct' => $totalCorrect,
+                'incorrect' => $totalQuestions - $totalCorrect,
+                'total' => $totalQuestions,
+                'accuracy' => number_format($accuracy, 1), // 小数点以下1位まで表示
+                'average_time' => number_format($averageTime, 2) // 100分の1秒単位で表示
+            ];
+        });
+
+        // small_label_idの昇順に並べ替え
+        $sortedSummary = $summary->sortKeys();
+
+        // 並べ替え結果を表示
+        // dump($sortedSummary);
+
+        // ログインしたユーザーの選んだジャンルを呼び出し、Eagerロードのためにwith([ミドルラベル、ラージラベル])してdbへのアクセスを少なくする
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
-//dump($selectList);
+
         $smalelabelList = SmallLabel::all();
 
         // 両方のリストの数を比較
-        // $selectListと$smalelabelListの数が異なる、かつ$selectListにない$smalelabelListの要素を追加
         if ($selectList->count() != $smalelabelList->count()) {
             foreach ($smalelabelList as $item) {
-                // $selectListに$itemが含まれていないかチェック
                 if (!$selectList->contains('small_label_id', $item->id)) {
                     $selectNewList = new LabelStorages();
                     $selectNewList->user_id = $id; // UserIdを保存
@@ -72,32 +111,88 @@ class SantakusetController extends Controller
             $labelStorage->middle_question_count = $middleQuestionCounts->get($middleLabelId, 0);
             $labelStorage->small_question_count = $smallQuestionCounts->get($smallLabelId, 0);
         }
-        //dump($selectList);
 
         $largelabelList = LargeLabel::all();
         $middlelabelList = MiddleLabel::all();
 
-        // small_labelごとに関連するquestionの数を取得
-        // small_labelごとに関連するquestionの数を取得し、0を設定
-//        $questionCounts = SmallLabel::leftJoin('questions', 'small_labels.id', '=', 'questions.small_label_id')
-//            ->select('small_labels.id')
-//            ->selectRaw('COUNT(questions.id) as count')
-//            ->groupBy('small_labels.id')
-//            ->get()
-//            ->pluck('count', 'id');
-        //dd($questionCounts);
+        // 1週間以内に回答した問題の数をsmall_labelごとに集計
+        $oneWeekAgo = Carbon::now()->subWeek();
+        $answerCountsBySmallLabel = AnswerResults::where('answer_results.user_id', $id)
+            ->where('answer_results.created_at', '>=', $oneWeekAgo)
+            ->leftJoin('questions', 'answer_results.question_id', '=', 'questions.id')
+            ->leftJoin('small_labels', 'questions.small_label_id', '=', 'small_labels.id')
+            ->select('small_labels.id', 'small_labels.small_label')
+            ->selectRaw('COUNT(answer_results.id) as answer_count')
+            ->groupBy('small_labels.id', 'small_labels.small_label')
+            ->get();
 
-//        // smallLabelList に questionCounts の各ジャンルの問題数を加える
-//        foreach ($smalelabelList as $label) {
-//            $label->question_count = $questionCounts->get($label->id, 0);
-//        }
-//        
-//        // dump($smalelabelList); // 追加後の確認用
-//        dd($smalelabelList);
-//
+        // 全てのsmall_labelsを取得し、回答されていないものには0を設定
+        $allSmallLabels = SmallLabel::all();
+
+        // コレクションを作成し、0の回答数を設定
+        $answerCountsWithZeros = $allSmallLabels->map(function ($label) use ($answerCountsBySmallLabel) {
+            $answerResult = $answerCountsBySmallLabel->firstWhere('small_label', $label->small_label);
+            return (object) [
+                'id' => $label->id,
+                'small_label' => $label->small_label,
+                'answer_count' => $answerResult->answer_count ?? 0,
+            ];
+        });
+
+        // answerCountsWithZerosをIDベースの連想配列に変換
+        $answerCountsMap = $answerCountsWithZeros->keyBy('id');
+
+        // selectListをループして対応するanswer_countを追加
+        foreach ($selectList as $labelStorage) {
+            $smallLabelId = $labelStorage->small_label_id;
+
+            // answerCountsMapに対応するsmall_label_idが存在する場合、そのanswer_countを追加
+            if ($answerCountsMap->has($smallLabelId)) {
+                $labelStorage->answer_count = $answerCountsMap->get($smallLabelId)->answer_count;
+            } else {
+                $labelStorage->answer_count = 0; // デフォルト値を0に設定
+            }
+        }
+
+        // answer_countが20以上のselectListの要素の数をカウント
+        $countOfFiftyOrMore = $selectList->filter(function ($labelStorage) {
+            return $labelStorage->answer_count >= 20;
+        })->count();
+
+        // answer_countの要素の数の総数（small_labelの数＝ジャンルの数）をカウント
+        $countOf = $selectList->count();
+
+        foreach ($selectList as $labelStorage) {
+            $smallLabelId = $labelStorage->small_label_id;
+
+            // sortedSummaryに対応するsmall_label_idが存在する場合、その結果を追加
+            if ($sortedSummary->has($smallLabelId)) {
+                $summary = $sortedSummary->get($smallLabelId);
+                $labelStorage->correct = $summary['correct'];
+                $labelStorage->incorrect = $summary['incorrect'];
+                $labelStorage->total = $summary['total'];
+                $labelStorage->accuracy = $summary['accuracy'];
+                $labelStorage->average_time = $summary['average_time'];
+            } else {
+                // デフォルト値を設定
+                $labelStorage->correct = 0;
+                $labelStorage->incorrect = 0;
+                $labelStorage->total = 0;
+                $labelStorage->accuracy = '0.0';
+                $labelStorage->average_time = '0.00';
+            }
+        }
+
+        //dump($selectList);
+
+
         return view('santaku.santakuset')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
-            ->with('middlelabelList', $middlelabelList);
+            ->with('middlelabelList', $middlelabelList)
+            ->with('answerCountsBySmallLabel', $answerCountsWithZeros)
+            ->with('countOfFiftyOrMore', $countOfFiftyOrMore) // 50以上回答したジャンルの数をビューに渡す
+            ->with('countOf', $countOf); // ジャンル全体の数をビューに渡す
+
     }
 }
