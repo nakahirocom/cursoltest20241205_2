@@ -80,7 +80,9 @@
                     </div>
                 </div>
                 <!-- ユーザーリスト -->
-                @foreach ($users as $index => $user)
+                @if (isset($users))
+    @foreach ($users as $index => $user)
+        <!-- ユーザーリストの表示部分 -->
                 <div
                     class="{{ $user->id == $currentUser ? 'bg-blue-300 border-blue-500' : 'bg-white border-gray-200' }} flex items-center justify-between border-b p-1 mb-1">
                     <span class="text-xs">{{ $loop->iteration }}位　</span>
@@ -101,6 +103,9 @@
                         strtotime($user->best_record_at)) }}</div>
                 </div>
                 @endforeach
+                @else
+                    <p>選択されたジャンルには問題が未登録です</p>
+                @endif
             </div>
         </div>
 
