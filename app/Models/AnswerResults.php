@@ -11,6 +11,11 @@ class AnswerResults extends Model
 
     protected $table = 'answer_results';
     protected $dateFormat = 'Y-m-d H:i:s.u';
+    protected $dates = [
+        'start_solving_time',
+        'created_at',
+        'updated_at',
+    ];
     //    protected $fillable = 'user_id';
 
     public function user()
