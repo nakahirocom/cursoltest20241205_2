@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('answer_results', function (Blueprint $table) {
             // datetimeカラムをミリ秒単位で保存するように変更
-            $table->datetime('start_solving_time', 6)->nullable()->change();
-     });
+            $table->datetime('start_solving_time', 3)->nullable()->change();
+        });
     }
 
     /**

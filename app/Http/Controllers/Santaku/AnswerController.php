@@ -154,7 +154,7 @@ class AnswerController extends Controller
         //dump($solving);
 
         //形式をtimeに合わせる
-        $startSolvingTime = Carbon::parse($solving)->format('Y-m-d H:i:s');
+        $startSolvingTime = Carbon::parse($solving)->format('Y-m-d H:i:s.u');
         //dump($startSolvingTime);
 
         $uid = $request->userId();
