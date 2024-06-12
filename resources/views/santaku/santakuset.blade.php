@@ -53,6 +53,7 @@
                         <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}</div>
                         @foreach ($selectList as $user_select)
                         @if ($middlelabel->id == $user_select->smallLabel->middle_label_id)
+                        @if ($user_select->small_question_count > 1)
                         <div class="flex items-center mb-2">
                             <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
                             <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
@@ -62,21 +63,22 @@
                                 data-large-label-id="{{ $largelabel->id }}">
                             <label for="{{ $user_select->smallLabel->small_label }}"
                                 class="ml-2 text-sm text-gray-700 font-medium">
-                                {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
+                                {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count
+                                }}件)
                             </label>
                             @if ($user_select->answer_count >= 20)
                             🤩 今週{{ $user_select->answer_count }}題回答
                             <br>
                             <?php
-                            $accuracy = 0; // 初期化
-
-                            if ($user_select->small_question_count > 0) {
-                                $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
-                            }
-
-                            // 小数点以下1位まで表示するためのフォーマット
-                            $accuracyFormatted = number_format($accuracy, 1);
-                            ?>
+                                        $accuracy = 0; // 初期化
+                    
+                                        if ($user_select->small_question_count > 0) {
+                                            $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
+                                        }
+                    
+                                        // 小数点以下1位まで表示するためのフォーマット
+                                        $accuracyFormatted = number_format($accuracy, 1);
+                                        ?>
 
                             正解{{ $accuracyFormatted }}%
                             <br>平均{{ $user_select->average_time }}秒
@@ -84,21 +86,21 @@
                             今週{{ $user_select->answer_count }}題回答
                             <br>
                             <?php
-                            $accuracy = 0; // 初期化
-
-                            if ($user_select->small_question_count > 0) {
-                                $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
-                            }
-
-                            // 小数点以下1位まで表示するためのフォーマット
-                            $accuracyFormatted = number_format($accuracy, 1);
-                            ?>
+                                        $accuracy = 0; // 初期化
+                    
+                                        if ($user_select->small_question_count > 0) {
+                                            $accuracy = ($user_select->correct / $user_select->small_question_count) * 100;
+                                        }
+                    
+                                        // 小数点以下1位まで表示するためのフォーマット
+                                        $accuracyFormatted = number_format($accuracy, 1);
+                                        ?>
 
                             正解{{ $accuracyFormatted }}%
-                            <br>
-                            平均{{ $user_select->average_time }}秒
+                            <br>平均{{ $user_select->average_time }}秒
                             @endif
                         </div>
+                        @endif
                         @endif
                         @endforeach
                     </div>
