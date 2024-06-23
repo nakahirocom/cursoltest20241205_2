@@ -24,4 +24,11 @@ class SmallLabel extends Model
     {
         return $this->hasMany(LabelStorages::class);
     }
+
+    public function rank()
+    {
+        return $this->hasMany(Rank::class);
+    }
+
+
 }

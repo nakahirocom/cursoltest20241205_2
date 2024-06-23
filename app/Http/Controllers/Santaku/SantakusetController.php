@@ -27,6 +27,7 @@ class SantakusetController extends Controller
 
         // 最新の解答結果を取得
         $latestAnswerResults = AnswerResults::select('question_id', 'answered_question_id', 'created_at', 'start_solving_time')
+            ->where('user_id', $id) // ユーザーIDでフィルタリング
             ->orderBy('created_at', 'desc')
             ->get()
             ->unique('question_id');
@@ -130,15 +131,14 @@ class SantakusetController extends Controller
         $allSmallLabels = SmallLabel::all();
 
         // コレクションを作成し、0の回答数を設定
-        $answerCountsWithZeros = $allSmallLabels->map(function ($label) use ($answerCountsBySmallLabel) {
+        $answerCountsWithZeros = $allSmallLabels->map(function ($label) use ($answerCountsBySmallLabel, $id) {
             $answerResult = $answerCountsBySmallLabel->firstWhere('small_label', $label->small_label);
             return (object) [
                 'id' => $label->id,
                 'small_label' => $label->small_label,
-                'answer_count' => $answerResult->answer_count ?? 0,
+                'answer_count' => $answerResult ? $answerResult->answer_count : 0,
             ];
         });
-
         // answerCountsWithZerosをIDベースの連想配列に変換
         $answerCountsMap = $answerCountsWithZeros->keyBy('id');
 
@@ -183,7 +183,7 @@ class SantakusetController extends Controller
             }
         }
 
-        //dump($selectList);
+        dump($selectList);
 
 
         return view('santaku.santakuset')
