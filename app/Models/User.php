@@ -70,5 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Mymemo::class);
     }
+    public function rank()
+    {
+        return $this->hasMany(Rank::class);
+    }
 
 }

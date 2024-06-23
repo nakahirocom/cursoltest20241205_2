@@ -53,23 +53,22 @@
                         <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}</div>
                         @foreach ($selectList as $user_select)
                         @if ($middlelabel->id == $user_select->smallLabel->middle_label_id)
-                        @if ($user_select->small_question_count > 1)
-                        <div class="flex items-center mb-2">
-                            <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
-                            <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
-                                name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
-                                class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out"
-                                {{ $user_select['selected'] ? 'checked' : '' }}
-                                data-large-label-id="{{ $largelabel->id }}">
-                            <label for="{{ $user_select->smallLabel->small_label }}"
-                                class="ml-2 text-sm text-gray-700 font-medium">
-                                {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count
-                                }}件)
-                            </label>
-                            @if ($user_select->answer_count >= 20)
-                            🤩 今週{{ $user_select->answer_count }}題回答
-                            <br>
-                            <?php
+                            @if ($user_select->small_question_count > 1)
+                                <div class="flex items-center mb-2">
+                                    <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
+                                    <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
+                                           name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
+                                           class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out"
+                                           {{ $user_select['selected'] ? 'checked' : '' }}
+                                           data-large-label-id="{{ $largelabel->id }}">
+                                    <label for="{{ $user_select->smallLabel->small_label }}"
+                                           class="ml-2 text-sm text-gray-700 font-medium">
+                                        {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
+                                    </label>
+                                    @if ($user_select->answer_count >= 20)
+                                        🤩 今週{{ $user_select->answer_count }}題回答
+                                        <br>
+                                        <?php
                                         $accuracy = 0; // 初期化
                     
                                         if ($user_select->small_question_count > 0) {
@@ -79,13 +78,13 @@
                                         // 小数点以下1位まで表示するためのフォーマット
                                         $accuracyFormatted = number_format($accuracy, 1);
                                         ?>
-
-                            正解{{ $accuracyFormatted }}%
-                            <br>平均{{ $user_select->average_time }}秒
-                            @else
-                            今週{{ $user_select->answer_count }}題回答
-                            <br>
-                            <?php
+                    
+                                        正解{{ $accuracyFormatted }}%
+                                        <br>平均{{ $user_select->average_time }}秒
+                                    @else
+                                        今週{{ $user_select->answer_count }}題回答
+                                        <br>
+                                        <?php
                                         $accuracy = 0; // 初期化
                     
                                         if ($user_select->small_question_count > 0) {
@@ -95,15 +94,15 @@
                                         // 小数点以下1位まで表示するためのフォーマット
                                         $accuracyFormatted = number_format($accuracy, 1);
                                         ?>
-
-                            正解{{ $accuracyFormatted }}%
-                            <br>平均{{ $user_select->average_time }}秒
+                    
+                                        正解{{ $accuracyFormatted }}%
+                                        <br>平均{{ $user_select->average_time }}秒
+                                    @endif
+                                </div>
                             @endif
-                        </div>
                         @endif
-                        @endif
-                        @endforeach
-                    </div>
+                    @endforeach
+                                    </div>
                     @endif
                     @endforeach
                 </div>
