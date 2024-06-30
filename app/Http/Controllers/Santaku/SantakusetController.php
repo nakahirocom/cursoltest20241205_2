@@ -8,6 +8,7 @@ use App\Models\LargeLabel;
 use App\Models\MiddleLabel;
 use App\Models\SmallLabel;
 use App\Models\Question;
+use App\Models\Rank;
 use App\Models\AnswerResults;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -116,16 +117,26 @@ class SantakusetController extends Controller
         $largelabelList = LargeLabel::all();
         $middlelabelList = MiddleLabel::all();
 
-        // 1週間以内に回答した問題の数をsmall_labelごとに集計
-        $oneWeekAgo = Carbon::now()->subWeek();
-        $answerCountsBySmallLabel = AnswerResults::where('answer_results.user_id', $id)
-            ->where('answer_results.created_at', '>=', $oneWeekAgo)
-            ->leftJoin('questions', 'answer_results.question_id', '=', 'questions.id')
-            ->leftJoin('small_labels', 'questions.small_label_id', '=', 'small_labels.id')
-            ->select('small_labels.id', 'small_labels.small_label')
-            ->selectRaw('COUNT(answer_results.id) as answer_count')
-            ->groupBy('small_labels.id', 'small_labels.small_label')
-            ->get();
+// 最新のtimeカラムの作成日時を取得
+$latestRank = Rank::orderBy('created_at', 'desc')->first();
+
+// 取得する回答結果の範囲を決定
+if ($latestRank) {
+    $startDate = $latestRank->created_at;
+} else {
+    $startDate = Carbon::now()->subWeek();
+}
+
+// 最新のtimeカラムの作成日時以降のデータを取得
+$answerCountsBySmallLabel = AnswerResults::where('answer_results.user_id', $id)
+    ->where('answer_results.created_at', '>=', $startDate)
+    ->leftJoin('questions', 'answer_results.question_id', '=', 'questions.id')
+    ->leftJoin('small_labels', 'questions.small_label_id', '=', 'small_labels.id')
+    ->select('small_labels.id', 'small_labels.small_label')
+    ->selectRaw('COUNT(answer_results.id) as answer_count')
+    ->groupBy('small_labels.id', 'small_labels.small_label')
+    ->get();
+
 
         // 全てのsmall_labelsを取得し、回答されていないものには0を設定
         $allSmallLabels = SmallLabel::all();
@@ -156,7 +167,7 @@ class SantakusetController extends Controller
 
         // answer_countが20以上のselectListの要素の数をカウント
         $countOfFiftyOrMore = $selectList->filter(function ($labelStorage) {
-            return $labelStorage->answer_count >= 20;
+            return $labelStorage->answer_count >= 10;
         })->count();
 
         // answer_countの要素の数の総数（small_labelの数＝ジャンルの数）をカウント
@@ -183,7 +194,7 @@ class SantakusetController extends Controller
             }
         }
 
-        dump($selectList);
+//dump($selectList);
 
 
         return view('santaku.santakuset')
