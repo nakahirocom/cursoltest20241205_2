@@ -22,7 +22,7 @@
             class="border-2 border-gray-300 rounded-md p-4 shadow-lg bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100">
             <div class="flex justify-between items-center mb-4">
                 <div class="text-lg font-semibold">
-                    【{{ $countOf }}ジャンル中、星争奪バトル挑戦権🤩を得たのは{{ $countOfFiftyOrMore }}ジャンル】
+                    【{{ $countOf }}ジャンル中、星争奪バトル挑戦権🎴を得たのは{{ $countOfFiftyOrMore }}ジャンル】
                     <br>
                     10題以上回答したジャンルが対象
                     <br>
@@ -65,8 +65,8 @@
                                            class="ml-2 text-sm text-gray-700 font-medium">
                                         {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
                                     </label>
-                                    @if ($user_select->answer_count >= 20)
-                                        🤩 今週{{ $user_select->answer_count }}題回答
+                                    @if ($user_select->answer_count >= 10)
+                                    🎴 今週{{ $user_select->answer_count }}題回答
                                         <br>
                                         <?php
                                         $accuracy = 0; // 初期化

@@ -3,26 +3,17 @@
 namespace App\Http\Controllers\Santaku;
 
 use App\Http\Controllers\Controller;
-use App\Models\LabelStorages;
-use App\Models\LargeLabel;
-use App\Models\MiddleLabel;
-use App\Models\SmallLabel;
-use App\Models\Question;
-use App\Models\User;
 use App\Models\Rank;
 use App\Models\AnswerResults;
+use App\Models\Question;
+use App\Models\User;
+use App\Models\SmallLabel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class MasterController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(Request $request)
     {
         // 現在認証しているユーザーのIDを取得
@@ -30,9 +21,8 @@ class MasterController extends Controller
 
         // 最新のレコードを取得
         $latestRank = Rank::orderBy('time', 'desc')->first(['*', 'created_at']);
-dump($latestRank);
         $newTime = $latestRank ? $latestRank->time + 1 : 1;
-dump($newTime);
+
         // $newTimeが1(新規登録)ならAnswerResults::all()を走らせる
         if ($newTime == 1) {
             $latestAnswerResults = AnswerResults::all();
@@ -41,7 +31,6 @@ dump($newTime);
         else {
             $latestAnswerResults = AnswerResults::where('created_at', '>', $latestRank->created_at)->get();
         }
-dump($latestAnswerResults);
 
         // ユーザーごとにデータをフラット化して処理
         $results = $latestAnswerResults->groupBy('user_id')->map(function ($userResults) {
@@ -58,7 +47,7 @@ dump($latestAnswerResults);
                 ];
             });
         });
-dump($results);
+
         // ユーザーごとに small_label_id 毎の集計を行う
         $summary = $results->map(function ($userResults) {
             return $userResults->groupBy('small_label_id')->map(function ($group) {
@@ -69,7 +58,7 @@ dump($results);
                 $accuracy = $totalQuestions > 0 ? $totalCorrect / $totalQuestions * 100 : 0;
 
                 // 条件に合わない場合は null を返す
-                if ($totalQuestions <= 10) { // 条件を10問以上に変更
+                if ($totalQuestions < 10) { // 条件を10問以上に変更
                     return null;
                 }
 
@@ -82,12 +71,12 @@ dump($results);
                 ];
             })->filter(); // null の結果をフィルタリング
         });
-dump($summary);
+
         // small_label_id の昇順に並べ替え
         $sortedSummary = $summary->map(function ($userSummary) {
             return $userSummary->sortKeys();
         });
-dump($sortedSummary);
+
         // small_label_idごとのデータを取得
         $smallLabelSummary = [];
 
@@ -119,7 +108,7 @@ dump($sortedSummary);
             });
             return $results;
         }
-dump($smallLabelSummary);
+
         // 各small_label_idごとに並べ替える
         foreach ($smallLabelSummary as $smallLabelId => $userResults) {
             $smallLabelSummary[$smallLabelId] = sortResults($userResults);
@@ -143,7 +132,7 @@ dump($smallLabelSummary);
                 $rank++;
             }
         }
-dump($smallLabelSummary);
+
         // smallLabelSummaryをranksテーブルに新しいレコードとして保存
         foreach ($smallLabelSummary as $smallLabelId => $userResults) {
             foreach ($userResults as $userId => $data) {
@@ -174,28 +163,25 @@ dump($smallLabelSummary);
 
         // 最新のtimeカラムの値を取得
         $latestTime = Rank::max('time');
-dump($latestTime);
+
         // 最新のtimeカラムに基づいてレコードを取得
         $latestRanks = Rank::where('time', $latestTime)->get();
 
+        // ユーザー別にsmall_label_idの数を集計する
+        $userSmallLabelCounts = $latestRanks->groupBy('user_id')->map(function ($ranks) {
+            return $ranks->pluck('small_label_id')->unique()->count();
+        });
 
-dump($latestRanks);
-// ユーザー別にsmall_label_idの数を集計する
-$userSmallLabelCounts = $latestRanks->groupBy('user_id')->map(function ($ranks) {
-    return $ranks->pluck('small_label_id')->unique()->count();
-});
-dump($userSmallLabelCounts);
-// 最新のtimeカラムの前の値を取得
+        // 最新のtimeカラムの前の値を取得
         $previousTime = Rank::where('time', '<', $latestTime)->max('time');
-dump($previousTime);
+
         // 前回のtimeカラムに基づいてレコードを取得
         $previousRanks = Rank::where('time', $previousTime)->get();
-dump($previousRanks);
-// ユーザー別にsmall_label_idの数を集計する
-$previousUserSmallLabelCounts = $previousRanks->groupBy('user_id')->map(function ($ranks) {
-    return $ranks->pluck('small_label_id')->unique()->count();
-});
-dump($previousUserSmallLabelCounts);
+
+        // ユーザー別にsmall_label_idの数を集計する
+        $previousUserSmallLabelCounts = $previousRanks->groupBy('user_id')->map(function ($ranks) {
+            return $ranks->pluck('small_label_id')->unique()->count();
+        });
 
         // 点数を集計する関数
         function calculateScores($ranks, $rankPoints)
@@ -227,122 +213,113 @@ dump($previousUserSmallLabelCounts);
         arsort($latestUserScores);
         arsort($previousUserScores);
 
-dump($latestUserScores);
-dump($previousUserScores);
+        function calculateAverageRanks($ranks)
+        {
+            $userRanks = [];
 
-function calculateAverageRanks($ranks)
-{
-    $userRanks = [];
+            // 各ユーザーの各ジャンルにおける順位を集計
+            foreach ($ranks as $rank) {
+                $userId = $rank->user_id;
+                $smallLabelId = $rank->small_label_id;
 
-    // 各ユーザーの各ジャンルにおける順位を集計
-    foreach ($ranks as $rank) {
-        $userId = $rank->user_id;
-        $smallLabelId = $rank->small_label_id;
+                if (!isset($userRanks[$userId])) {
+                    $userRanks[$userId] = [];
+                }
+                if (!isset($userRanks[$userId][$smallLabelId])) {
+                    $userRanks[$userId][$smallLabelId] = [];
+                }
 
-        if (!isset($userRanks[$userId])) {
-            $userRanks[$userId] = [];
+                $userRanks[$userId][$smallLabelId][] = $rank->rank;
+            }
+
+            // 各ユーザーの平均順位を計算し、ジャンル数も追加
+            $userAverageRanks = [];
+            foreach ($userRanks as $userId => $labels) {
+                $totalRanks = 0;
+                $totalCount = 0;
+                $labelCount = count($labels); // ジャンル数を計算
+
+                foreach ($labels as $smallLabelId => $ranks) {
+                    $totalRanks += array_sum($ranks);
+                    $totalCount += count($ranks);
+                }
+
+                $averageRank = $totalCount > 0 ? $totalRanks / $totalCount : 0;
+                $userAverageRanks[$userId] = [
+                    'average_rank' => number_format($averageRank, 2),
+                    'label_count' => $labelCount // ジャンル数を追加
+                ];
+            }
+
+            return $userAverageRanks;
         }
-        if (!isset($userRanks[$userId][$smallLabelId])) {
-            $userRanks[$userId][$smallLabelId] = [];
-        }
-
-        $userRanks[$userId][$smallLabelId][] = $rank->rank;
-    }
-
-    // 各ユーザーの平均順位を計算し、ジャンル数も追加
-    $userAverageRanks = [];
-    foreach ($userRanks as $userId => $labels) {
-        $totalRanks = 0;
-        $totalCount = 0;
-        $labelCount = count($labels); // ジャンル数を計算
-
-        foreach ($labels as $smallLabelId => $ranks) {
-            $totalRanks += array_sum($ranks);
-            $totalCount += count($ranks);
-        }
-
-        $averageRank = $totalCount > 0 ? $totalRanks / $totalCount : 0;
-        $userAverageRanks[$userId] = [
-            'average_rank' => number_format($averageRank, 2),
-            'label_count' => $labelCount // ジャンル数を追加
-        ];
-    }
-
-    return $userAverageRanks;
-}
-
-
 
         // 直近の保存分の平均順位を計算
         $latestUserAverageRanks = calculateAverageRanks($latestRanks);
-dump($latestUserAverageRanks);
+
         // その前の保存分の平均順位を計算
         $previousUserAverageRanks = calculateAverageRanks($previousRanks);
-dump($previousUserAverageRanks);
 
-// ユーザー情報を点数と平均順位、ジャンル数を含めて取得する関数
-function getUserNamesWithScoresAndRanksAndLabels($userScores, $latestUserAverageRanks, $previousUserAverageRanks)
-{
-    // ユーザーIDに基づいてユーザー情報を取得し、点数、平均順位、ジャンル数を追加
-    return User::whereIn('id', array_keys($userScores))->get()->mapWithKeys(function ($user) use ($userScores, $latestUserAverageRanks, $previousUserAverageRanks) {
-        // 直近のジャンル数
-        $latestLabelCount = isset($latestUserAverageRanks[$user->id]['label_count']) ? $latestUserAverageRanks[$user->id]['label_count'] : 0;
-        // 直近の1つ前のジャンル数
-        $previousLabelCount = isset($previousUserAverageRanks[$user->id]['label_count']) ? $previousUserAverageRanks[$user->id]['label_count'] : 0;
+        // ユーザー情報を点数と平均順位、ジャンル数を含めて取得する関数
+        function getUserNamesWithScoresAndRanksAndLabels($userScores, $latestUserAverageRanks, $previousUserAverageRanks)
+        {
+            // ユーザーIDに基づいてユーザー情報を取得し、点数、平均順位、ジャンル数を追加
+            return User::whereIn('id', array_keys($userScores))->get()->mapWithKeys(function ($user) use ($userScores, $latestUserAverageRanks, $previousUserAverageRanks) {
+                // 直近のジャンル数
+                $latestLabelCount = isset($latestUserAverageRanks[$user->id]['label_count']) ? $latestUserAverageRanks[$user->id]['label_count'] : 0;
+                // 直近の1つ前のジャンル数
+                $previousLabelCount = isset($previousUserAverageRanks[$user->id]['label_count']) ? $previousUserAverageRanks[$user->id]['label_count'] : 0;
 
-        return [$user->id => [
-            'name' => $user->name,
-            'score' => $userScores[$user->id],
-            'average_rank' => $latestUserAverageRanks[$user->id]['average_rank'] ?? null,
-            'label_count' => $latestLabelCount, // 直近のジャンル数を追加
-            'previous_label_count' => $previousLabelCount // 直近の1つ前のジャンル数を追加
-        ]];
-    // 点数の多い順に並べ替える
-    })->sortByDesc('score');
-}
+                return [$user->id => [
+                    'name' => $user->name,
+                    'score' => $userScores[$user->id],
+                    'average_rank' => $latestUserAverageRanks[$user->id]['average_rank'] ?? null,
+                    'label_count' => $latestLabelCount, // 直近のジャンル数を追加
+                    'previous_label_count' => $previousLabelCount // 直近の1つ前のジャンル数を追加
+                ]];
+            // 点数の多い順に並べ替える
+            })->sortByDesc('score');
+        }
 
-// 直近の保存分のユーザー情報と点数、平均順位、ジャンル数を取得
-$latestUserNames = getUserNamesWithScoresAndRanksAndLabels($latestUserScores, $latestUserAverageRanks, $previousUserAverageRanks);
-dump($latestUserNames);
-// 順位を含めたデータを作成
-$rankedLatestUserNames = $latestUserNames->map(function ($user, $userId) use ($latestUserNames) {
-    // 現在の順位を計算
-    $rank = array_search($userId, array_keys($latestUserNames->toArray())) + 1;
-    $user['rank'] = $rank;
-    return $user;
-});
-dump($rankedLatestUserNames);
-// その前の保存分のユーザー情報と点数、平均順位、ジャンル数を取得
-$previousUserNames = getUserNamesWithScoresAndRanksAndLabels($previousUserScores, $previousUserAverageRanks, []);
-dump($previousUserNames);
-// 順位を含めたデータを作成
-$rankedPreviousUserNames = $previousUserNames->map(function ($user, $userId) use ($previousUserNames) {
-    // 現在の順位を計算
-    $rank = array_search($userId, array_keys($previousUserNames->toArray())) + 1;
-    $user['rank'] = $rank;
-    return $user;
-});
-dump($rankedPreviousUserNames);
+        // 直近の保存分のユーザー情報と点数、平均順位、ジャンル数を取得
+        $latestUserNames = getUserNamesWithScoresAndRanksAndLabels($latestUserScores, $latestUserAverageRanks, $previousUserAverageRanks);
 
-// 共通するユーザーがいる場合は $rankedPreviousUserNames の情報を $rankedLatestUserNames に含める
-$rankedLatestUserNames = $rankedLatestUserNames->map(function ($user, $userId) use ($rankedPreviousUserNames) {
-    // $rankedPreviousUserNames に共通するユーザーがいる場合
-    if (isset($rankedPreviousUserNames[$userId])) {
-        $user['previous_score'] = $rankedPreviousUserNames[$userId]['score'];
-        $user['previous_average_rank'] = $rankedPreviousUserNames[$userId]['average_rank'];
-        $user['previous_rank'] = $rankedPreviousUserNames[$userId]['rank'];
-        $user['previous_label_count'] = $rankedPreviousUserNames[$userId]['label_count']; // 前回のジャンル数を追加
-    } else {
-        // 共通するユーザーがいない場合
-        $user['previous_score'] = null;
-        $user['previous_average_rank'] = null;
-        $user['previous_rank'] = null;
-        $user['previous_label_count'] = null; // 前回のジャンル数がない場合
-    }
-    return $user;
-});
+        // 順位を含めたデータを作成
+        $rankedLatestUserNames = $latestUserNames->map(function ($user, $userId) use ($latestUserNames) {
+            // 現在の順位を計算
+            $rank = array_search($userId, array_keys($latestUserNames->toArray())) + 1;
+            $user['rank'] = $rank;
+            return $user;
+        });
 
-dump($rankedLatestUserNames);
+        // その前の保存分のユーザー情報と点数、平均順位、ジャンル数を取得
+        $previousUserNames = getUserNamesWithScoresAndRanksAndLabels($previousUserScores, $previousUserAverageRanks, []);
+
+        // 順位を含めたデータを作成
+        $rankedPreviousUserNames = $previousUserNames->map(function ($user, $userId) use ($previousUserNames) {
+            // 現在の順位を計算
+            $rank = array_search($userId, array_keys($previousUserNames->toArray())) + 1;
+            $user['rank'] = $rank;
+            return $user;
+        });
+
+        // 共通するユーザーがいる場合は $rankedPreviousUserNames の情報を $rankedLatestUserNames に含める
+        $rankedLatestUserNames = $rankedLatestUserNames->map(function ($user, $userId) use ($rankedPreviousUserNames) {
+            // $rankedPreviousUserNames に共通するユーザーがいる場合
+            if (isset($rankedPreviousUserNames[$userId])) {
+                $user['previous_score'] = $rankedPreviousUserNames[$userId]['score'];
+                $user['previous_average_rank'] = $rankedPreviousUserNames[$userId]['average_rank'];
+                $user['previous_rank'] = $rankedPreviousUserNames[$userId]['rank'];
+                $user['previous_label_count'] = $rankedPreviousUserNames[$userId]['label_count']; // 前回のジャンル数を追加
+            } else {
+                // 共通するユーザーがいない場合
+                $user['previous_score'] = null;
+                $user['previous_average_rank'] = null;
+                $user['previous_rank'] = null;
+                $user['previous_label_count'] = null; // 前回のジャンル数がない場合
+            }
+            return $user;
+        });
 
         // ChatWork APIクライアントの作成
         $client = new Client([
@@ -350,102 +327,77 @@ dump($rankedLatestUserNames);
                 'X-ChatWorkToken' => 'f7f4028e3bfd055ef99673db753c6102' // トークン
             ]
         ]);
+        $users = User::all();
 
-// 各ユーザーに個別の順位情報を含むメッセージを作成
-foreach ($rankedLatestUserNames as $userId => $user) {
-    $messageBody = "[info]{$user['name']}さん三択アプリ 今週ランキング\n";
-    $messageBody .= "http://43.206.122.93/login\n";
-    $messageBody .= "⭐️はｼﾞｬﾝﾙ毎正解率。同率は速さ優劣\n1位6個 2〜5位4.3.2.1個 ⭐️獲得戦[hr]\n";
-
-    $messageBody .= "▶︎順位⭐️獲得/ジャンル数と平均順位\n";
-
-    foreach ($rankedLatestUserNames as $key => $user) {
-        // 現在の順位を計算
-        $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
-    
-        // 前回の順位を取得
-        $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
-
-        // 通知されるユーザーと同じかをチェックして強調表示
-        if ($key == $userId) {
-            $messageBody .= "{$rank}位⭐️{$user['score']}個 {$user['label_count']}つ平均{$user['average_rank']}位 (dance) {$user['name']}さん\n";
-        } else {
-            $messageBody .= "{$rank}位⭐️{$user['score']}個 {$user['label_count']}つ平均{$user['average_rank']}位\n";
-        }
-    }
-    $messageBody .= "\n[hr]▶︎あなたの順位別一覧 10問以上条件\n";
-
-        // 各ユーザーのトップラベルを取得
-        $topSmallLabels = Rank::where('time', $latestTime)
-            ->where('user_id', $userId)
-            ->where('rank', '<=', 5)
-            ->orderBy('rank', 'asc') // 1位から表示するように昇順で並び替える
-            ->get(['small_label_id', 'small_label', 'rank'])
-            ->toArray();
-        
-        // 各ランクの small_label を集計
-        $rankLabels = [];
-        foreach ($topSmallLabels as $label) {
-            $rank = $label['rank'];
-            if (!isset($rankLabels[$rank])) {
-                $rankLabels[$rank] = [];
+        foreach ($users as $user) {
+            $chatworkRoomId = $user->chatwork_room_id;
+            if (!$chatworkRoomId) {
+                continue; // このユーザーをスキップ
             }
-            $rankLabels[$rank][] = $label['small_label'];
-        }
         
-        // 各ランクの small_label を横並びで表示
-        foreach ($rankLabels as $rank => $labels) {
-            $messageBody .= "{$rank}位: " . implode('.', $labels);
-        }
+            $userId = $user->id;
+            $messageBody = "[info]⭐️獲得結果{$user['name']} \n";
+            $messageBody .= "http://43.206.122.93/login\n";
+            $messageBody .= "ｼﾞｬﾝﾙ毎正解率。同率は速さ優劣\n1位6個 2〜5位4.3.2.1個 [hr]\n";
+            $messageBody .= "▶︎順位 獲得/ジャンル数と平均順位\n";
         
-
-    
-    $messageBodya = "先週ランキング(参考)\n";
-
-    foreach ($rankedLatestUserNames as $key => $user) {
-        // 現在の順位を計算
-        $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
-    
-        // 前回の順位を取得
-        $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
-
-        // 通知されるユーザーと同じかをチェックして強調表示
-        if ($key == $userId) {
-            $messageBodya .= "{$previousRank}位⭐️{$user['previous_score']}個  {$user['previous_label_count']}つ平均{$user['previous_average_rank']}位\n";
-        } else {
-            $messageBodya .= "{$previousRank}位⭐️{$user['previous_score']}個  {$user['previous_label_count']}つ平均{$user['previous_average_rank']}位\n";
+            foreach ($rankedLatestUserNames as $key => $rankedUser) {
+                $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
+                $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
+        
+                if ($key == $userId) {
+                    $messageBody .= "{$rank}位 {$rankedUser['score']}個 {$rankedUser['label_count']}つ平均{$rankedUser['average_rank']}位 (dance) {$rankedUser['name']}さん\n";
+                } else {
+                    $messageBody .= "{$rank}位 {$rankedUser['score']}個 {$rankedUser['label_count']}つ平均{$rankedUser['average_rank']}位\n";
+                }
+            }
+        
+            $messageBody .= "\n[hr]▶︎あなたの順位別一覧 10問以上条件\n";
+        
+            $topSmallLabels = Rank::where('time', $latestTime)
+                ->where('user_id', $userId)
+                ->where('rank', '<=', 5)
+                ->orderBy('rank', 'asc')
+                ->get(['small_label_id', 'small_label', 'rank'])
+                ->toArray();
+        
+            $rankLabels = [];
+            foreach ($topSmallLabels as $label) {
+                $rank = $label['rank'];
+                if (!isset($rankLabels[$rank])) {
+                    $rankLabels[$rank] = [];
+                }
+                $rankLabels[$rank][] = $label['small_label'];
+            }
+        
+            foreach ($rankLabels as $rank => $labels) {
+                $messageBody .= "{$rank}位: " . implode('.', $labels) . "\n";
+            }
+        
+            $messageBody .= "[/info]";
+        
+            $messageBodya = "先週ランキング(参考)\n";
+            foreach ($rankedLatestUserNames as $key => $rankedUser) {
+                $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
+                $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
+        
+                if ($key == $userId) {
+                    $messageBodya .= "{$previousRank}位 {$rankedUser['previous_score']}個  {$rankedUser['previous_label_count']}つ平均{$rankedUser['previous_average_rank']}位\n";
+                } else {
+                    $messageBodya .= "{$previousRank}位 {$rankedUser['previous_score']}個  {$rankedUser['previous_label_count']}つ平均{$rankedUser['previous_average_rank']}位\n";
+                }
+            }
+        
+            $messageBody .= "\n" . $messageBodya;
+        
+            // メッセージをChatWorkに送信
+            $client->post("https://api.chatwork.com/v2/rooms/{$chatworkRoomId}/messages", [
+                'form_params' => [
+                    'body' => $messageBody
+                ]
+            ]);
         }
-
-
-    }
-
-    $messageBody .= "[/info]\n";
-
-    // 個別のユーザー情報を追加
-    $individualRank = array_search($userId, array_keys($rankedLatestUserNames->toArray())) + 1;
-    $individualPreviousRank = $rankedPreviousUserNames[$userId]['rank'] ?? 'ランク外';
-
-
-
-    // 全体メッセージと個別メッセージを結合
-    $messageBody .= $messageBodya;
-
-    // 各ユーザーごとにメッセージを送信
-    $chatworkRoomId = User::find($userId)->chatwork_room_id;
-
-    if (!$chatworkRoomId) {
-        // ChatWork Room IDが見つからない場合の警告を出力
-        echo "Warning: ChatWork Room ID is missing for user ID: {$userId}\n";
-    } else {
-        // ChatWork APIを使用してメッセージを送信
-        $client->post("https://api.chatwork.com/v2/rooms/{$chatworkRoomId}/messages", [
-            'form_params' => [
-                'body' => $messageBody
-            ]
-        ]);
-    }
-}
-ddd($user);
+dd($user);
         return view('santaku.master')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
@@ -454,3 +406,4 @@ ddd($user);
             ->with('currentUser', $id);
     }
 }
+
