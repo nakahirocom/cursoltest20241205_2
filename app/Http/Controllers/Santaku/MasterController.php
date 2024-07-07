@@ -26,9 +26,8 @@ class MasterController extends Controller
         // $newTimeが1(新規登録)ならAnswerResults::all()を走らせる
         if ($newTime == 1) {
             $latestAnswerResults = AnswerResults::all();
-        }
-        // $newTimeが1(新規登録)以外なら前回と今回の間のAnswerResultsを集計する
-        else {
+        } else {
+            // $newTimeが1(新規登録)以外なら前回と今回の間のAnswerResultsを集計する
             $latestAnswerResults = AnswerResults::where('created_at', '>', $latestRank->created_at)->get();
         }
 
@@ -125,7 +124,7 @@ class MasterController extends Controller
             $rank = 1;
             foreach ($userResults as $userId => $data) {
                 $smallLabelSummary[$smallLabelId][$userId]['rank'] = $rank;
-                $smallLabelSummary[$smallLabelId][$userId]['user_id'] = $userId;
+                $smallLabelSummary[$smallLabelId][$userId]['user_id'] = $userId;  // user_idを追加
                 $smallLabelSummary[$smallLabelId][$userId]['user_name'] = $users[$userId];
                 $smallLabelSummary[$smallLabelId][$userId]['small_label_id'] = $smallLabelId;
                 $smallLabelSummary[$smallLabelId][$userId]['small_label'] = $smallLabels[$smallLabelId];
@@ -172,16 +171,22 @@ class MasterController extends Controller
             return $ranks->pluck('small_label_id')->unique()->count();
         });
 
-        // 最新のtimeカラムの前の値を取得
-        $previousTime = Rank::where('time', '<', $latestTime)->max('time');
+        // $newTimeが1(新規登録)ならprevious関連の計算をスキップ
+        if ($newTime == 1) {
+            $previousUserSmallLabelCounts = collect(); // 空のコレクションを作成しておく
+            $previousRanks = collect();
+        } else {
+            // 最新のtimeカラムの前の値を取得
+            $previousTime = Rank::where('time', '<', $latestTime)->max('time');
 
-        // 前回のtimeカラムに基づいてレコードを取得
-        $previousRanks = Rank::where('time', $previousTime)->get();
+            // 前回のtimeカラムに基づいてレコードを取得
+            $previousRanks = Rank::where('time', $previousTime)->get();
 
-        // ユーザー別にsmall_label_idの数を集計する
-        $previousUserSmallLabelCounts = $previousRanks->groupBy('user_id')->map(function ($ranks) {
-            return $ranks->pluck('small_label_id')->unique()->count();
-        });
+            // ユーザー別にsmall_label_idの数を集計する
+            $previousUserSmallLabelCounts = $previousRanks->groupBy('user_id')->map(function ($ranks) {
+                return $ranks->pluck('small_label_id')->unique()->count();
+            });
+        }
 
         // 点数を集計する関数
         function calculateScores($ranks, $rankPoints)
@@ -213,6 +218,7 @@ class MasterController extends Controller
         arsort($latestUserScores);
         arsort($previousUserScores);
 
+        // 各ユーザーのジャンルごとの平均順位を計算する関数
         function calculateAverageRanks($ranks)
         {
             $userRanks = [];
@@ -271,6 +277,7 @@ class MasterController extends Controller
                 $previousLabelCount = isset($previousUserAverageRanks[$user->id]['label_count']) ? $previousUserAverageRanks[$user->id]['label_count'] : 0;
 
                 return [$user->id => [
+                    'user_id' => $user->id, // user_idを追加
                     'name' => $user->name,
                     'score' => $userScores[$user->id],
                     'average_rank' => $latestUserAverageRanks[$user->id]['average_rank'] ?? null,
@@ -327,6 +334,8 @@ class MasterController extends Controller
                 'X-ChatWorkToken' => 'f7f4028e3bfd055ef99673db753c6102' // トークン
             ]
         ]);
+
+        // すべてのユーザーを取得
         $users = User::all();
 
         foreach ($users as $user) {
@@ -334,62 +343,69 @@ class MasterController extends Controller
             if (!$chatworkRoomId) {
                 continue; // このユーザーをスキップ
             }
-        
+
+            // 通知メッセージの作成
             $userId = $user->id;
-            $messageBody = "[info]⭐️獲得結果{$user['name']} \n";
-            $messageBody .= "http://43.206.122.93/login\n";
-            $messageBody .= "ｼﾞｬﾝﾙ毎正解率。同率は速さ優劣\n1位6個 2〜5位4.3.2.1個 [hr]\n";
-            $messageBody .= "▶︎順位 獲得/ジャンル数と平均順位\n";
+            $messageBody = "[info]⭐️獲得TOP3 と {$user['name']}さん 今週結果\n";
+            $messageBody .= "http://43.206.122.93/login[hr]";
+            $messageBody .= "▶︎獲得/挑戦権🎴枚数と平均順位\n";
+
         
-            foreach ($rankedLatestUserNames as $key => $rankedUser) {
-                $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
-                $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
-        
-                if ($key == $userId) {
+            // 上位5位までの情報を表示
+            $top5Users = $rankedLatestUserNames->take(3);
+            foreach ($top5Users as $rankedUser) {
+                $rank = $rankedUser['rank'];
+                if ($rankedUser['user_id'] == $userId) {
                     $messageBody .= "{$rank}位 {$rankedUser['score']}個 {$rankedUser['label_count']}つ平均{$rankedUser['average_rank']}位 (dance) {$rankedUser['name']}さん\n";
                 } else {
-                    $messageBody .= "{$rank}位 {$rankedUser['score']}個 {$rankedUser['label_count']}つ平均{$rankedUser['average_rank']}位\n";
+                    $messageBody .= "{$rank}位 {$rankedUser['score']}個 {$rankedUser['label_count']}つ平均{$rankedUser['average_rank']}位 {$rankedUser['name']}さん\n";
                 }
             }
-        
-            $messageBody .= "\n[hr]▶︎あなたの順位別一覧 10問以上条件\n";
-        
-            $topSmallLabels = Rank::where('time', $latestTime)
-                ->where('user_id', $userId)
-                ->where('rank', '<=', 5)
-                ->orderBy('rank', 'asc')
-                ->get(['small_label_id', 'small_label', 'rank'])
-                ->toArray();
-        
-            $rankLabels = [];
-            foreach ($topSmallLabels as $label) {
-                $rank = $label['rank'];
-                if (!isset($rankLabels[$rank])) {
-                    $rankLabels[$rank] = [];
+
+            // 通知を受けるユーザーが3位以内に含まれない場合
+            if (!$top5Users->contains('user_id', $userId)) {
+                // そのユーザーの情報を追加
+                $userRankedInfo = $rankedLatestUserNames->firstWhere('user_id', $userId);
+                if ($userRankedInfo) {
+                    $rank = $userRankedInfo['rank'];
+                    $messageBody .= "\nTOP3ならず残念";
+                    $messageBody .= "\n{$rank}位 {$userRankedInfo['score']}個 {$userRankedInfo['label_count']}つ平均{$userRankedInfo['average_rank']}位 (emo) {$rankedUser['name']}さん";
+                } else {
+                    $messageBody .= "\n今回、挑戦権🎴0枚であなたは圏外(puke)\n1ｼﾞｬﾝﾙ10問解いて挑戦権🎴を獲得しよう";
                 }
-                $rankLabels[$rank][] = $label['small_label'];
             }
-        
-            foreach ($rankLabels as $rank => $labels) {
-                $messageBody .= "{$rank}位: " . implode('.', $labels) . "\n";
+
+            // ユーザーのスコアが1以上の場合の処理
+            if (isset($latestUserScores[$userId]) && $latestUserScores[$userId] >= 1) {
+                $messageBody .= "\n[hr]▶︎あなたの挑戦権🎴順位別ジャンル\n";
+            
+                $topSmallLabels = Rank::where('time', $latestTime)
+                    ->where('user_id', $userId)
+                    ->where('rank', '<=', 5)
+                    ->orderBy('rank', 'asc')
+                    ->get(['small_label_id', 'small_label', 'rank'])
+                    ->toArray();
+            
+                $rankLabels = [];
+                foreach ($topSmallLabels as $label) {
+                    $rank = $label['rank'];
+                    if (!isset($rankLabels[$rank])) {
+                        $rankLabels[$rank] = [];
+                    }
+                    $rankLabels[$rank][] = $label['small_label'];
+                }
+            
+                foreach ($rankLabels as $rank => $labels) {
+                    $messageBody .= "{$rank}位: " . implode('.', $labels) . "\n";
+                }
             }
         
             $messageBody .= "[/info]";
-        
-            $messageBodya = "先週ランキング(参考)\n";
-            foreach ($rankedLatestUserNames as $key => $rankedUser) {
-                $rank = array_search($key, array_keys($rankedLatestUserNames->toArray())) + 1;
-                $previousRank = $rankedPreviousUserNames[$key]['rank'] ?? 'ランク外';
-        
-                if ($key == $userId) {
-                    $messageBodya .= "{$previousRank}位 {$rankedUser['previous_score']}個  {$rankedUser['previous_label_count']}つ平均{$rankedUser['previous_average_rank']}位\n";
-                } else {
-                    $messageBodya .= "{$previousRank}位 {$rankedUser['previous_score']}個  {$rankedUser['previous_label_count']}つ平均{$rankedUser['previous_average_rank']}位\n";
-                }
-            }
-        
-            $messageBody .= "\n" . $messageBodya;
-        
+            $messageBody .= "[ルール]\n・1つのｼﾞｬﾝﾙ毎に5位までスター獲得\n   (1位=6 2位=4 3位=3 4位=2 5位=1)\n・ｼﾞｬﾝﾙ1つ10問回答で挑戦権🎴を獲得\n・ｼﾞｬﾝﾙ各問直前正解率。同率は速さで優劣\n・ 毎週日曜24時に⭐️獲得戦はリセットされる";
+
+
+            $messageBody .= "\n";
+
             // メッセージをChatWorkに送信
             $client->post("https://api.chatwork.com/v2/rooms/{$chatworkRoomId}/messages", [
                 'form_params' => [
@@ -397,7 +413,7 @@ class MasterController extends Controller
                 ]
             ]);
         }
-dd($user);
+dd($users);
         return view('santaku.master')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
@@ -406,4 +422,3 @@ dd($user);
             ->with('currentUser', $id);
     }
 }
-
