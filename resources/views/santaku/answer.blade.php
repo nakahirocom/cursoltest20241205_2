@@ -384,7 +384,7 @@
                     if (index >= answers.length - 1) {
                         setTimeout(allAnswersDisplayed, 1);
                     } else {
-                        setTimeout(function() { showAnswer(index + 1); }, 1000);
+                        setTimeout(function() { showAnswer(index + 1); }, 500);
                     }
                 }
             }
