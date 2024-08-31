@@ -42,29 +42,36 @@
 
         <div class="mx-auto my-4">
             <ul>
+
                 <li class="mb-3">
                     <a href="/santakuset"
                         class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">0.出題ジャンルの選択を行う</a>
                 </li>
+
+                <li class="mb-3">
+                    <a href="/questionrandom"
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">1.選択ジャンル問題をランダムで解く</a>
+                </li>
+
                 <li class="mb-3">
                     <a href="/question"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">1.選んだジャンルを解きまくる</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.選択ジャンル単位で問題を解く</a>
                 </li>
                 <li class="mb-3">
                     <a href="/incorrect"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.最近間違えた問題を確認する</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">3.間違えた問題を直近から100問まで確認</a>
                 </li>
                 <li class="mb-3">
                     <a href="/new"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">3.新しく問題を登録する</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">4.新しく問題を登録する</a>
                 </li>
                 <li class="mb-3">
                     <a href="/mymemolist"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">4.私のメモ一覧を見る</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">5.私のメモ一覧を見る</a>
                 </li>
                 <li class="mb-3">
                     <a href="/kaizenlist"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">5.私の要望一覧を見る</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">6.私の要望一覧を見る</a>
                 </li>
 
             </ul>
