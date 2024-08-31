@@ -32,7 +32,7 @@
     @endauth
 
     <div class="container text-left relative">
-        <form action="{{ route('answer.index') }}" method="post" id="kotae"
+        <form action="{{ route('answerrandom.index') }}" method="post" id="kotae"
             class="border-2 border-gray-300 rounded-md p-0 shadow-lg relative">
             @csrf
             <input type="hidden" name="maxQuestions" value="{{ count($questions_a) }}">
@@ -285,8 +285,7 @@ document.getElementById('start_solving_time').value = startTime;
                         ジャンル: {{ $question_q->smallLabel->middleLabel->middle_label }} - {{ $question_q->smallLabel->small_label }}
                     </span>
                 </div>
-
-                <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
+                                <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
                     <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         {{$question_q->question}}
                         <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">

@@ -28,11 +28,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/question', App\Http\Controllers\Santaku\QuestionController::class)->name('question');
 
+    Route::get('/questionrandom', App\Http\Controllers\Santaku\QuestionRandomController::class)->name('questionrandom');
+
     Route::post('/create', App\Http\Controllers\Santaku\CreateController::class)->name('create.index');
 
     Route::get('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer');
 
+    Route::get('/answerrandom', App\Http\Controllers\Santaku\AnswerRandomController::class)->name('answerrandom');
+
     Route::post('/answer', App\Http\Controllers\Santaku\AnswerController::class)->name('answer.index');
+
+    Route::post('/answerrandom', App\Http\Controllers\Santaku\AnswerRandomController::class)->name('answerrandom.index');
+
 
     Route::get('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 

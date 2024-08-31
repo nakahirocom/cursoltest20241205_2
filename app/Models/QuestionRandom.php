@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\View\View;
 
-
-class Question extends Model
+class QuestionRandom extends Model
 {
     use HasFactory;
 
@@ -73,9 +71,10 @@ class Question extends Model
 
             $q2 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNot('answer', $q1?->answer)->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                    whereNot('answer', $q1?->answer)->inRandomOrder()->with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q2 === null) {
                 // $q2がnullならgetThreeQuestionsAtRandom()に$q1までの戻り値を返す
@@ -85,9 +84,11 @@ class Question extends Model
 
             $q3 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q3 === null) {
                 // $q3がnullならgetThreeQuestionsAtRandom()に$q2までの戻り値を返す
@@ -98,9 +99,11 @@ class Question extends Model
 
             $q4 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q4 === null) {
                 // $q4がnullならgetThreeQuestionsAtRandom()に$q3までの戻り値を返す
@@ -109,9 +112,11 @@ class Question extends Model
 
             $q5 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q5 === null) {
                 // $q5がnullならgetThreeQuestionsAtRandom()に$q4までの戻り値を返す
@@ -201,7 +206,10 @@ class Question extends Model
             $found = false;
             $counter = 1;
             foreach ($Worstseikairitu as $worst) {
-                $q2 = Question::where('small_label_id', ($q1->small_label_id))->where('id', $Worstseikairitu->skip($counter)->first()['question_id'])
+                $q2 = Question::
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                where('id', $Worstseikairitu->skip($counter)->first()['question_id'])
                     ->whereNot('answer', $q1?->answer)
                     ->with('smallLabel.middleLabel.largeLabel')
                     ->first(); // 昇順で最初のものを取得
@@ -218,8 +226,10 @@ class Question extends Model
 
             if (!$found) {
                 // $Worstseikairitu内で適切なものが見つからなかった場合、$q1と同じsmall_label_idを持つQuestionを探す
-                $q2 = Question::where('small_label_id', $q1->small_label_id)
-                    ->whereNot('answer', $q1?->answer)
+                $q2 = Question::
+//                    where('small_label_id', $q1->small_label_id)
+//                    ->
+                    whereNot('answer', $q1?->answer)
                     ->inRandomOrder()
                     ->with('smallLabel.middleLabel.largeLabel')
                     ->first(); // ランダムに並べ替えて最初のものを取得
@@ -232,9 +242,11 @@ class Question extends Model
             //dump($q2);
             $q3 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q3 === null) {
                 // $q3がnullならgetThreeQuestionsAtRandom()に$q2までの戻り値を返す
@@ -244,9 +256,11 @@ class Question extends Model
 
             $q4 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
             //dump($q4);
 
             if ($q4 === null) {
@@ -255,9 +269,11 @@ class Question extends Model
             }
             $q5 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
             //dump($q5);
 
             if ($q5 === null) {
@@ -290,9 +306,11 @@ class Question extends Model
             //            dump($q1);
             $q2 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNot('answer', $q1?->answer)->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNot('answer', $q1?->answer)->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q2 === null) {
                 // $q2がnullならgetThreeQuestionsAtRandom()に$q1までの戻り値を返す
@@ -302,9 +320,11 @@ class Question extends Model
 
             $q3 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q3 === null) {
                 // $q3がnullならgetThreeQuestionsAtRandom()に$q2までの戻り値を返す
@@ -314,9 +334,11 @@ class Question extends Model
 
             $q4 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q4 === null) {
                 // $q4がnullならgetThreeQuestionsAtRandom()に$q3までの戻り値を返す
@@ -324,9 +346,11 @@ class Question extends Model
             }
             $q5 = Question::
                 //$q1でランダムで選択されたジャンルと同じジャンルをwhereで範囲指定し、$q1,$q2,$q3のanswerと答えが被らないものをランダムに１つ取得する。
-                where('small_label_id', ($q1->small_label_id))
-                ->whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()
-                ->with('smallLabel.middleLabel.largeLabel')->first();
+//                where('small_label_id', ($q1->small_label_id))
+//                ->
+                whereNotIn('answer', [$q1?->answer, $q2?->answer, $q3?->answer, $q4?->answer])->inRandomOrder()->
+                with('smallLabel.middleLabel.largeLabel')
+                    ->first();
 
             if ($q5 === null) {
                 // $q5がnullならgetThreeQuestionsAtRandom()に$q4までの戻り値を返す
@@ -360,5 +384,6 @@ class Question extends Model
     {
         return $this->hasOne(Mymemo::class);
     }
+
 
 }
