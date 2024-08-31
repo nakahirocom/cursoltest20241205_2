@@ -37,7 +37,7 @@ class IncorrectListController extends Controller
         $incorrectlist = AnswerResults::whereColumn('answer_results.question_id', '!=', 'answer_results.answered_question_id')
             ->where('answer_results.user_id', '=', $id)
             ->orderBy('answer_results.created_at', 'DESC')
-            ->take(30)
+            ->take(100)
             ->get();
 
         $question_ids = $incorrectlist->pluck('question_id')->unique();

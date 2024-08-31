@@ -50,7 +50,7 @@
       <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
         <div class="flex justify-between m-0">
           <div class="flex-none m-0">
-            【回答違い直近30問】
+            【回答違い直近100問】
           </div>
         </div>
 
