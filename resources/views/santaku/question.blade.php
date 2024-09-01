@@ -18,6 +18,7 @@
     <div class="flex justify-between items-center">
         <!-- ジャンル表示と連続正解数を含む新しいdivを追加 -->
         <div class="flex items-center">
+            2.選択ジャンル単位で問題を解く
             <!-- 連続正解数表示部分 -->
             <div id="continuousCorrect" class="text-left ml-4">
             </div>

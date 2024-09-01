@@ -21,8 +21,10 @@
     @if (session('feedback.success'))
     <p class="text-green-500">{{ session('feedback.success') }}</p>
     @endif
-    <div class="flex justify-end items-center">
-      {{ Auth::user()->continuous_correct_answers }}問連続正解中
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        3.間違えた問題を直近から100問まで確認
+    </div>
 
       <div>
         <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
@@ -48,11 +50,6 @@
 
     <div class="container text-left relative">
       <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
-        <div class="flex justify-between m-0">
-          <div class="flex-none m-0">
-            【回答違い直近100問】
-          </div>
-        </div>
 
         @csrf
         <div id="display-area" class="incorrect-item flex flex-col">
@@ -65,7 +62,7 @@
           <div class="flex flex-col">
 
             <div class="text-sm">
-              <span>分類：
+              <span>ジャンル：
                 {{ $incorrect->syutudai->smallLabel->middleLabel->largeLabel->large_label }}→
                 {{ $incorrect->syutudai->smallLabel->middleLabel->middle_label }}→
                 {{ $incorrect->syutudai->smallLabel->small_label }}</span>
