@@ -17,10 +17,13 @@
 
 
     @auth
-    <div class="flex justify-end items-center">
+    <div class="flex justify-between items-center">
         <div>
-            <!-- 連続正解数を表示するスパン -->
-            
+            <div class="flex items-center">
+                2.選択ジャンル単位で問題を解く
+                <!-- 連続正解数表示部分 -->
+                </div>
+            </div>
             <span id="continuous-correct-answers"></span>
             <a class="btn btn-link text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
                 href="/">HOMEへ</a>
