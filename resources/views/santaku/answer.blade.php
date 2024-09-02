@@ -334,67 +334,79 @@
 
     <script>
         var isFirstClick = true; // 初めてのクリックを追跡するためのフラグ
-    var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
-        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 正解中'; // 最初の表示
-    });
-
-    document.getElementById('show-next-button').addEventListener('click', function() {
-        if (isFirstClick) {
-            isFirstClick = false;
-            var answers = document.querySelectorAll('.answer-button');
-            var displayArea = document.getElementById('display-area');
-            var button = document.getElementById('show-next-button');
-
-            function allAnswersDisplayed() {
-                button.textContent = '次の問題へ';
-                button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
-                button.classList.add('bg-green-500', 'hover:green-700');
-
-                button.removeEventListener('click', allAnswersDisplayed);
-                button.addEventListener('click', function() {
-                    window.location.href = '/question';
-                });
-            }
-
-            function showAnswer(index) {
-                if (index < answers.length) {
-                    var answer = answers[index];
-                    var mark = document.getElementById('mark-' + index);
-
-                    mark.classList.remove('hidden');
-
-                    var displayMark = document.createElement('span');
-                    displayMark.classList.add('text-xl', 'font-bold');
-
-                    if (answer.getAttribute('data-correct') === 'true') {
-                        mark.textContent = '⭕️';
-                        continuousCorrectAnswers++; // 正解の場合
-                        displayMark.textContent = '⭕️';
-                        displayMark.classList.add('text-red-500');
+        var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
+        var allCorrect = true; // 全問正解かどうかを判断するフラグ
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
+            continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 正解中'; // 最初の表示
+        });
+    
+        document.getElementById('show-next-button').addEventListener('click', function() {
+            if (isFirstClick) {
+                isFirstClick = false;
+                var answers = document.querySelectorAll('.answer-button');
+                var displayArea = document.getElementById('display-area');
+                var button = document.getElementById('show-next-button');
+    
+                function allAnswersDisplayed() {
+                    if (allCorrect) {
+                        button.textContent = '次の問題へ';
+                        button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+                        button.classList.add('bg-green-500', 'hover:bg-green-700');
                     } else {
-                        mark.textContent = '❌';
-                        continuousCorrectAnswers = 0; // 不正解の場合
-                        displayMark.textContent = '❌';
-                        displayMark.classList.add('text-red-500');
+                        button.textContent = '間違えた問題を解き直す';
+                        button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+                        button.classList.add('bg-red-500', 'hover:bg-red-700');
                     }
-
-                    displayArea.appendChild(displayMark);
-                    document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 問連続正解中'; // 更新されたスコアを表示
-
-                    if (index >= answers.length - 1) {
-                        setTimeout(allAnswersDisplayed, 1);
-                    } else {
-                        setTimeout(function() { showAnswer(index + 1); }, 500);
+    
+                    button.removeEventListener('click', allAnswersDisplayed);
+                    button.addEventListener('click', function() {
+                        if (allCorrect) {
+                            window.location.href = '/questionrandom';
+                        } else {
+                            window.location.href = '/questionrandomバツ';
+                        }
+                    });
+                }
+    
+                function showAnswer(index) {
+                    if (index < answers.length) {
+                        var answer = answers[index];
+                        var mark = document.getElementById('mark-' + index);
+    
+                        mark.classList.remove('hidden');
+    
+                        var displayMark = document.createElement('span');
+                        displayMark.classList.add('text-xl', 'font-bold');
+    
+                        if (answer.getAttribute('data-correct') === 'true') {
+                            mark.textContent = '⭕️';
+                            continuousCorrectAnswers++; // 正解の場合
+                            displayMark.textContent = '⭕️';
+                            displayMark.classList.add('text-red-500');
+                        } else {
+                            mark.textContent = '❌';
+                            continuousCorrectAnswers = 0; // 不正解の場合
+                            displayMark.textContent = '❌';
+                            displayMark.classList.add('text-red-500');
+                            allCorrect = false; // 不正解がある場合はフラグをfalseに
+                        }
+    
+                        displayArea.appendChild(displayMark);
+                        document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 問連続正解中'; // 更新されたスコアを表示
+    
+                        if (index >= answers.length - 1) {
+                            setTimeout(allAnswersDisplayed, 1);
+                        } else {
+                            setTimeout(function() { showAnswer(index + 1); }, 500);
+                        }
                     }
                 }
+    
+                showAnswer(0);
             }
-
-            showAnswer(0);
-        }
-    });
+        });
     </script>
 
 
