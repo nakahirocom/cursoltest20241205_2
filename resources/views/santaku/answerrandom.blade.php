@@ -44,6 +44,14 @@
         </div>
     </div>
 
+    <form id="redo-form" action="{{ route('questionredoing') }}" method="POST" style="display: none;">
+        @csrf
+        <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
+        <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded">
+            間違えた問題を解き直す
+        </button>
+    </form>
+
     <div class="container text-left relative">
         <div class="border-2 border-gray-300 rounded-md p-1 shadow-lg relative">
             <div class="flex justify-between m-0">
@@ -52,6 +60,8 @@
                 </div>
             </div>
             @csrf
+
+            
 
 
             @for ($i = 0; $i < count($viewModels); $i++) <div
@@ -334,69 +344,85 @@
 
     <script>
         var isFirstClick = true; // 初めてのクリックを追跡するためのフラグ
-    var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
+        var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }}; // PHPの変数をJavaScriptの変数に代入
+        var allCorrect = true; // 全問正解かどうかを判断するフラグ
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
+            continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 正解中'; // 最初の表示
+        });
+    
+        var missedQuestions = [];
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var continuousCorrectAnswersSpan = document.getElementById('continuous-correct-answers');
-        continuousCorrectAnswersSpan.textContent = continuousCorrectAnswers + ' 正解中'; // 最初の表示
-    });
+document.getElementById('show-next-button').addEventListener('click', function() {
+    if (isFirstClick) {
+        isFirstClick = false;
+        var answers = document.querySelectorAll('.answer-button');
+        var displayArea = document.getElementById('display-area');
+        var button = document.getElementById('show-next-button');
 
-    document.getElementById('show-next-button').addEventListener('click', function() {
-        if (isFirstClick) {
-            isFirstClick = false;
-            var answers = document.querySelectorAll('.answer-button');
-            var displayArea = document.getElementById('display-area');
-            var button = document.getElementById('show-next-button');
+        function allAnswersDisplayed() {
+    if (allCorrect) {
+        button.textContent = '次の問題へ';
+        button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+        button.classList.add('bg-green-500', 'hover:bg-green-700');
+    } else {
+        button.textContent = '間違えた問題を解き直す';
+        button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
+        button.classList.add('bg-red-500', 'hover:bg-red-700');
+    }
 
-            function allAnswersDisplayed() {
-                button.textContent = '次の問題へ';
-                button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
-                button.classList.add('bg-green-500', 'hover:green-700');
-
-                button.removeEventListener('click', allAnswersDisplayed);
-                button.addEventListener('click', function() {
-                    window.location.href = '/questionrandom';
-                });
-            }
-
-            function showAnswer(index) {
-                if (index < answers.length) {
-                    var answer = answers[index];
-                    var mark = document.getElementById('mark-' + index);
-
-                    mark.classList.remove('hidden');
-
-                    var displayMark = document.createElement('span');
-                    displayMark.classList.add('text-xl', 'font-bold');
-
-                    if (answer.getAttribute('data-correct') === 'true') {
-                        mark.textContent = '⭕️';
-                        continuousCorrectAnswers++; // 正解の場合
-                        displayMark.textContent = '⭕️';
-                        displayMark.classList.add('text-red-500');
-                    } else {
-                        mark.textContent = '❌';
-                        continuousCorrectAnswers = 0; // 不正解の場合
-                        displayMark.textContent = '❌';
-                        displayMark.classList.add('text-red-500');
-                    }
-
-                    displayArea.appendChild(displayMark);
-                    document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 問連続正解中'; // 更新されたスコアを表示
-
-                    if (index >= answers.length - 1) {
-                        setTimeout(allAnswersDisplayed, 1);
-                    } else {
-                        setTimeout(function() { showAnswer(index + 1); }, 500);
-                    }
-                }
-            }
-
-            showAnswer(0);
+    button.removeEventListener('click', allAnswersDisplayed);
+    button.addEventListener('click', function() {
+        if (allCorrect) {
+            // 全問正解の場合は次の問題へ移動
+            window.location.href = '/questionrandom';
+        } else {
+            // 間違えた問題がある場合は、フォームを送信して再挑戦
+            document.getElementById('redo-form').submit();
         }
     });
+}
+        function showAnswer(index) {
+            if (index < answers.length) {
+                var answer = answers[index];
+                var mark = document.getElementById('mark-' + index);
+
+                mark.classList.remove('hidden');
+
+                var displayMark = document.createElement('span');
+                displayMark.classList.add('text-xl', 'font-bold');
+
+                if (answer.getAttribute('data-correct') === 'true') {
+                    mark.textContent = '⭕️';
+                    continuousCorrectAnswers++;
+                    displayMark.textContent = '⭕️';
+                    displayMark.classList.add('text-red-500');
+                } else {
+                    mark.textContent = '❌';
+                    continuousCorrectAnswers = 0;
+                    displayMark.textContent = '❌';
+                    displayMark.classList.add('text-red-500');
+                    allCorrect = false;
+
+                    // 間違えた問題のIDを配列に追加
+                    missedQuestions.push(answer.getAttribute('data-question-id'));
+                }
+
+                displayArea.appendChild(displayMark);
+                document.getElementById('continuous-correct-answers').textContent = continuousCorrectAnswers + ' 問連続正解中';
+
+                if (index >= answers.length - 1) {
+                    setTimeout(allAnswersDisplayed, 1);
+                } else {
+                    setTimeout(function() { showAnswer(index + 1); }, 500);
+                }
+            }
+        }
+
+        showAnswer(0);
+    }
+});
+
     </script>
-
-
-
 </body>

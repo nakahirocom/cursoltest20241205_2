@@ -40,7 +40,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/answerrandom', App\Http\Controllers\Santaku\AnswerRandomController::class)->name('answerrandom.index');
 
-
+    Route::post('/questionredoing', App\Http\Controllers\Santaku\QuestionRedoingController::class)->name('questionredoing');
+    
+    
     Route::get('/update/{questionId}', App\Http\Controllers\Santaku\UpdateController::class)->name('update.put');
 
     //Route::post('/update', App\Http\Controllers\Santaku\UpdateController::class)->name('update.list');

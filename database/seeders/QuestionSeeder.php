@@ -10,7 +10,7 @@ class QuestionSeeder extends Seeder
     public function run()
     {
         Question::create([
-            'small_label_id' => 1,
+            'small_label_id' => 2,
             'user_id' => 1,
             'question' => "1+1=",
             'question_path' => null,
@@ -21,7 +21,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 1,
+            'small_label_id' => 2,
             'user_id' => 1,
             'question' => "2+1=",
             'question_path' => null,
@@ -32,7 +32,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 1,
+            'small_label_id' => 3,
             'user_id' => 1,
             'question' => "3+1=",
             'question_path' => null,
@@ -43,7 +43,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 1,
+            'small_label_id' => 4,
             'user_id' => 1,
             'question' => "4+1=",
             'question_path' => null,
@@ -54,7 +54,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 1,
+            'small_label_id' => 4,
             'user_id' => 1,
             'question' => "5+1=",
             'question_path' => null,
@@ -65,7 +65,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 2,
+            'small_label_id' => 4,
             'user_id' => 1,
             'question' => "1-1=",
             'question_path' => null,
@@ -76,7 +76,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 2,
+            'small_label_id' => 4,
             'user_id' => 1,
             'question' => "2-1=",
             'question_path' => null,
@@ -87,7 +87,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 2,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "3-1=",
             'question_path' => null,
@@ -98,7 +98,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 2,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "4-1=",
             'question_path' => null,
@@ -109,7 +109,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 2,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "5-1=",
             'question_path' => null,
@@ -120,7 +120,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 3,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "明日",
             'question_path' => null,
@@ -131,7 +131,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 3,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "今日",
             'question_path' => null,
@@ -142,7 +142,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 3,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "昨日",
             'question_path' => null,
@@ -153,7 +153,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 3,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "明後日",
             'question_path' => null,
@@ -164,7 +164,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 3,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "一昨日",
             'question_path' => null,
@@ -175,7 +175,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 4,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "鬼の目にも〇〇",
             'question_path' => null,
@@ -186,7 +186,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 4,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "一寸先は〇〇",
             'question_path' => null,
@@ -197,7 +197,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 4,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "〇〇も方便",
             'question_path' => null,
@@ -208,7 +208,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 4,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "海老で〇〇を釣る",
             'question_path' => null,
@@ -219,7 +219,7 @@ class QuestionSeeder extends Seeder
             'updated_at' => now()
         ]);
         Question::create([
-            'small_label_id' => 4,
+            'small_label_id' => 5,
             'user_id' => 1,
             'question' => "〇〇に金棒",
             'question_path' => null,
