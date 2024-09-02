@@ -50,7 +50,7 @@
 
                 <li class="mb-3">
                     <a href="/questionrandom"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">1.選択ジャンルした問題を解く</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">1.選択ジャンル問題を解く</a>
                 </li>
     <!-- CSS only 
                 <li class="mb-3">
@@ -61,7 +61,7 @@
 
                 <li class="mb-3">
                     <a href="/incorrect"
-                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.間違えた問題を直近から30問まで確認</a>
+                        class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-lg text-center">2.直近30問の間違えた問題を確認</a>
                 </li>
                 <li class="mb-3">
                     <a href="/new"

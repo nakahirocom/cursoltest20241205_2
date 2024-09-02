@@ -18,7 +18,7 @@
     <div class="flex justify-between items-center">
         <!-- ジャンル表示と連続正解数を含む新しいdivを追加 -->
         <div class="flex items-center">
-            1.選択ジャンル問題をランダムで解く
+            1.選択したジャンル問題を解く
             <!-- 連続正解数表示部分 -->
             <div id="continuousCorrect" class="text-left ml-4">
             </div>
@@ -49,9 +49,9 @@
                 </div>
                 <div class="w-full">
                     <button id="kakutei" type="button"
-                        class="h-8 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                        class="h-6 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
                         onclick="buttonClick1()">
-                        答え合わせ
+                        ⭕️❌判定
                         <div id="countdown-timer" class="text-gray-500"></div>
                     </button>
                 </div>

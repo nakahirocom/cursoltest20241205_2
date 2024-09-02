@@ -20,7 +20,7 @@
     <div class="flex justify-between items-center">
         <div>
             <div class="flex items-center">
-                1.選択ジャンル問題をランダムで解く
+                1.選択ジャンル問題を解く
                 <!-- 連続正解数表示部分 -->
                 </div>
             </div>
@@ -48,7 +48,7 @@
         @csrf
         <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
         <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded">
-            間違えた問題を解き直す
+            間違えの解き直し
         </button>
     </form>
 
