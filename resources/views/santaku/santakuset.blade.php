@@ -36,7 +36,7 @@
             @csrf
             @foreach($largelabelList as $largelabel)
             <div class="mb-6">
-                <div class="flex justify-between items-center mb-2">
+                <div class="flex justify-between items-center mb=2">
                     <div class="font-bold text-lg">
                         分類：{{ $largelabel->large_label }}
                     </div>
@@ -53,16 +53,17 @@
                         <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}</div>
                         @foreach ($selectList as $user_select)
                         @if ($middlelabel->id == $user_select->smallLabel->middle_label_id)
-                            @if ($user_select->small_question_count > 1)
+                            @if ($user_select->small_question_count > 0)
                                 <div class="flex items-center mb-2">
                                     <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
                                     <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
                                            name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
-                                           class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out"
+                                           class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out {{ $user_select->small_question_count == 1 ? 'opacity-50 cursor-not-allowed' : '' }}"
                                            {{ $user_select['selected'] ? 'checked' : '' }}
+                                           {{ $user_select->small_question_count == 1 ? 'disabled' : '' }}
                                            data-large-label-id="{{ $largelabel->id }}">
                                     <label for="{{ $user_select->smallLabel->small_label }}"
-                                           class="ml-2 text-sm text-gray-700 font-medium">
+                                           class="ml-2 text-sm text-gray-700 font-medium {{ $user_select->small_question_count == 1 ? 'text-gray-500' : '' }}">
                                         {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
                                     </label>
                                     @if ($user_select->answer_count >= 10)
