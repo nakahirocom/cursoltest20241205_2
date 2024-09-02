@@ -28,6 +28,7 @@ class QuestionRandomController extends Controller
         $questionj = collect($questions)->take(1); // ジャンル表示用の最初の問題
         //dump($questionj);
         $questionsA = $questions;   // 回答選択肢用の配列
+        //dump($questionsA);
         shuffle($questionsA);
 
         $numQuestions = $request->input('num_questions', 7); // リクエストから問題数を取得、デフォルトは7

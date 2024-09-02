@@ -177,6 +177,7 @@ class AnswerRandomController extends Controller
         //dump($timeoutuser);
 
         $viewModels = [];
+        $missedQuestionIds = []; // 不正解だった問題のIDを格納する配列
         $allkaitousuuModels = [];
         $allseikairituModels = [];
         $uidkaitousuuModels = [];
@@ -194,6 +195,12 @@ class AnswerRandomController extends Controller
             $answer_results->start_solving_time = $startSolvingTime;
 
             $answer_results->save();
+
+            // 不正解の場合、IDを配列に追加
+            if ($questionId != $choiceId) {
+                $missedQuestionIds[] = $questionId;
+            }
+
 
             $allkaitousuu = AnswerResults::where('question_id', $questionId)->count();
             $allseikaisuu = AnswerResults::where('question_id', $questionId)
@@ -256,9 +263,10 @@ class AnswerRandomController extends Controller
 
 
         //dump($viewModels);
-
+//dump($missedQuestionIds);
         return view('santaku.answerrandom')
             ->with('viewModels', $viewModels)
+            ->with('missedQuestionIds',$missedQuestionIds)// 不正解問題のIDをビューに渡す
             ->with('allkaitousuuModels', $allkaitousuuModels)
             ->with('uidkaitousuuModels', $uidkaitousuuModels)
             ->with('allseikairituModels', $allseikairituModels)
