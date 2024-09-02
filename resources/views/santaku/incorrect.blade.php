@@ -23,7 +23,7 @@
     @endif
     <div class="flex justify-between items-center">
       <div class="flex items-center">
-        3.間違えた問題を直近から100問まで確認
+        3.間違えた問題を直近から30問まで確認
     </div>
 
       <div>
