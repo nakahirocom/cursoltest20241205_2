@@ -48,7 +48,7 @@
         @csrf
         <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
         <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded">
-            間違えの解き直し
+            間違いの解き直し
         </button>
     </form>
 
@@ -367,7 +367,7 @@ document.getElementById('show-next-button').addEventListener('click', function()
         button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
         button.classList.add('bg-green-500', 'hover:bg-green-700');
     } else {
-        button.textContent = '間違えた問題を解き直す';
+        button.textContent = '間違いの解き直し';
         button.classList.remove('bg-blue-500', 'hover:bg-blue-700');
         button.classList.add('bg-red-500', 'hover:bg-red-700');
     }
