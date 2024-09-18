@@ -13,7 +13,7 @@ use App\Models\AnswerResults;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class SantakusetController extends Controller
+class SantakusetbasicController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -80,7 +80,7 @@ class SantakusetController extends Controller
                     $selectNewList = new LabelStorages();
                     $selectNewList->user_id = $id; // UserIdを保存
                     $selectNewList->small_label_id = $item->id; // small_label_idを登録
-                    $selectNewList->selected = 1; // 中分類を選んだ状態の「1」を登録
+                    $selectNewList->base_select = 1; // 中分類を選んだ状態の「1」を登録
                     $selectNewList->save();
                 }
             }
@@ -196,7 +196,7 @@ $answerCountsBySmallLabel = AnswerResults::where('answer_results.user_id', $id)
 
 //dump($selectList);
 
-        return view('santaku.santakuset')
+       return view('santaku.santakusetbasic')
             ->with('selectList', $selectList)
             ->with('largelabelList', $largelabelList)
             ->with('middlelabelList', $middlelabelList)

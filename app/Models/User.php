@@ -21,6 +21,8 @@ class User extends Authenticatable
         'email',
         'region_id',
         'password',
+        'basic_count', // 追加
+        'user_mode',   // 追加
     ];
 
     /**

@@ -9,7 +9,7 @@
     <title>santakuアプリ</title>
 </head>
 
-<body class="bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100 px-4 sm:px-8 lg:px-64">
+<body class="bg-gradient-to-r px-4 sm:px-8 lg:px-64">
     @auth
     <div class="flex justify-end items-center my-4">
         <a class="text-gray-500 hover:text-gray-700 underline decoration-gray-500 hover:decoration-blue-700 transition duration-300 ease-in-out"
@@ -21,10 +21,21 @@
         <form action="{{ route('check.register') }}" method="post"
             class="border-2 border-gray-300 rounded-md p-4 shadow-lg bg-gradient-to-r from-pink-100 via-blue-100 to-purple-100">
             @csrf
-            <input type="hidden" name="form_type" value="selected">
+
+            <div class="mb-4">
+                <label for="basic_count" class="block text-gray-700 font-bold mb-2">Basic Count:</label>
+                <input type="number" name="basic_count" id="basic_count" value="{{ auth()->user()->basic_count }}" class="w-full px-3 py-2 border rounded" required>
+            </div>
+        
+            <div class="mb-4">
+                <label for="user_mode" class="block text-gray-700 font-bold mb-2">User Mode:</label>
+                <input type="number" name="user_mode" id="user_mode" value="{{ auth()->user()->user_mode }}" class="w-full px-3 py-2 border rounded" required>
+            </div>
+
+            <input type="hidden" name="form_type" value="basic_select">
             <div class="flex justify-between items-center mb-4">
                 <div class="text-lg font-semibold">
-                    【{{ $countOf }}ジャンル中、星争奪バトル挑戦権🎴を得たのは{{ $countOfFiftyOrMore }}ジャンル】
+                    基礎モード【{{ $countOf }}ジャンル中、星争奪バトル挑戦権🎴を得たのは{{ $countOfFiftyOrMore }}ジャンル】
                     <br>
                     10題以上回答したジャンルが対象
                     <br>
@@ -61,7 +72,7 @@
                                     <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
                                            name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
                                            class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out {{ $user_select->small_question_count == 1 ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                           {{ $user_select['selected'] ? 'checked' : '' }}
+                                           {{ $user_select['basic_select'] ? 'checked' : '' }}
                                            {{ $user_select->small_question_count == 1 ? 'disabled' : '' }}
                                            data-large-label-id="{{ $largelabel->id }}">
                                     <label for="{{ $user_select->smallLabel->small_label }}"

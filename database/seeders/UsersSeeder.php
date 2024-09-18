@@ -22,6 +22,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 1,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 1,
             'continuous_correct_answers' => null,
             'best_record' => null,
             'best_record_at' => now(),
@@ -37,6 +40,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 1,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 15,
             'best_record' => null,
             'best_record_at' => now(),
@@ -51,6 +57,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 1,
             'best_record' => null,
             'best_record_at' => now(),
@@ -65,6 +74,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
@@ -79,6 +91,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
@@ -93,6 +108,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
@@ -107,6 +125,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
@@ -121,6 +142,9 @@ class UsersSeeder extends Seeder
             'password' => '$2y$10$8ZafXpVHLtBCNGOZsPc3w.aVGGvzcj7K72z4qgjoePXffT5DgRKFi', // 11111111
             'remember_token' => Str::random(10),
             'region_id' => 2,
+            'basic_count' => 20,
+            'base_continuous_correct_answers' => 0,
+            'user_mode' => 0,
             'continuous_correct_answers' => 25,
             'best_record' => null,
             'best_record_at' => now(),
