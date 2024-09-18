@@ -155,26 +155,23 @@ class AnswerRandomController extends Controller
     {
         $maxQuestions = $request->input('maxQuestions');
 
-        //解き始めの日時をブラウザから取得する;
+        // 解き始めの日時をブラウザから取得する;
         $solving = $request->input('start_solving_time');
-        //dump($solving);
-
-        //形式をtimeに合わせる
+        // 形式をtimeに合わせる
         $startSolvingTime = Carbon::parse($solving)->format('Y-m-d H:i:s.u');
-        //dump($startSolvingTime);
 
         $uid = $request->userId();
         $user = User::find($uid); // ユーザーを取得
-        //dump($user);
+
         // timeoutがtrueならば、連続正解数をリセットする
         $timeout = $request->input('timeout');
-        //dump($timeout);
         if ($timeout) {
             $user->continuous_correct_answers = 0;
+            $user->base_continuous_correct_answers = 0;
             $user->save(); // ユーザー情報を更新
         }
+
         $timeoutuser = User::find($uid); // ユーザーを取得
-        //dump($timeoutuser);
 
         $viewModels = [];
         $missedQuestionIds = []; // 不正解だった問題のIDを格納する配列
@@ -182,7 +179,6 @@ class AnswerRandomController extends Controller
         $allseikairituModels = [];
         $uidkaitousuuModels = [];
         $uidseikairituModels = [];
-
 
         for ($i = 1; $i <= $maxQuestions; $i++) {
             $questionId = $request->input("question{$i}_Id");
@@ -193,14 +189,12 @@ class AnswerRandomController extends Controller
             $answer_results->question_id = $questionId;
             $answer_results->answered_question_id = $choiceId;
             $answer_results->start_solving_time = $startSolvingTime;
-
             $answer_results->save();
 
             // 不正解の場合、IDを配列に追加
             if ($questionId != $choiceId) {
                 $missedQuestionIds[] = $questionId;
             }
-
 
             $allkaitousuu = AnswerResults::where('question_id', $questionId)->count();
             $allseikaisuu = AnswerResults::where('question_id', $questionId)
@@ -225,48 +219,54 @@ class AnswerRandomController extends Controller
             $uidkaitousuuModels[] = $uidkaitousuu;
             $uidseikairituModels[] = $uidseikairitu;
 
-            //ユーザー別のリレーションでMymemoテーブルの私のメモがuserと問題id一致するものだけをリレーション。
             $ques = Question::where('id', $questionId)
                 ->with(['Mymemo' => function ($query) use ($uid, $questionId) {
                     $query->where('user_id', $uid)
-                        ->where('question_id', $questionId); // ユーザーIDと質問IDの両方でフィルタリング
+                        ->where('question_id', $questionId);
                 }])
                 ->firstOrFail();
             $cho = Question::where('id', $choiceId)
                 ->with(['Mymemo' => function ($query) use ($uid, $choiceId) {
                     $query->where('user_id', $uid)
-                        ->where('question_id', $choiceId); // ユーザーIDと質問IDの両方でフィルタリング
+                        ->where('question_id', $choiceId);
                 }])
                 ->firstOrFail();
 
-
             $viewModel = new AnswerViewModel($cho, $ques);
-
             $viewModels[] = $viewModel;
-
 
             // 正解判定と連続正解数、最高記録の更新
             if ($questionId == $choiceId) {
                 $user->continuous_correct_answers++;
+                $user->base_continuous_correct_answers++;
                 if ($user->continuous_correct_answers > $user->best_record) {
                     $user->best_record = $user->continuous_correct_answers;
                     $user->best_record_at = now();
-                    $isBestRecordUpdated = true; // 最高記録が更新されたかどうかのフラグ
+                    $isBestRecordUpdated = true;
                 }
             } else {
                 $user->continuous_correct_answers = 0;
+                $user->base_continuous_correct_answers = 0;
             }
         }
 
+        // basic_countがbase_continuous_correct_answers以下になった時、user_modeが0なら1に変更しメッセージ「通常モードが開放されました」を通知
+        if ($user->basic_count <= $user->base_continuous_correct_answers && $user->user_mode == 0) {
+            // user_modeを1に変更
+            $user->user_mode = 1;
+
+            // 通常モード開放メッセージを通知
+            session()->flash('message', '基礎モード開放条件クリアにつき「0.出題ジャンル選択」ボタンが開放されました。好きなジャンルを選ぶことが出来ます。ホーム画面に移動します');
+
+            // ユーザー情報を保存
+            $user->save();
+        }
+
         $user->save(); // ユーザー情報を更新
-
-
-
-        //dump($viewModels);
-//dump($missedQuestionIds);
+//dd($timeoutuser);
         return view('santaku.answerrandom')
             ->with('viewModels', $viewModels)
-            ->with('missedQuestionIds',$missedQuestionIds)// 不正解問題のIDをビューに渡す
+            ->with('missedQuestionIds', $missedQuestionIds)
             ->with('allkaitousuuModels', $allkaitousuuModels)
             ->with('uidkaitousuuModels', $uidkaitousuuModels)
             ->with('allseikairituModels', $allseikairituModels)

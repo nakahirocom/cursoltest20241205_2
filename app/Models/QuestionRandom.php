@@ -23,13 +23,29 @@ class QuestionRandom extends Model
         //ログインしているユーザーidを取得する
         $id = auth()->id();
 
-        //ログインしているユーザーがチェックをしている小分類（問題ジャンル）をピックアップ
-        $user_choice = LabelStorages::where('user_id', $id)
-            ->where('selected', 1)
-            ->select('small_label_id')
-            ->get();
-        //        dump($user_choice);
-        //userが選択したジャンルに対応するquestionを全てピックアップ
+            //ユーザー情報を取得
+            $user = User::find($id);
+//dd($user);
+
+//ユーザーの base_continuous_correct_answers が basic_count 以上の場合
+if ($user->user_mode == 1) {
+    // selected の値を条件として使用する
+    $user_choice = LabelStorages::where('user_id', $id)
+        ->where('selected', 1) // 'selected' を使う
+        ->select('small_label_id')
+        ->get();
+} else {
+    // base_select の値を条件として使用する
+    $user_choice = LabelStorages::where('user_id', $id)
+        ->where('basic_select', 1) // 'base_select' を使う
+        ->select('small_label_id')
+        ->get();
+}
+
+
+//        dd($user_choice);
+
+    //userが選択したジャンルに対応するquestionを全てピックアップ
         $usersentakuchoice_question = Question::whereHas('smallLabel', function ($q) use ($user_choice) {
             $q->whereIn('id', $user_choice);
         })
@@ -141,7 +157,7 @@ class QuestionRandom extends Model
                 ->groupBy('question_id')
                 ->orderBy('question_id', 'asc')
                 ->get();
-            //                        dd($questions_seikaisuu);
+            //dd($questions_seikaisuu);
 
             //AnswerResults（回答履歴）の中から、ユーザーが選択した小分類のquestion_id毎に'question_id'の数を数えて出題数をカウントする。
             $questions_allsyutudaisuu = AnswerResults::whereHas('question.smallLabel', function ($q) use ($user_choice) {

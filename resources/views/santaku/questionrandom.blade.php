@@ -18,7 +18,11 @@
     <div class="flex justify-between items-center">
         <!-- ジャンル表示と連続正解数を含む新しいdivを追加 -->
         <div class="flex items-center">
-            1.選択ジャンル問題を解く
+            @if ($user->user_mode == 0)
+        1.基礎モード
+    @else
+        1.選択ジャンル問題を解く
+    @endif
             <!-- 連続正解数表示部分 -->
             <div id="continuousCorrect" class="text-left ml-4">
             </div>

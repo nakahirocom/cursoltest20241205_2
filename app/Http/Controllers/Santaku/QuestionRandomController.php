@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\QuestionRandom;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+
 
 class QuestionRandomController extends Controller
 {
@@ -18,8 +19,18 @@ class QuestionRandomController extends Controller
      */
     public function __invoke(Request $request): View
     {
+
+    //ログインしているユーザーidを取得する
+    $id = auth()->id();
+
+
+//ユーザー情報を取得
+$user = User::find($id);
+
+
+
         $questions = QuestionRandom::getThreeQuestionsAtRandom();
-        //dump($questions);
+        //dd($questions);
         // 配列が空か、nullを含む場合にチェック
         if (empty($questions)) {
             // santoku.indexビューにリダイレクト
@@ -40,7 +51,8 @@ class QuestionRandomController extends Controller
             'questions_q' => $questionsQ,
             'questions_a' => $questionsA,
             'questionj' => $questionj,
-            'questionIds' => $questionsQ->pluck('id')->all()
+            'questionIds' => $questionsQ->pluck('id')->all(),
+            'user' => $user // フラグを渡す
         ]);
     }
 }
