@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>santakuアプリ</title>
+    <title>santakuアプリ開発チーム</title>
 
 </head>
 
@@ -37,14 +37,15 @@
                 <script>
                     Swal.fire({
                         title: '基礎モード開放せよ',
-                        html: '開放条件：{{ Auth::user()->basic_count }}問連続正解<br><br>必要な連続正解数：{{ Auth::user()->basic_count - Auth::user()->base_continuous_correct_answers}}問',
+                        html: '開放条件：{{ Auth::user()->basic_count }}問連続正解<br><br>開放に必要な連続正解数：{{ Auth::user()->basic_count - Auth::user()->base_continuous_correct_answers}}問',
                         icon: 'success',
                         confirmButtonText: 'OK',
                         confirmButtonColor: '#3085d6' // ここでボタンの色を変更
                     });
                 </script>
                 <p class="text-2xl text-center">三択アプリ:基礎モード</p>
-            @else
+
+                @else
             <script>
                 // $useraboveがnullかどうかをチェック
                 var userAbove = {{ json_encode($userabove) }};

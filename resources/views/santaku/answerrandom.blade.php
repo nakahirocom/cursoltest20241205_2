@@ -100,6 +100,14 @@
             </div>
 
         </div>
+        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+            解説:{{ $viewModels[$i]->getComment() }}
+
+        </div>
+        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+            <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
+        </div>
 
         <div>
 
