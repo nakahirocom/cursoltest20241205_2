@@ -33,7 +33,7 @@
     <div class="flex items-center">
         <button id="show-next-button"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out space-x-4 my-1">
-            ◯×連続判定
+            判定
         </button>
 
         <div id="display-area" class="flex justify-left items-center space-x-4 my-1"></div>
@@ -43,7 +43,7 @@
         @csrf
         <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
         <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded mt-2">
-            間違いの解き直し
+            解直し
         </button>
     </form>
 
@@ -321,8 +321,8 @@
                 if (displayedCardsCount <= totalCards) {
                     const isCorrect = button.getAttribute('data-correct') === 'true';
                     const resultText = document.createElement('div');
-                    resultText.textContent = displayedCardsCount + '問: ' +
-                        (isCorrect ? '⭕️ ' : '❌ ');
+                    resultText.textContent = displayedCardsCount + '問:' +
+                        (isCorrect ? '⭕️' : '❌');
                     resultText.className = isCorrect ? 'text-green-600' : 'text-red-600';
                     displayArea.appendChild(resultText);
         
@@ -380,12 +380,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (answeredQuestionsCount < totalQuestions) {
                 if (isCorrect) {
-                    answerStatus.textContent = '⭕️ ';
+                    answerStatus.textContent = '⭕️';
                     answerStatus.classList.add('text-green-600'); // 正解の場合の色
                     continuousCorrectAnswers++;
                     remaining--;
                 } else {
-                    answerStatus.textContent = '❌ ';
+                    answerStatus.textContent = '❌';
                     answerStatus.classList.add('text-red-600'); // 不正解の場合の色
                     continuousCorrectAnswers = 0;
                     remaining = basicCount;
@@ -407,11 +407,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function showResult() {
         var button = document.getElementById('show-next-button');
         if (allCorrect) {
-            button.textContent = '次の問題へ';
+            button.textContent = '次へ';
             button.classList.replace('bg-blue-500', 'bg-green-500');
             button.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
         } else {
-            button.textContent = '間違い解直し';
+            button.textContent = '解直し';
             button.classList.replace('bg-blue-500', 'bg-red-500');
             button.classList.replace('hover:bg-blue-700', 'hover:bg-red-700');
         }
