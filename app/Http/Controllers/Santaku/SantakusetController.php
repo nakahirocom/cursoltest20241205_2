@@ -70,9 +70,9 @@ class SantakusetController extends Controller
 
         // ログインしたユーザーの選んだジャンルを呼び出し、Eagerロードのためにwith([ミドルラベル、ラージラベル])してdbへのアクセスを少なくする
         $selectList = LabelStorages::where('user_id', $id)->with('smallLabel.middleLabel.largeLabel')->get();
-
+//dump($selectList);
         $smalelabelList = SmallLabel::all();
-
+//dd($smalelabelList);
         // 両方のリストの数を比較
         if ($selectList->count() != $smalelabelList->count()) {
             foreach ($smalelabelList as $item) {
@@ -81,7 +81,9 @@ class SantakusetController extends Controller
                     $selectNewList->user_id = $id; // UserIdを保存
                     $selectNewList->small_label_id = $item->id; // small_label_idを登録
                     $selectNewList->selected = 1; // 中分類を選んだ状態の「1」を登録
+                    $selectNewList->basic_select = 1; // basic中分類を選んだ状態の「1」を登録
                     $selectNewList->save();
+
                 }
             }
         } else {
