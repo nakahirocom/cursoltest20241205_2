@@ -72,15 +72,6 @@
                 <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="mt-2 w-full h-auto max-h-[300px] object-cover rounded-md shadow-md">
             </div>
 
-            <div class="bg-white p-4 rounded-md shadow-md mt-2">
-                <p class="font-semibold text-gray-800">解説:</p>
-                <p class="text-gray-700">{{ $viewModels[$i]->getComment() }}</p>
-                <img src="{{ $viewModels[$i]->getComment_path() }}" class="mt-2 w-full h-auto max-h-[300px] object-cover rounded-md shadow-md">
-            </div>
-
-
-
-                <details class="mt-4">
                     <summary class="text-blue-600 font-bold cursor-pointer">問題・答え・解説を見る</summary>
                     <div class="mt-2 text-sm">
                         <p>あなたの正解率：{{ $uidseikairituModels[$i] }}% / 累計回答数：{{ $uidkaitousuuModels[$i] }}</p>
@@ -108,26 +99,32 @@
                         参考URL{{ $viewModels[$i]->getReference_url() }}
     
                     </div>
-                    <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
-    
-                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
-    
-                        @auth
-                        @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                        <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
-                        @endif
-                        @endauth
-    
-                    <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                        要望
-                    </a>
                     <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
                         私のメモ
                     </a>
+
+                    <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
+                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
+    
+                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
+                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考URL</a>
+    
+ 
+                        @auth
+                        @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                            <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">編集</a>
+                        @else
+                        <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                            class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                            改善要望
+                        </a>
+    
+
+                            @endif
+                    @endauth
+
+    
     
     
                     <br>
@@ -180,26 +177,29 @@
                         <br>
                         参考URL{{ $viewModels[$i]->getReference_url() }}
                     </div>
-    
+
+                    <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                        私のメモ
+                    </a>
                     <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
+                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
     
                     <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
+                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考URL</a>
     
                         @auth
                         @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                        <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
-                        @endif
-                        @endauth
+                            <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">編集</a>
+                        @else
                         <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                        要望
-                    </a>
-                    <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                        私のメモ
-                    </a>
+                            class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                            改善要望
+                        </a>
+    
+
+                            @endif
+                    @endauth
     
                     <br>
                     <br>
@@ -245,52 +245,40 @@
                         参考URL{{ $viewModels[$i]->getmissReference_url() }}
     
                     </div>
-                    <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
-    
-                    <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
-    
-                        @auth
-                        @if (auth()->user()->id == $viewModels[$i]->getmissUser_id())
-                        <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
-                        @endif
-                        @endauth
-    
-                        @auth
-                    @endauth
-                    <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
-                        class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
-                        要望
-                    </a>
+
                     <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out">
+                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
                         私のメモ
                     </a>
-    
+                    <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="添付File"
+                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
+                    
+                    <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
+                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考URL</a>
+                    
+                        
+
+                    @auth
+                    @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                        <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">編集</a>
+                    @else
+                    <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                        class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                        改善要望
+                    </a>
+
+
+                        @endif
+                @endauth
+
+
                     <br>
                     <div>
                     </div>
     
                     @endif
 
-    
 
-            </details>
-
-            <div class="flex space-x-2 mt-4">
-                <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File" class="bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700 transition duration-300 ease-in-out">添付File</a>
-                <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL" class="bg-orange-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700 transition duration-300 ease-in-out">参考URL</a>
-
-                @auth
-                @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700 transition duration-300 ease-in-out">編集</a>
-                @endif
-                @endauth
-
-                <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-blue-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700 transition duration-300 ease-in-out">要望</a>
-                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-pink-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700 transition duration-300 ease-in-out">私のメモ</a>
-            </div>
         </div>
     </div>
         @endfor
