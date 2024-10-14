@@ -66,10 +66,12 @@
 
                 </div>
             </div>
+
             <div class="bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-4 my-4">
                 <p class="text-white text-lg">{{ $viewModels[$i]->getQuestion() }}</p>
                 <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="mt-2 w-full h-auto max-h-[300px] object-cover rounded-md shadow-md">
             </div>
+
             <div class="bg-white p-4 rounded-md shadow-md mt-2">
                 <p class="font-semibold text-gray-800">解説:</p>
                 <p class="text-gray-700">{{ $viewModels[$i]->getComment() }}</p>
@@ -163,8 +165,7 @@
                     </div>
                     <br>
     
-                    <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
-    
+                    <div class="flex items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
     
                         <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                             解説:{{ $viewModels[$i]->getComment() }}
