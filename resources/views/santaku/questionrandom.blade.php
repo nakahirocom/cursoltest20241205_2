@@ -53,9 +53,9 @@
                 </div>
                 <div class="w-full">
                     <button id="kakutei" type="button"
-                        class="h-6 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+                        class="h-8 w-full flex justify-center items-center px-0 py-1 border-2 rounded-md bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
                         onclick="buttonClick1()">
-                        ⭕️❌判定
+                        答え合わせ
                         <div id="countdown-timer" class="text-gray-500"></div>
                     </button>
                 </div>
