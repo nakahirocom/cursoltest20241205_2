@@ -291,7 +291,7 @@ document.getElementById('start_solving_time').value = startTime;
                     </span>
                 </div>
                                 <div class="flex-grow ml-1 bg-white p-1 rounded-md shadow">
-                    <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                    <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
                         {{$question_q->question}}
                         <img src="{{ asset($question_q->question_path) }}" class="max-w-none max-h-[280px]">
                     </div>
