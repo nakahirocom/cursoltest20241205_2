@@ -165,12 +165,12 @@
                     </div>
                     <br>
     
-                    <div class="flex items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
+                    <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
     
                         <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                             解説:{{ $viewModels[$i]->getComment() }}
                         </div>
-                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
     
                             <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
                         </div>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                             {{ $viewModels[$i]->getmissQuestion() }}
-                            <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                            <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
     
                                 <img src="{{ $viewModels[$i]->getmissQuestion_path() }}" class="max-w-none max-h-[300px]">
                             </div>
@@ -234,7 +234,7 @@
                         <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
                             解説:{{ $viewModels[$i]->getmissComment() }}
                         </div>
-                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
     
                             <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
                         </div>
