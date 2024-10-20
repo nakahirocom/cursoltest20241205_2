@@ -19,9 +19,9 @@
     <div class="flex justify-between items-center my-4">
         <div class="flex items-center">
             @if ($timeoutuser->user_mode == 0)
-                <span class="text-xl font-semibold text-gray-700">1.基礎モード</span>
+                <span class="text-xl font-semibold text-gray-700">0.初心者向けモード</span>
             @else
-                <span class="text-xl font-semibold text-gray-700">1.選択ジャンル問題を解く</span>
+                <span class="text-xl font-semibold text-gray-700">1.選択ジャンルを解く</span>
             @endif
         </div>
         <span id="continuous-correct-answers" class="text-lg font-medium text-blue-600"></span>
@@ -29,11 +29,18 @@
     </div>
     @endauth
 
+    <div class="flex items-light">
+        <button id="next-kekka"
+            class="bg-pink-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out space-x-4 my-1">
+            結果
+        </button>
+    </div>
+
     <!-- 表示用ボタン -->
     <div class="flex items-center">
         <button id="show-next-button"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out space-x-4 my-1">
-            判定
+            結果
         </button>
 
         <div id="display-area" class="flex justify-left items-center space-x-4 my-1"></div>
@@ -52,17 +59,20 @@
         <div class="question-card bg-white rounded-md shadow-lg p-4 mb-4">
         <div class="bg-white rounded-md shadow-lg p-4 mb-4">
             <div class="flex items-center justify-between">
+
                 <h2 class="text-xl font-bold text-gray-800">{{$i+1}}問目</h2>
 
+                <div id="answer-status-{{ $i }}" class="hidden mt-0 p-1 rounded-md text-lg font-bold text-left mr-auto block">
+                </div>
 
                 <div class="flex items-center space-x-2">
+
                     <button type="button" class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50"
                         data-correct="{{ $viewModels[$i]->isCorrect() ? 'true' : 'false' }}">
                         {{ $viewModels[$i]->getmissAnswer() }}
                     </button>
                 <!--    <span id="mark-{{ $i }}" class="ml-2 hidden text-xl font-bold"></span> -->
                 <!-- 追加: 回答状況を表示する領域 -->
-                <div id="answer-status-{{ $i }}" class="hidden mt-2 p-2 rounded-md text-lg font-bold"></div>
 
                 </div>
             </div>
