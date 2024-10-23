@@ -29,23 +29,21 @@
     </div>
     @endauth
 
-    <div class="flex items-light">
-        <button id="next-kekka"
-            class="bg-pink-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out space-x-4 my-1">
-            結果
-        </button>
+<div class="flex justify-between items-center w-full my-1">
+    <button id="show-next-button"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
+        結果
+    </button>
+
+    <div id="display-area" class="flex items-left justify-start space-x-4">
+        <!-- 中間の表示エリアの内容をここに挿入 -->
     </div>
 
-    <!-- 表示用ボタン -->
-    <div class="flex items-center">
-        <button id="show-next-button"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out space-x-4 my-1">
-            結果
-        </button>
-
-        <div id="display-area" class="flex justify-left items-center space-x-4 my-1"></div>
-    </div>
-
+    <button id="next-kekka"
+        class="bg-pink-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
+        判定
+    </button>
+</div>
     <form id="redo-form" action="{{ route('questionredoing') }}" method="POST" class="hidden">
         @csrf
         <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
@@ -294,7 +292,43 @@
         @endfor
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nextKekkaButton = document.getElementById('next-kekka');
+            const answerButtons = document.querySelectorAll('.answer-button');
+            let currentAnswerIndex = 0;
 
+            nextKekkaButton.addEventListener('click', function () {
+                if (currentAnswerIndex < answerButtons.length) {
+                    answerButtons[currentAnswerIndex].click();
+                    currentAnswerIndex++;
+                }
+            });
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const questionContainer = document.getElementById('question-container');
+        const questionCards = document.querySelectorAll('.question-card');
+        let currentCardIndex = 0; // 現在のカードのインデックス
+        const totalCards = questionCards.length; // カードの総数
+        const nextKekkaButton = document.getElementById('next-kekka');
+    
+        nextKekkaButton.addEventListener('click', function () {
+            // カードを次に進める
+            const currentCard = questionCards[currentCardIndex];
+            questionContainer.appendChild(currentCard);
+            currentCardIndex = (currentCardIndex + 1) % totalCards;
+    
+            // 画面をスクロールしてトップに表示
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -435,7 +469,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         @endif
     }
-});    </script>
+});  
+
+
+</script>
 
 
 </body>
