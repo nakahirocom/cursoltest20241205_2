@@ -99,7 +99,7 @@ class SantakusetController extends Controller
             ->groupBy('middle_labels.id')
             ->get()
             ->pluck('question_count', 'id');
-
+//dump($middleQuestionCounts);
         // SmallLabelごとに関連するQuestionの数を取得
         $smallQuestionCounts = SmallLabel::leftJoin('questions', 'small_labels.id', '=', 'questions.small_label_id')
             ->select('small_labels.id')
@@ -197,6 +197,8 @@ $answerCountsBySmallLabel = AnswerResults::where('answer_results.user_id', $id)
         }
 
 //dump($selectList);
+//dump($largelabelList);
+//dump($middlelabelList);
 
         return view('santaku.santakuset')
             ->with('selectList', $selectList)
