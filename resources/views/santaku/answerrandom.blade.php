@@ -18,278 +18,286 @@
     @auth
     <div class="flex justify-between items-center my-4">
         <div class="flex items-center">
+            <a class="text-gray-500 hover:text-gray-700 underline transition duration-300 ease-in-out"
+                href="/">HOMEへ</a>
+
             @if ($timeoutuser->user_mode == 0)
-                <span class="text-xl font-semibold text-gray-700">0.初心者向けモード</span>
+            <span class="text-xl font-semibold text-gray-700">0.強制モード</span>
             @else
-                <span class="text-xl font-semibold text-gray-700">1.選択ジャンルを解く</span>
+            <span class="text-xl font-semibold text-gray-700">1.自由ジャンル</span>
             @endif
         </div>
         <span id="continuous-correct-answers" class="text-lg font-medium text-blue-600"></span>
-        <a class="text-gray-500 hover:text-gray-700 underline transition duration-300 ease-in-out" href="/">HOMEへ</a>
     </div>
     @endauth
 
-<div class="flex justify-between items-center w-full my-1">
-    <button id="show-next-button"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
-        結果
-    </button>
+    <div class="flex justify-between items-center w-full my-1">
+        <button id="show-next-button"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
+            結果
+        </button>
 
-    <div id="display-area" class="flex items-left justify-start space-x-4">
-        <!-- 中間の表示エリアの内容をここに挿入 -->
+        <div id="display-area" class="flex items-left justify-start space-x-4">
+            <!-- 中間の表示エリアの内容をここに挿入 -->
+        </div>
+
+        <button id="next-kekka"
+            class="bg-pink-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
+            判定
+        </button>
     </div>
-
-    <button id="next-kekka"
-        class="bg-pink-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out">
-        判定
-    </button>
-</div>
     <form id="redo-form" action="{{ route('questionredoing') }}" method="POST" class="hidden">
         @csrf
-        <input type="hidden" name="missed_question_ids" id="missed-question-ids" value="{{ implode(',', $missedQuestionIds) }}">
+        <input type="hidden" name="missed_question_ids" id="missed-question-ids"
+            value="{{ implode(',', $missedQuestionIds) }}">
         <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded mt-2">
             解直し
         </button>
     </form>
 
     <div id="question-container" class="container mx-auto px-4">
-        @for ($i = 0; $i < count($viewModels); $i++)
-        <div class="question-card bg-white rounded-md shadow-lg p-4 mb-4">
-        <div class="bg-white rounded-md shadow-lg p-4 mb-4">
-            <div class="flex items-center justify-between">
+        @for ($i = 0; $i < count($viewModels); $i++) <div class="question-card bg-white rounded-md shadow-lg p-4 mb-4">
+            <div class="bg-white rounded-md shadow-lg p-4 mb-4">
+                <div class="flex items-center justify-between">
 
-                <h2 class="text-xl font-bold text-gray-800">{{$i+1}}問目</h2>
+                    <h2 class="text-xl font-bold text-gray-800">{{$i+1}}問目</h2>
+                    <div id="answer-status-{{ $i }}"
+                        class="hidden mt-0 p-1 rounded-md text-lg font-bold text-left mr-auto block">
+                    </div>
 
-                <div id="answer-status-{{ $i }}" class="hidden mt-0 p-1 rounded-md text-lg font-bold text-left mr-auto block">
+                    <div class="mt-2 text-sm">
+                        <p>あなた正解率:{{ $uidseikairituModels[$i] }}% / 総回答数:{{ $uidkaitousuuModels[$i] }}</p>
+                        <p>みんな正解率:{{ $allseikairituModels[$i] }}% / 総回答数:{{ $allkaitousuuModels[$i] }}</p>
+                    </div>
+
                 </div>
 
-                <div class="flex items-center space-x-2">
+                <div class="bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-2 my-0">
+                    <p class="text-white text-lg">{{ $viewModels[$i]->getQuestion() }}</p>
+                    <img src="{{ $viewModels[$i]->getQuestion_path() }}"
+                        class="mt-2 w-full h-auto max-h-[300px] object-cover rounded-md shadow-md">
+                </div>
 
-                    <button type="button" class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-2 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50"
-                        data-correct="{{ $viewModels[$i]->isCorrect() ? 'true' : 'false' }}">
-                        {{ $viewModels[$i]->getmissAnswer() }}
-                    </button>
-                <!--    <span id="mark-{{ $i }}" class="ml-2 hidden text-xl font-bold"></span> -->
-                <!-- 追加: 回答状況を表示する領域 -->
+                <div class="flex flex-col justify-end items-end">
+                    <!-- Incorrect button -->
+                    <div class="text-sm mb-1">
+
+                        <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
+                            class="answer-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md shadow-inner transition duration-300 ease-in-out focus:outline-none disabled:opacity-50"
+                            data-correct="{{ $viewModels[$i]->isCorrect() ? 'true' : 'false' }}">
+                            {{ $viewModels[$i]->getmissAnswer() }}
+                        </button>
+                    </div>
+                </div>
+
+                <summary class="text-blue-600 font-bold cursor-pointer">問題・答え・解説を見る</summary>
+
+                @if ($viewModels[$i]->isCorrect() )
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
+                    <div class="w-12 h-6 flex items-center">
+                        <strong class="text-xs text-white">{{$i+1}}</strong>
+                    </div>
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        解説:{{ $viewModels[$i]->getComment() }}
+
+                    </div>
+                    <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                        <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
+                    </div>
+
+                    私のメモ:{{ $viewModels[$i]->getMymemo() }}
+                    <br>
+                    添付File{{ $viewModels[$i]->getComment_path() }}
+                    <br>
+                    参考URL{{ $viewModels[$i]->getReference_url() }}
 
                 </div>
-            </div>
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    私のメモ
+                </a>
 
-            <div class="bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-4 my-4">
-                <p class="text-white text-lg">{{ $viewModels[$i]->getQuestion() }}</p>
-                <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="mt-2 w-full h-auto max-h-[300px] object-cover rounded-md shadow-md">
-            </div>
-            <div class="mt-2 text-sm">
-                <p>あなたの正解率：{{ $uidseikairituModels[$i] }}% / 累計回答数：{{ $uidkaitousuuModels[$i] }}</p>
-                <p>みんなの正解率：{{ $allseikairituModels[$i] }}% / 累計回答数：{{ $allkaitousuuModels[$i] }}</p>
-            </div>
+                <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
 
-                    <summary class="text-blue-600 font-bold cursor-pointer">問題・答え・解説を見る</summary>
-    
-                    @if ($viewModels[$i]->isCorrect() )
-                    <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
-                        <div class="w-12 h-6 flex items-center">
-                            <strong class="text-xs text-white">{{$i+1}}</strong>
-                        </div>
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                            解説:{{ $viewModels[$i]->getComment() }}
-    
-                        </div>
-                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-    
-                            <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
-                        </div>
-    
-                        私のメモ:{{ $viewModels[$i]->getMymemo() }}
-                        <br>
-                        添付File{{ $viewModels[$i]->getComment_path() }}
-                        <br>
-                        参考URL{{ $viewModels[$i]->getReference_url() }}
-    
-                    </div>
-                    <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                        私のメモ
-                    </a>
-
-                    <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
-    
-                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
-    
- 
-                        @auth
-                        @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                            <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
-                        @else
-                        <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                            class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                            改善要望
-                        </a>
-    
-
-                            @endif
-                    @endauth
-
-    
-    
-    
-                    <br>
-    
-                    @else
-    
-    
-    
-    
-                    <div>【出題側の問題セット】</div>
-                    <div id="question-{{ $i }}"
-                        class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-    
-                        <div class="w-14 h-6 flex justify-center items-center">
-                            <strong class="text-lg text-white text-center">{{$i+1}}</strong>
-                        </div>
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                            {{ $viewModels[$i]->getQuestion() }}
-                            <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-    
-                                <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="max-w-none max-h-[300px]">
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="flex flex-col justify-end items-end">
-                        <!-- Incorrect button -->
-                        <div class="text-sm mb-1">
-    
-                            <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
-                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
-                                {{ $viewModels[$i]->getAnswer() }}
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-    
-                    <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
-    
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                            解説:{{ $viewModels[$i]->getComment() }}
-                        </div>
-                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-    
-                            <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
-                        </div>
-                        私のメモ:{{ $viewModels[$i]->getMymemo() }}
-                        <br>
-                        添付File{{ $viewModels[$i]->getComment_path() }}
-                        <br>
-                        参考URL{{ $viewModels[$i]->getReference_url() }}
-                    </div>
-
-                    <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                        私のメモ
-                    </a>
-                    <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
-    
-                    <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
-    
-                        @auth
-                        @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                            <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
-                        @else
-                        <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                            class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                            改善要望
-                        </a>
-    
-
-                            @endif
-                    @endauth
-    
-                    <br>
-                    <br>
-                    <div>【選択ミス側の問題セット】</div>
-                    <div id="question-{{ $i }}"
-                        class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
-                        <div class="w-14 h-6 flex justify-center items-center">
-                            <strong class="text-lg text-white text-center">{{$i+1}}</strong>
-                        </div>
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                            {{ $viewModels[$i]->getmissQuestion() }}
-                            <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-    
-                                <img src="{{ $viewModels[$i]->getmissQuestion_path() }}" class="max-w-none max-h-[300px]">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-end items-end">
-                        <!-- Incorrect button -->
-                        <div class="text-sm mb-1">
-    
-                            <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
-                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
-                                {{ $viewModels[$i]->getmissAnswer() }}
-                            </button>-
-                        </div>
-                    </div>
-                    <br>
-                    <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
-    
-    
-                        <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
-                            解説:{{ $viewModels[$i]->getmissComment() }}
-                        </div>
-                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
-    
-                            <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
-                        </div>
-                        私のメモ:{{ $viewModels[$i]->getmissMymemo() }}
-                        <br>
-                        添付File{{ $viewModels[$i]->getmissComment_path() }}
-                        <br>
-                        参考URL{{ $viewModels[$i]->getmissReference_url() }}
-    
-                    </div>
-
-                    <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
-                        class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                        私のメモ
-                    </a>
-                    <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="添付File"
-                        class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
-                    
-                    <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
-                        class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
-                    
-                        
-
-                    @auth
-                    @if (auth()->user()->id == $viewModels[$i]->getUser_id())
-                        <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}" class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
-                    @else
-                    <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
-                        class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
-                        改善要望
-                    </a>
+                <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
 
 
-                        @endif
+                @auth
+                @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
+                @else
+                <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    改善要望
+                </a>
+
+
+                @endif
                 @endauth
 
 
-                    <br>
-                    <div>
+
+
+                <br>
+
+                @else
+
+
+
+
+                <div>【出題問題セット】</div>
+                <div id="question-{{ $i }}"
+                    class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+
+                    <div class="w-14 h-6 flex justify-center items-center">
+                        <strong class="text-lg text-white text-center">{{$i+1}}</strong>
                     </div>
-    
-                    @endif
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        {{ $viewModels[$i]->getQuestion() }}
+                        <div class="overflow-auto w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                            <img src="{{ $viewModels[$i]->getQuestion_path() }}" class="max-w-none max-h-[300px]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-end items-end">
+                    <!-- Incorrect button -->
+                    <div class="text-sm mb-1">
+
+                        <button type="button" value="{{ $viewModels[$i]->getAnswer() }}"
+                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+                            {{ $viewModels[$i]->getAnswer() }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
+
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        解説:{{ $viewModels[$i]->getComment() }}
+                    </div>
+                    <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                        <img src="{{ $viewModels[$i]->getComment_path() }}" class="max-w-none max-h-[300px]">
+                    </div>
+                    私のメモ:{{ $viewModels[$i]->getMymemo() }}
+                    <br>
+                    添付File{{ $viewModels[$i]->getComment_path() }}
+                    <br>
+                    参考URL{{ $viewModels[$i]->getReference_url() }}
+                </div>
+
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    私のメモ
+                </a>
+                <a href="{{ $viewModels[$i]->getComment_path() }}" download="添付File"
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
+
+                <a href="{{ $viewModels[$i]->getReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
+
+                @auth
+                @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
+                @else
+                <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    改善要望
+                </a>
 
 
-        </div>
+                @endif
+                @endauth
+
+                <br>
+                <br>
+                <div>【選択ミス問題セット】</div>
+                <div id="question-{{ $i }}"
+                    class="flex items-center bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-xl p-1">
+                    <div class="w-14 h-6 flex justify-center items-center">
+                        <strong class="text-lg text-white text-center">{{$i+1}}</strong>
+                    </div>
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        {{ $viewModels[$i]->getmissQuestion() }}
+                        <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                            <img src="{{ $viewModels[$i]->getmissQuestion_path() }}" class="max-w-none max-h-[300px]">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-end items-end">
+                    <!-- Incorrect button -->
+                    <div class="text-sm mb-1">
+
+                        <button type="button" value="{{ $viewModels[$i]->getmissAnswer() }}"
+                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4">
+                            {{ $viewModels[$i]->getmissAnswer() }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="items-center bg-gradient-to-r from-gray-400 to-yellow-500 rounded-lg shadow-xl p-1">
+
+
+                    <div class="flex-grow ml-1 bg-white p-0 rounded-md shadow">
+                        解説:{{ $viewModels[$i]->getmissComment() }}
+                    </div>
+                    <div class="w-full max-w-none flex-grow ml-1 bg-white p-0 rounded-md shadow">
+
+                        <img src="{{ $viewModels[$i]->getmissComment_path() }}" class="max-w-none max-h-[300px]">
+                    </div>
+                    私のメモ:{{ $viewModels[$i]->getmissMymemo() }}
+                    <br>
+                    添付File{{ $viewModels[$i]->getmissComment_path() }}
+                    <br>
+                    参考URL{{ $viewModels[$i]->getmissReference_url() }}
+
+                </div>
+
+                <a href="{{ route('mymemo', ['questionId' => $viewModels[$i]->getmissAnswerId()]) }}"
+                    class="bg-pink-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    私のメモ
+                </a>
+                <a href="{{ $viewModels[$i]->getmissComment_path() }}" download="添付File"
+                    class="bg-red-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">添付File</a>
+
+                <a href="{{ $viewModels[$i]->getmissReference_url() }}" download="参考URL"
+                    class="bg-orange-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">参考サイト</a>
+
+
+
+                @auth
+                @if (auth()->user()->id == $viewModels[$i]->getUser_id())
+                <a href="{{ route('edit', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-green-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">問題編集</a>
+                @else
+                <a href="{{ route('kaizen', ['questionId' => $viewModels[$i]->getAnswerId()]) }}"
+                    class="bg-blue-500 text-white font-bold py-1 px-1 rounded hover:bg-green-700 transition duration-300 ease-in-out mx-1">
+                    改善要望
+                </a>
+
+
+                @endif
+                @endauth
+
+
+                <br>
+                <div>
+                </div>
+
+                @endif
+
+
+            </div>
     </div>
-        @endfor
+    @endfor
     </div>
 
     <script>
@@ -307,8 +315,8 @@
         });
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
         const questionContainer = document.getElementById('question-container');
         const questionCards = document.querySelectorAll('.question-card');
         let currentCardIndex = 0; // 現在のカードのインデックス
@@ -379,10 +387,10 @@
             });
         });
         
-        </script>
-        
+    </script>
+
     <script>
-document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
     var isFirstClick = true;
     var continuousCorrectAnswers = {{ $timeoutuser->continuous_correct_answers }};
     var basicCount = {{ $timeoutuser->basic_count }};
@@ -472,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });  
 
 
-</script>
+    </script>
 
 
 </body>

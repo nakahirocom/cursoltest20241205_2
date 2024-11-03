@@ -28,6 +28,8 @@
                     <br>
                     10題以上回答したジャンルが対象
                     <br>
+                    <div id="total">対象問題数: 0</div>
+
                     <!-- 星の数:各ジャンル正解率順に1位⭐️5個〜5位⭐️1個まで。同率は平均回答時間短い順) -->
                 </div>
                 <button type="button" onclick="toggleAllCheckboxes()"
@@ -55,23 +57,26 @@
                         <div class="font-semibold text-sm mb-2">{{ $middlelabel->middle_label }}</div>
                         @foreach ($selectList as $user_select)
                         @if ($middlelabel->id == $user_select->smallLabel->middle_label_id)
-                            @if ($user_select->small_question_count > 0)
-                                <div class="flex items-center mb-2">
-                                    <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
-                                    <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}"
-                                           name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
-                                           class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out {{ $user_select->small_question_count == 1 ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                           {{ $user_select['selected'] ? 'checked' : '' }}
-                                           {{ $user_select->small_question_count == 1 ? 'disabled' : '' }}
-                                           data-large-label-id="{{ $largelabel->id }}">
-                                    <label for="{{ $user_select->smallLabel->small_label }}"
-                                           class="ml-2 text-sm text-gray-700 font-medium {{ $user_select->small_question_count == 1 ? 'text-gray-500' : '' }}">
-                                        {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count }}件)
-                                    </label>
-                                    @if ($user_select->answer_count >= 10)
-                                    🎴 今週{{ $user_select->answer_count }}題回答
-                                        <br>
-                                        <?php
+                        @if ($user_select->small_question_count > 0)
+                        <div class="flex items-center mb-2">
+                            <input type="hidden" name="labelstorages_id[{{ $user_select['id'] }}]" value="0">
+                            <input type="checkbox" id="{{ $user_select->smallLabel->small_label }}" class="checkbox"
+                                data-count="{{ $user_select->small_question_count }}" onchange="updateTotal()"
+                                name="labelstorages_id[{{ $user_select['id'] }}]" value="1"
+                                class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-500 border-gray-300 shadow-md transition duration-150 ease-in-out {{ $user_select->small_question_count == 1 ? 'opacity-50 cursor-not-allowed' : '' }}"
+                                {{ $user_select['selected'] ? 'checked' : '' }} {{ $user_select->small_question_count ==
+                            1 ? 'disabled' : '' }}
+                            data-large-label-id="{{ $largelabel->id }}">
+                            <label for="{{ $user_select->smallLabel->small_label }}"
+                                class="ml-2 text-sm text-gray-700 font-medium {{ $user_select->small_question_count == 1 ? 'text-gray-500' : '' }}">
+                                {{ $user_select->smallLabel->small_label }} (登録{{ $user_select->small_question_count
+                                }}件)
+
+                            </label>
+                            @if ($user_select->answer_count >= 10)
+                            🎴 今週{{ $user_select->answer_count }}題回答
+                            <br>
+                            <?php
                                         $accuracy = 0; // 初期化
                     
                                         if ($user_select->small_question_count > 0) {
@@ -81,13 +86,13 @@
                                         // 小数点以下1位まで表示するためのフォーマット
                                         $accuracyFormatted = number_format($accuracy, 1);
                                         ?>
-                    
-                                        正解{{ $accuracyFormatted }}%
-                                        <br>平均{{ $user_select->average_time }}秒
-                                    @else
-                                        今週{{ $user_select->answer_count }}題回答
-                                        <br>
-                                        <?php
+
+                            正解{{ $accuracyFormatted }}%
+                            <br>平均{{ $user_select->average_time }}秒
+                            @else
+                            今週{{ $user_select->answer_count }}題回答
+                            <br>
+                            <?php
                                         $accuracy = 0; // 初期化
                     
                                         if ($user_select->small_question_count > 0) {
@@ -97,15 +102,15 @@
                                         // 小数点以下1位まで表示するためのフォーマット
                                         $accuracyFormatted = number_format($accuracy, 1);
                                         ?>
-                    
-                                        正解{{ $accuracyFormatted }}%
-                                        <br>平均{{ $user_select->average_time }}秒
-                                    @endif
-                                </div>
+
+                            正解{{ $accuracyFormatted }}%
+                            <br>平均{{ $user_select->average_time }}秒
                             @endif
+                        </div>
                         @endif
-                    @endforeach
-                                    </div>
+                        @endif
+                        @endforeach
+                    </div>
                     @endif
                     @endforeach
                 </div>
@@ -146,27 +151,65 @@
         }
 
         function toggleCheckboxes(largeLabelId) {
-            const checkboxes = document.querySelectorAll(`input[name^='labelstorages_id'][data-large-label-id='${largeLabelId}']`);
-            let allChecked = true;
-            checkboxes.forEach((checkbox) => {
-                if (!checkbox.checked) {
-                    allChecked = false;
-                }
-            });
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = !allChecked;
-            });
+    const checkboxes = document.querySelectorAll(`input[name^='labelstorages_id'][data-large-label-id='${largeLabelId}']`);
+    let allChecked = true;
+    checkboxes.forEach((checkbox) => {
+        if (!checkbox.checked) {
+            allChecked = false;
         }
+    });
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = !allChecked;
+    });
+    // 合計を更新
+    updateTotal();
+}
 
-        function toggleAllCheckboxes() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+function toggleAllCheckboxes() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
 
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = !allChecked;
-            });
-        }
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = !allChecked;
+    });
+    // 合計を更新
+    updateTotal();
+}    
     </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    window.initialCheckboxStates = {};
+    let initialTotal = 0;
+
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        window.initialCheckboxStates[checkbox.id] = checkbox.checked;
+
+        // チェックされているcheckboxのdata-count値を合計に追加
+        if (checkbox.checked && checkbox.dataset.count) {
+            initialTotal += parseInt(checkbox.dataset.count, 10);
+        }
+    });
+
+    // 合計を初期表示に反映
+    document.getElementById('total').textContent = '対象問題数: ' + initialTotal;
+});
+
+    function updateTotal() {
+        let total = 0;
+        // 全てのチェックボックスをループして、チェックされているもののdata-countを合計
+        document.querySelectorAll('.checkbox').forEach(checkbox => {
+            if (checkbox.checked) {
+                total += parseInt(checkbox.dataset.count, 10);
+            }
+        });
+        // 合計を表示エリアにセット
+        document.getElementById('total').textContent = '対象問題数: ' + total;
+    }
+    </script>
+
+
 </body>
 
 </html>

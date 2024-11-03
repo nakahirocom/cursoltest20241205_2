@@ -231,7 +231,7 @@ class AnswerRandomController extends Controller
                         ->where('question_id', $choiceId);
                 }])
                 ->firstOrFail();
-
+            //dd($cho);
             $viewModel = new AnswerViewModel($cho, $ques);
             $viewModels[] = $viewModel;
 
@@ -263,7 +263,7 @@ class AnswerRandomController extends Controller
         }
 
         $user->save(); // ユーザー情報を更新
-//dd($timeoutuser);
+        //dd($viewModels);
         return view('santaku.answerrandom')
             ->with('viewModels', $viewModels)
             ->with('missedQuestionIds', $missedQuestionIds)
