@@ -76,3 +76,4 @@ blade-formatter --write resources/views/example.blade.php
 
 # cf. https://github.com/nunomaduro/larastan
 ```
+# cursoltest20241205_2
